@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="include :: header('审批列表')"/>
+    <th:block th:include="include :: layout-latest-css"/>
+    <th:block th:include="include :: select2-css"/>
+    <th:block th:include="include :: bootstrap-select-css" />
+</head>
+<body class="gray-bg">
+<div class="ui-layout-center">
+    <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="user-form">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                车牌号：<input type="text" name="vehicleNumber" th:value="${vehicleNumber}" readonly/>
+                            </li>
+                            <li class="select-time">
+                                <label>违规时间： </label>
+                                <input th:if="${startTime == null}" type="text" class="time-input" placeholder="开始时间" name="startTime" data-type="datetime" data-format="yyyy-MM-dd HH:mm:ss" readonly="readonly"  th:value="${#dates.format(#dates.createNow(), 'yyyy-01-01 00:00:00')}"/>
+                                <input th:if="${startTime != null}" type="text" class="time-input" placeholder="开始时间" name="startTime" data-type="datetime" data-format="yyyy-MM-dd HH:mm:ss" readonly="readonly"  th:value="${startTime}"/>
+                                <span>-</span>
+                                <input type="text" class="time-input" placeholder="结束时间" name="endTime" data-type="datetime" data-format="yyyy-MM-dd HH:mm:ss" readonly="readonly"/>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+<!--            <div class="btn-group-sm" id="toolbar" role="group">-->
+<!--                <a class="btn btn-warning" onclick="$.table.exportExcel()" sec:authorize="hasAuthority('event:approval:export')">-->
+<!--                    <i class="fa fa-download"></i> 导出-->
+<!--                </a>-->
+<!--            </div>-->
+
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: layout-latest-js"/>
+<th:block th:include="include :: select2-js"/>
+<th:block th:include="include :: bootstrap-select-js" />
+<th:block th:include="include :: jquery-cxselect-js" />
+<script th:inline="javascript">
+    $(function () {
+        search();
+    });
+
+
+    let searchUrl = /*[[@{/event/approval/search}]]*/ "";
+    let detailUrl = /*[[@{/event/approval/detail/{id}}]]*/ "";
+    let removeUrl = /*[[@{/event/approval/remove}]]*/ "";
+    let exportUrl = /*[[@{/event/approval/export}]]*/ "";
+
+    let detailFlag = [[${@authority.hasAuthority('event:approval:detail')}]];
+    let removeFlag = [[${@authority.hasAuthority('event:approval:remove')}]];
+
+    function search() {
+        var options = {
+            url: searchUrl,
+            detailUrl: detailUrl,
+            removeUrl: removeUrl,
+            exportUrl: exportUrl,
+            uniqueId: 'id',
+            sortName: "time",
+            sortOrder: "desc",
+            modalName: "违规",
+            columns: [
+                {
+                    field: 'vehicleNumber',
+                    title: '车牌号'
+                },
+                {
+                    field: 'driverName',
+                    title: '车主'
+                },
+                {
+                    field: 'driverPhone',
+                    title: '车主电话'
+                },
+                {
+                    field: 'bmmc',
+                    title: '所属单位',
+                    formatter: function (value, row, index) {
+                        if (row.bmmc === null) {
+                            return '未知';
+                        }
+                        return value;
+                    },
+                },
+                {
+                    field: 'num',
+                    title: '次序'
+                },
+                {
+                    field: 'violationName',
+                    title: '违规分类'
+                },
+                {
+                    field: 'score',
+                    title: '扣分'
+                },
+                {
+                    field: 'time',
+                    title: '违规时间',
+                    sortable: true
+                },
+                {
+                    field: 'place',
+                    title: '违规地点'
+                }
+
+                // {
+                //     title: '操作',
+                //     align: 'center',
+                //     formatter: function (value, row, index) {
+                //         var actions = [];
+                //         actions.push('<a class="btn btn-success btn-xs ' + detailFlag + '" href="javascript:void(0)" onclick="$.operate.detailTab(\'' + row.id + '\')"><i class="fa fa-edit"></i>查看详情</a> ');
+                //         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a> ');
+                //         return actions.join('');
+                //     }
+                // }
+                ]
+        };
+        $.table.init(options);
+    }
+
+
+</script>
+</html>

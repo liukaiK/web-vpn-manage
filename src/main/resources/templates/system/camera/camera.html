@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<th:block th:include="include :: header('摄像头列表')" />
+	<th:block th:include="include :: layout-latest-css" />
+	<th:block th:include="include :: ztree-css" />
+</head>
+<body class="gray-bg">
+	<div class="ui-layout-center">
+		<div class="container-div">
+			<div class="row">
+				<div class="col-sm-12 search-collapse">
+					<form id="user-form">
+						<div class="select-list">
+							<ul>
+								<li>
+									名称：<input type="text" name="name"/>
+								</li>
+								<li>
+									ip：<input type="text" name="ip"/>
+								</li>
+								<li>
+									<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								    <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+								</li>
+							</ul>
+						</div>
+					</form>
+				</div>
+
+		        <div class="btn-group-sm" id="toolbar" role="group">
+		        	<a class="btn btn-success" onclick="$.operate.addTab()" sec:authorize="hasAuthority('system:camera:add')">
+		                <i class="fa fa-plus"></i> 新增
+		            </a>
+		             <a class="btn btn-primary single disabled" onclick="$.operate.editTab()" sec:authorize="hasAuthority('system:camera:edit')">
+			            <i class="fa fa-edit"></i> 修改
+			        </a>
+		            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" sec:authorize="hasAuthority('system:camera:remove')">
+		                <i class="fa fa-remove"></i> 删除
+		            </a>
+		        </div>
+
+		        <div class="col-sm-12 select-table table-striped">
+				    <table id="bootstrap-table"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+<th:block th:include="include :: footer" />
+<th:block th:include="include :: layout-latest-js" />
+<th:block th:include="include :: ztree-js" />
+<script th:inline="javascript">
+	$(function() {
+		search();
+	});
+
+
+
+	let searchUrl = /*[[@{/system/camera/search}]]*/ "";
+	let createUrl = /*[[@{/system/camera/add}]]*/ "";
+	let updateUrl = /*[[@{/system/camera/edit/{id}}]]*/ "";
+	let removeUrl = /*[[@{/system/camera/remove}]]*/ "";
+
+	let editFlag = [[${@authority.hasAuthority('system:camera:edit')}]];
+	let removeFlag = [[${@authority.hasAuthority('system:camera:remove')}]];
+
+	function search() {
+		var options = {
+			url: searchUrl,
+			createUrl: createUrl,
+			updateUrl: updateUrl,
+			removeUrl: removeUrl,
+			uniqueId: 'id',
+			sortName: "updateTime",
+			sortOrder: "desc",
+			modalName: "摄像头",
+			columns: [
+				{
+					checkbox: true
+				},
+				{
+					field: 'name',
+					title: '名称'
+				},
+				{
+					field: 'position',
+					title: '位置'
+				},
+				{
+					field: 'ip',
+					title: 'IP地址'
+				},
+				{
+					field: 'regionName',
+					title: '区域',
+				},
+				{
+					field: 'createTime',
+					title: '创建时间',
+					sortable: true
+				},
+				{
+					field: 'updateTime',
+					title: '修改时间',
+					sortable: true
+				},
+				{
+					title: '操作',
+					align: 'center',
+					formatter: function (value, row, index) {
+						var actions = [];
+						actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.editTab(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+						actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a> ');
+						return actions.join('');
+					}
+				}]
+		};
+		$.table.init(options);
+	}
+
+</script>
+</html>

@@ -1,0 +1,159 @@
+{
+  "_from": "jquery-contextmenu@next",
+  "_id": "jquery-contextmenu@3.0.0-beta.2",
+  "_inBundle": false,
+  "_integrity": "sha512-kivo3Wm0kQH2nPvxMoqmccVwnX55F6kXCGJg7kCDQlCL4x0bC2vJOQZLLwad7V1UnNF5foEn4K+ww3spKErpAg==",
+  "_location": "/jquery-contextmenu",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "jquery-contextmenu@next",
+    "name": "jquery-contextmenu",
+    "escapedName": "jquery-contextmenu",
+    "rawSpec": "next",
+    "saveSpec": null,
+    "fetchSpec": "next"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/jquery-contextmenu/-/jquery-contextmenu-3.0.0-beta.2.tgz",
+  "_shasum": "683f7f6289bf0dd337b640c175d2fb01328ceacb",
+  "_spec": "jquery-contextmenu@next",
+  "_where": "/Users/liukai/node_modules",
+  "author": {
+    "name": "Björn Brala",
+    "url": "http://www.swis.nl"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 3 versions",
+    "ie >= 9"
+  ],
+  "bugs": {
+    "url": "https://github.com/swisnl/jQuery-contextMenu/issues"
+  },
+  "bundleDependencies": false,
+  "contributors": [
+    {
+      "name": "Rodney Rehm",
+      "url": "http://rodneyrehm.de"
+    },
+    {
+      "name": "Addy Osmani",
+      "url": "https://github.com/addyosmani"
+    },
+    {
+      "name": "Christiaan Baartse",
+      "url": "https://github.com/christiaan"
+    }
+  ],
+  "dependencies": {},
+  "deprecated": false,
+  "description": "Management facility for context menus. Developed for a large number of triggering objects. HTML5 Polyfill",
+  "devDependencies": {
+    "@types/jquery": "^3.2.17",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.3",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "browserslist": "^3.1.2",
+    "coveralls": "^3.0.0",
+    "css-loader": "^0.28.7",
+    "doctoc": "^1.2.0",
+    "eslint": "^4.13.1",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-html": "^4.0.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "expose-loader": "^0.7.4",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "gulp": "^3.9.1",
+    "gulp-consolidate": "^0.2.0",
+    "gulp-iconfont": "^9.0.0",
+    "gulp-load-plugins": "^1.3.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.6.1",
+    "ink-docstrap": "^1.3.2",
+    "istanbul-instrumenter-loader": "^3.0.0",
+    "jquery": "^3.2.1",
+    "jsdoc": "^3.5.5",
+    "karma": "^2.0.0",
+    "karma-browserstack-launcher": "^1.3.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-coverage-istanbul-reporter": "^1.3.3",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-qunit": "^2.0.1",
+    "karma-sauce-launcher": "1.2.0",
+    "karma-sinon": "^1.0.5",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^2.0.9",
+    "lodash": "^4.16.4",
+    "ncp": "^2.0.0",
+    "node-sass": "^4.7.2",
+    "optimize-css-assets-webpack-plugin": "^3.2.0",
+    "postcss-loader": "^2.0.9",
+    "puppeteer": "^1.2.0",
+    "qunit": "^2.0.1",
+    "qunitjs": "^2.4.1",
+    "sass-loader": "^6.0.6",
+    "sinon": "^4.1.3",
+    "style-loader": "^0.20.3",
+    "uglifyjs-webpack-plugin": "^1.1.2",
+    "unminified-webpack-plugin": "^1.4.2",
+    "wdio-dot-reporter": "^0.0.9",
+    "wdio-mocha-framework": "^0.5.11",
+    "wdio-sauce-service": "^0.4",
+    "webdriverio": "^4.2.16",
+    "webpack": "^3.10.0",
+    "webpack-stream": "^4.0.0"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "homepage": "http://swisnl.github.io/jQuery-contextMenu/",
+  "keywords": [
+    "contextmenu",
+    "context menu",
+    "context-menu",
+    "menu",
+    "html5 menu",
+    "html5 contextmenu",
+    "html5 context menu",
+    "html5 context-menu",
+    "jquery-plugin",
+    "ecosystem:jquery"
+  ],
+  "license": "MIT",
+  "main": "dist/jquery.contextMenu.js",
+  "name": "jquery-contextmenu",
+  "peerDependencies": {
+    "jquery": ">=1.8.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/swisnl/jQuery-contextMenu.git"
+  },
+  "scripts": {
+    "docs": "jsdoc -c ./docstrap.conf.json -t ./node_modules/ink-docstrap/template -R README.md -r ./src/js",
+    "docs-couscous": "ncp dist/ documentation/website/dist/ && jsdoc -c ./docstrap.conf.json -t ./node_modules/ink-docstrap/template -R README.md -r ./src/js -d ./documentation/website/api",
+    "test": "yarn test-unit",
+    "test-bs": "karma start karma-browserstack.conf.js",
+    "test-sauce": "karma start karma-saucelabs.conf.js",
+    "test-unit": "karma start",
+    "webpack-build": "webpack -p",
+    "webpack-watch": "webpack --watch"
+  },
+  "title": "jQuery.contextMenu",
+  "version": "3.0.0-beta.2"
+}

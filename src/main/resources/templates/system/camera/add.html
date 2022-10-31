@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('新增摄像头')" />
+	<th:block th:include="include :: select2-css" />
+    <th:block th:include="include :: jasny-bootstrap-css" />
+</head>
+<body>
+    <div class="main-content">
+        <form id="form-user-add" class="form-horizontal">
+            <h4 class="form-header h4">基本信息</h4>
+            <div class="row">
+            	<div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label is-required">名称：</label>
+                        <div class="col-sm-8">
+                            <input name="name" placeholder="请输入名称" class="form-control" type="text" maxlength="30" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">归属区域：</label>
+                        <div class="col-sm-8">
+                            <select name="regionId" class="form-control m-b">
+                                <option th:each="region : ${region}" th:text="${region.name}" th:value="${region.id}">区域</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label is-required">位置：</label>
+                        <div class="col-sm-8">
+                            <input id="position" name="position" placeholder="请输入位置" class="form-control" type="text" maxlength="30" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label is-required">ip：</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="ip" name="ip" class="form-control" placeholder="请输入IP地址" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+      
+    <div class="row">
+        <div class="col-sm-offset-5 col-sm-10">
+            <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()"><i class="fa fa-check"></i>保 存</button>&nbsp;
+            <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i class="fa fa-reply-all"></i>关 闭 </button>
+        </div>
+    </div>
+	<th:block th:include="include :: footer" />
+	<th:block th:include="include :: select2-js" />
+    <th:block th:include="include :: jasny-bootstrap-js" />
+    <script type="text/javascript" th:inline="javascript">
+
+        $("#form-user-add").validate({
+            onkeyup: false,
+            rules: {
+                name: {
+                    required: true
+                },
+                position: {
+                    required: true
+                },
+            },
+            messages: {
+                name: {
+                    required: "请输入名称"
+                },
+                position: {
+                    required: "请输入位置"
+                }
+            },
+            focusCleanup: true
+        });
+
+        let createUrl = /*[[@{/system/camera/add}]]*/ "";
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                var data = $("#form-user-add").serializeArray();
+                $.operate.saveTab(createUrl, data);
+            }
+        }
+
+		function doSubmit(index, layero){
+			var tree = layero.find("iframe")[0].contentWindow.$._tree;
+			var body = layer.getChildFrame('body', index);
+   			$("#treeId").val(body.find('#treeId').val());
+   			$("#treeName").val(body.find('#treeName').val());
+   			layer.close(index);
+		}
+
+    </script>
+</body>
+</html>

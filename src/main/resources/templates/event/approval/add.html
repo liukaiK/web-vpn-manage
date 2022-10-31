@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('新增违章记录')" />
+    <th:block th:include="include :: bootstrap-fileinput-css" />
+</head>
+<body>
+<div class="main-content">
+    <form id="form-user-add" class="form-horizontal">
+        <h4 class="form-header h4">基本信息</h4>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">车牌号码：</label>
+                    <div class="col-sm-8">
+                        <div class="input-group" style="width: 400px;">
+                            <input type="text" class="form-control" name="vehicleNumber" id="vehicleNumber" maxlength="10" required>
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-white dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                </ul>
+                            </div>
+                            <!-- /btn-group -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">车辆类型：</label>
+                    <div class="col-sm-8">
+                        <input name="vehicleSize" placeholder="请输入车辆类型" class="form-control" type="text" maxlength="10" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">车主姓名：</label>
+                    <div class="col-sm-8">
+                        <input id="driverName" name="driverName" placeholder="请输入车主姓名" class="form-control" type="text" maxlength="5" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">工号：</label>
+                    <div class="col-sm-8">
+                        <input id="studentNum" name="studentNum" placeholder="请输入工号" class="form-control" type="text" maxlength="30" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">所属单位：</label>
+                    <div class="col-sm-8">
+                        <input id="collegeName" name="collegeName" class="form-control" type="text" maxlength="30" placeholder="请输入所属单位" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">联系电话：</label>
+                    <div class="col-sm-8">
+                        <input id="driverPhone" name="driverPhone" class="form-control" type="text" maxlength="30" placeholder="请输入联系电话" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">违规时间：</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <input id="time" name="happenTime" placeholder="请输入违规时间" class="form-control time-input" data-format="yyyy-MM-dd HH:mm:ss" data-type="datetime" type="text" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">违规地点：</label>
+                    <div class="col-sm-8">
+                        <input id="place" name="place" placeholder="请输入违规地点" class="form-control" type="text" maxlength="30" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">违规类型：</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <select name="violationTypeName" class="form-control m-b">
+                                <option value="超速">超速</option>
+                                <option value="违停">违停</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">车速：</label>
+                    <div class="col-sm-8">
+                        <input id="speed" name="speed" placeholder="请输入车速" class="form-control" type="text" maxlength="5" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">区域：</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <select name="regionId" class="form-control m-b">
+                                <option value="cfb2f9e4-9c45-4c81-80c9-71aabe1d3d5a">限速20公里道路</option>
+                                <option value="779d6d9b-fa7f-4eac-8d22-3c7020c1c5c0">限速30公里道路</option>
+                                <option value="94f8e85d-da22-47ca-b311-c9b9c71dc03a">违停区域</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="imageUrl" id="imageUrl">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">违规照片：</label>
+                    <div class="col-sm-8">
+                        <input id="fileinput-demo-1" name="file" type="file" data-min-file-count="1">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <div class="col-sm-offset-5 col-sm-10">
+        <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()"><i class="fa fa-check"></i>保 存</button>&nbsp;
+        <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i class="fa fa-reply-all"></i>关 闭 </button>
+    </div>
+</div>
+</body>
+<th:block th:include="include :: footer" />
+<th:block th:include="include :: bootstrap-fileinput-js" />
+<th:block th:include="include :: bootstrap-suggest-js" />
+<th:block th:include="include :: bootstrap-typeahead-js" />
+<script type="text/javascript" th:inline="javascript">
+
+    let uploadUrl = /*[[@{/common/upload}]]*/ "";
+
+    $(document).ready(function () {
+        $("#fileinput-demo-1").fileinput({
+            'theme': 'fa',
+            'uploadUrl': uploadUrl,
+            overwriteInitial: false,
+            initialPreviewAsData: false,
+            showPreview: false,
+            showRemove: false,
+            dropZoneEnabled: false,
+            maxFileSize: 10240,
+            maxFileCount: 1
+        });
+
+        $("#fileinput-demo-1").on("fileuploaded", function(event, data, proviewId, index) {
+            console.info(event);
+            if (data.response.code === web_status.SUCCESS) {
+                $("#imageUrl").val(data.response.data);
+            }
+
+            console.info();
+            console.info(data);
+            console.info(proviewId);
+            console.info(index);
+        });
+
+    });
+
+
+    $("#form-user-add").validate({
+        onkeyup: false,
+        rules:{
+            // username: {
+            //     minlength: 2,
+            //     maxlength: 20,
+            //     remote: {
+            //         url: checkUsernameUniqueUrl,
+            //         type: "post",
+            //         dataType: "json",
+            //         beforeSend: function (request) {
+            //             if (csrfToken && csrfHeader) {
+            //                 request.setRequestHeader(csrfHeader, csrfToken);
+            //             }
+            //         },
+            //         data: {
+            //             "username": function () {
+            //                 return $.common.trim($("#username").val());
+            //             }
+            //         },
+            //         dataFilter: function (data, type) {
+            //             return $.validate.unique(data);
+            //         }
+            //     }
+            // },
+            vehicleNumber: {
+                required: true,
+            },
+            // email:{
+            //     email:true,
+            //     remote: {
+            //         url: prefix + "/checkEmailUnique",
+            //         type: "post",
+            //         dataType: "json",
+            //         data: {
+            //             "email": function () {
+            //                 return $.common.trim($("#email").val());
+            //             }
+            //         },
+            //         dataFilter: function (data, type) {
+            //         	return $.validate.unique(data);
+            //         }
+            //     }
+            // },
+            // phoneNumber: {
+            //     required: true,
+            //     isPhone: true,
+            // },
+        },
+        messages: {
+            "username": {
+                remote: "账号已经存在"
+            },
+
+            "phoneNumber": {
+                isPhone: "请填写正确的11位手机号"
+            }
+        },
+        focusCleanup: true
+    });
+
+    let createUrl = /*[[@{/event/approval/add}]]*/ "";
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            var data = $("#form-user-add").serializeArray();
+            // var status = $("input[id='status']").is(':checked') == true ? 0 : 1;
+            // var roleIds = $.form.selectCheckeds("role");
+            // var postIds = $.form.selectSelects("post");
+            // data.push({"name": "status", "value": status});
+            // data.push({"name": "roleIds", "value": roleIds});
+            // data.push({"name": "postIds", "value": postIds});
+            console.log(data)
+            $.operate.saveTab(createUrl, data);
+        }
+    }
+
+    let searchVehicleUrl = /*[[@{/system/vehicle/search?licensePlateNumber=}]]*/ "";
+
+    var vehicleNumberBsSuggest = $("#vehicleNumber").bsSuggest({
+        indexId: 2, //data.value 的第几个数据，作为input输入框的内容
+        indexKey: 1, //data.value 的第几个数据，作为input输入框的内容
+        allowNoKeyword: false, //是否允许无关键字时请求数据
+        multiWord: true, //以分隔符号分割的多关键字支持
+        separator: ",", //多关键字支持时的分隔符，默认为空格
+        getDataMethod: "url", //获取数据的方式，总是从 URL 获取
+        effectiveFieldsAlias: {
+            number: "车牌号码",
+            driverName: "车主姓名",
+            driverPhone: "车主电话",
+            bmmc: "所属单位",
+            studstaffno: "工号"
+        },
+        showHeader: true,
+        hideOnSelect: true,
+        url: searchVehicleUrl,
+        /*优先从url ajax 请求 json 帮助数据，注意最后一个参数为关键字请求参数*/
+        // jsonp: 'callback',
+        /*如果从 url 获取数据，并且需要跨域，则该参数必须设置*/
+        processData: function (json) { // url 获取数据时，对数据的处理，作为 getData 的回调函数
+            if (!json || !json.data.code === web_status.SUCCESS || json.data.content === 0) {
+                return false;
+            }
+
+            var i, len, data = {
+                value: []
+            };
+
+            len = json.data.content;
+            for (i = 0; i < len.length; i++) {
+                data.value.push({
+                    "Id": (i + 1),
+                    "number": len[i].number,
+                    "driverName": len[i].driverName,
+                    "driverPhone": len[i].driverPhone,
+                    "bmmc": len[i].bmmc,
+                    "studstaffno": len[i].studstaffno
+                });
+            }
+            return data;
+        },
+    }).on("onSetSelectValue", function (e, selectedData, selectedRawData) {
+        $('#driverName').val(selectedRawData.driverName);
+        $('#driverPhone').val(selectedRawData.driverPhone);
+        $('#studentNum').val(selectedRawData.studstaffno);
+        $('#collegeName').val(selectedRawData.bmmc);
+    });
+
+
+</script>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="include :: header('统计分析')"/>
+    <th:block th:include="include :: layout-latest-css"/>
+</head>
+<body class="gray-bg">
+<div class="ui-layout-center">
+    <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="user-form">
+                    <div class="select-list">
+                        <ul>
+<!--                            <li>-->
+<!--                                所属单位：<input type="text" name="collegeName"/>-->
+<!--                            </li>-->
+                            <li class="select-time">
+                                <label>违规时间： </label>
+                                <input type="text" class="time-input" id="startTime" placeholder="开始时间" name="startTime" data-type="datetime" data-format="yyyy-MM-dd HH:mm:ss" readonly="readonly" th:value="${#dates.format(#dates.createNow(), 'yyyy-01-01 00:00:00')}"/>
+                                <span>-</span>
+                                <input type="text" class="time-input" placeholder="结束时间" name="endTime" data-type="datetime" data-format="yyyy-MM-dd HH:mm:ss" readonly="readonly"/>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" sec:authorize="hasAuthority('event:analyse:export')">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+            </div>
+
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: layout-latest-js"/>
+<script th:inline="javascript">
+    $(function () {
+        search();
+    });
+
+
+    let searchUrl = /*[[@{/event/analyse/search}]]*/ "";
+    let detailUrl = /*[[@{/event/approval}]]*/ "";
+    let exportUrl = /*[[@{/event/analyse/export}]]*/ "";
+
+    function search() {
+        var options = {
+            pagination: false,
+            sidePagination: 'client',
+            url: searchUrl,
+            detailUrl: detailUrl,
+            exportUrl: exportUrl,
+            uniqueId: 'id',
+            sortName: "time",
+            sortOrder: "desc",
+            modalName: "统计分析",
+            columns: [
+                {
+                    field: 'collageName',
+                    title: '所属单位'
+                },
+                {
+                    field: 'speedOne',
+                    title: '超速1',
+                    sortable: true,
+                    sorter: numSort,
+                    formatter: function (value, row, index) {
+                        return row.speedOne + '分';
+                    }
+                },
+                {
+                    field: 'speedTwo',
+                    title: '超速2',
+                    sortable: true,
+                    sorter: numSort,
+                    formatter: function (value, row, index) {
+                        return row.speedTwo + '分';
+                    }
+                },
+                {
+                    field: 'speedThree',
+                    title: '超速3',
+                    sortable: true,
+                    sorter: numSort,
+                    formatter: function (value, row, index) {
+                        return row.speedThree + '分';
+                    }
+                },
+                {
+                    field: 'stop',
+                    title: '违章停车',
+                    sortable: true,
+                    sorter: numSort,
+                    formatter: function (value, row, index) {
+                        return row.stop + '分';
+                    }
+                },
+                {
+                    field: 'sum',
+                    title: '合计',
+                    sortable: true,
+                    sorter: numSort,
+                    formatter: function (value, row, index) {
+                        return row.sum + '分';
+                    }
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs" href="javascript:void(0)" onclick="openNewEvent(\'' + row.collageName + '\')"><i class="fa fa-edit"></i>查看详情</a> ');
+                        return actions.join('');
+                    }
+                }
+                ]
+        };
+        $.table.init(options);
+    }
+
+    function openNewEvent(collageName) {
+        let startTime = $('#startTime').val();
+
+        $.modal.openTab("查看" + table.options.modalName, detailUrl + '?collageName=' + collageName + '&startTime=' + startTime);
+
+    }
+
+    function numSort(a, b) {
+        return b - a;
+    }
+
+</script>
+</html>

@@ -1,0 +1,99 @@
+{
+  "properties": [
+    {
+      "name": "sms.enable",
+      "type": "java.lang.String",
+      "description": "发送短信开关."
+    },
+    {
+      "name": "sms.application-id",
+      "type": "java.lang.String",
+      "description": "发送短信application-id."
+    },
+    {
+      "name": "sms.application-password",
+      "type": "java.lang.String",
+      "description": "发送短信application-password."
+    },
+    {
+      "name": "sms.send-sms-url",
+      "type": "java.lang.String",
+      "description": "发送短信信息接口."
+    },
+    {
+      "name": "sms.template",
+      "type": "java.lang.String",
+      "description": "短信模版."
+    },
+    {
+      "name": "sms.black-template",
+      "type": "java.lang.String",
+      "description": "短信拉黑模版."
+    },
+    {
+      "name": "spring.datasource.druid.primary.url",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.druid.primary.url."
+    },
+    {
+      "name": "spring.datasource.druid.primary.username",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.druid.primary.username."
+    },
+    {
+      "name": "spring.datasource.druid.primary.password",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.druid.primary.password."
+    },
+    {
+      "name": "spring.datasource.druid.primary.driver-class-name",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.druid.primary.driver-class-name."
+    },
+    {
+      "name": "spring.datasource.druid.secondary.url",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.druid.secondary.url."
+    },
+    {
+      "name": "spring.datasource.druid.secondary.username",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.druid.secondary.username."
+    },
+    {
+      "name": "spring.datasource.druid.secondary.password",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.druid.secondary.password."
+    },
+    {
+      "name": "spring.datasource.druid.secondary.driver-class-name",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.druid.secondary.driver-class-name."
+    },
+    {
+      "name": "spring.datasource.druid.primary.max-active",
+      "type": "java.lang.String",
+      "description": "最大连接池数量."
+    },
+    {
+      "name": "spring.datasource.druid.primary.min-idle",
+      "type": "java.lang.String",
+      "description": "最小连接池数量."
+    },
+    {
+      "name": "spring.datasource.druid.primary.initial-size",
+      "type": "java.lang.String",
+      "description": "初始化时建立物理连接的个数。初始化发生在显示调用init方法，或者第一次getConnection时."
+    },
+    {
+      "name": "spring.datasource.druid.primary.validation-query",
+      "type": "java.lang.String",
+      "description": "用来检测连接是否有效的sql，要求是一个查询语句，常用select 'x'。如果validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会起作用。."
+    },
+    {
+      "name": "spring.datasource.druid.primary.validation-query-timeout",
+      "type": "java.lang.String",
+      "description": "单位：秒，检测连接是否有效的超时时间。底层调用jdbc Statement对象的void setQueryTimeout(int seconds)方法."
+    }
+  ]
+}

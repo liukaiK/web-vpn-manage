@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>403</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/animate.css}" rel="stylesheet"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+</head>
+<body class="gray-bg">
+<div class="middle-box text-center animated fadeInDown">
+    <h1>403</h1>
+    <h3 class="font-bold">没有权限！</h3>
+    <div class="error-desc">
+        对不起，您没有权限,请联系管理员
+        <a href="javascript:index()" class="btn btn-primary m-t">主页</a>
+    </div>
+</div>
+<script th:inline="javascript">
+    var ctx = [[@{/}]];
+        function index() {
+            window.top.location = ctx + "index";
+        }
+</script>
+</body>
+</html>

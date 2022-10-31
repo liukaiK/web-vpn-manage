@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<th:block th:include="include :: header('车辆列表')" />
+	<th:block th:include="include :: layout-latest-css" />
+	<th:block th:include="include :: ztree-css" />
+</head>
+<body class="gray-bg">
+<!--	<div class="ui-layout-west">-->
+<!--		<div class="box box-main">-->
+<!--			<div class="box-header">-->
+<!--				<div class="box-title">-->
+<!--					<i class="fa icon-grid"></i> 组织机构-->
+<!--				</div>-->
+<!--				<div class="box-tools pull-right">-->
+<!--				    <a type="button" class="btn btn-box-tool" href="#" onclick="dept()" title="管理部门"><i class="fa fa-edit"></i></a>-->
+<!--					<button type="button" class="btn btn-box-tool" id="btnExpand" title="展开" style="display:none;"><i class="fa fa-chevron-up"></i></button>-->
+<!--					<button type="button" class="btn btn-box-tool" id="btnCollapse" title="折叠"><i class="fa fa-chevron-down"></i></button>-->
+<!--					<button type="button" class="btn btn-box-tool" id="btnRefresh" title="刷新部门"><i class="fa fa-refresh"></i></button>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="ui-layout-content">-->
+<!--				<div id="tree" class="ztree"></div>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+
+	<div class="ui-layout-center">
+		<div class="container-div">
+			<div class="row">
+				<div class="col-sm-12 search-collapse">
+					<form id="user-form">
+						<input type="hidden" id="deptId" name="deptId">
+		                <input type="hidden" id="parentId" name="parentId">
+						<div class="select-list">
+							<ul>
+<!--								<li>-->
+<!--									姓名：<input type="text" name="name"/>-->
+<!--								</li>-->
+<!--								<li>-->
+<!--									账号：<input type="text" name="username"/>-->
+<!--								</li>-->
+								<li>
+									车牌号码：<input type="text" name="id"/>
+								</li>
+<!--								<li>-->
+<!--									用户状态：<select name="status" th:with="type=${@dict.getType('sys_normal_disable')}">-->
+<!--										<option value="">所有</option>-->
+<!--										<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>-->
+<!--									</select>-->
+<!--								</li>-->
+<!--								<li class="select-time">-->
+<!--									<label>创建时间： </label>-->
+<!--									<input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginTime]"/>-->
+<!--									<span>-</span>-->
+<!--									<input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endTime]"/>-->
+<!--								</li>-->
+								<li>
+									<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								    <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+								</li>
+							</ul>
+						</div>
+					</form>
+				</div>
+
+		        <div class="btn-group-sm" id="toolbar" role="group">
+<!--		        	<a class="btn btn-success" onclick="$.operate.addTab()" sec:authorize="hasAuthority('system:vehicle:add')">-->
+<!--		                <i class="fa fa-plus"></i> 新增-->
+<!--		            </a>-->
+<!--		             <a class="btn btn-primary single disabled" onclick="$.operate.editTab()" sec:authorize="hasAuthority('system:vehicle:edit')">-->
+<!--			            <i class="fa fa-edit"></i> 修改-->
+<!--			        </a>-->
+<!--		            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" sec:authorize="hasAuthority('system:vehicle:remove')">-->
+<!--		                <i class="fa fa-remove"></i> 删除-->
+<!--		            </a>-->
+<!--		            <a class="btn btn-info" onclick="$.table.importExcel()" shiro:hasPermission="system:user:import">-->
+<!--			            <i class="fa fa-upload"></i> 导入-->
+<!--			        </a>-->
+<!--		            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:user:export">-->
+<!--			            <i class="fa fa-download"></i> 导出-->
+<!--			        </a>-->
+		        </div>
+
+		        <div class="col-sm-12 select-table table-striped">
+				    <table id="bootstrap-table"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+<th:block th:include="include :: footer" />
+<th:block th:include="include :: layout-latest-js" />
+<th:block th:include="include :: ztree-js" />
+<script th:inline="javascript">
+	$(function() {
+		search();
+	});
+
+
+
+	let searchUrl = /*[[@{/system/vehicle/search}]]*/ "";
+
+	function search() {
+		var options = {
+			url: searchUrl,
+			uniqueId: 'id',
+			sortName: "id",
+			sortOrder: "desc",
+			modalName: "车辆",
+			columns: [
+				{
+					field: 'number',
+					title: '车牌号码'
+				},
+				{
+					field: 'driverName',
+					title: '车主姓名'
+				},
+				{
+					field: 'driverPhone',
+					title: '车主电话'
+				},
+				{
+					field: 'bmmc',
+					title: '归属单位',
+					formatter: function (value, row, index) {
+						if (row.bmmc === null) {
+							return '未知';
+						} else {
+							return row.bmmc;
+						}
+					}
+				}
+				// {
+				// 	field: 'type',
+				// 	title: '是否为外来车辆',
+				// 	formatter: function (value, row, index) {
+				// 		if (row.type === 0) {
+				// 			return '是';
+				// 		} else {
+				// 			return '否';
+				// 		}
+				// 	}
+				// },
+				// {
+				// 	title: '操作',
+				// 	align: 'center',
+				// 	formatter: function (value, row, index) {
+				// 		var actions = [];
+				// 		actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.editTab(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+				// 		actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a> ');
+				// 		// var more = [];
+				// 		// more.push("<a class='btn btn-default btn-xs " + resetPwdFlag + "' href='javascript:void(0)' onclick='resetPwd(" + row.id + ")'><i class='fa fa-key'></i>重置密码</a> ");
+				// 		// more.push("<a class='btn btn-default btn-xs " + editFlag + "' href='javascript:void(0)' onclick='authRole(" + row.id + ")'><i class='fa fa-check-square-o'></i>分配角色</a>");
+				// 		// actions.push('<a tabindex="0" class="btn btn-info btn-xs" role="button" data-container="body" data-placement="left" data-toggle="popover" data-html="true" data-trigger="hover" data-content="' + more.join('') + '"><i class="fa fa-chevron-circle-right"></i>更多操作</a>');
+				// 		return actions.join('');
+				// 	}
+				// }
+				]
+		};
+		$.table.init(options);
+	}
+
+</script>
+</html>

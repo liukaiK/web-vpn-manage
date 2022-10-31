@@ -1,0 +1,191 @@
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+body {
+	width: 100vw;
+	height: 100vh;
+	background-color: #031636;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.warp {
+	width: 98%;
+	height: 98%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.linebox {
+	width: 34%;
+	height: 100%;
+	background: url("../img/tuqileft.png");
+	background-size: 100% 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: center;
+}
+
+.map_box {
+	width: 65%;
+	height: 100%;
+	position: relative;
+	background-color: #fff;
+	overflow: hidden;
+	border-radius: 10px;
+}
+
+.follMap {
+	width: 100%;
+	height: 100%;
+	background: url("../img/tuqimapright.png");
+	background-size: 100% 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.line_box_rell {
+	width: 95%;
+	height: 98%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.title {
+	width: 100%;
+	height: 5%;
+	font-size: 20px;
+	padding-left: 10%;
+	font-family: Microsoft YaHei;
+	font-weight: bold;
+	color: #0194CB;
+	display: flex;
+	align-items: center;
+}
+
+.geographical {
+	width: 100%;
+	height: 5%;
+	display: flex;
+	align-items: center;
+	justify-content: start;
+	font-family: Microsoft YaHei;
+	font-weight: bold;
+	color: #0194CB;
+}
+
+.direction {
+	width: 10px;
+	height: 10px;
+	background: url("../img/direction.png");
+	background-size: 100% 100%;
+	margin: 0 10px;
+}
+
+.tableTitle {
+	width: 100%;
+	height: 5%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.tabletext {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: Adobe Heiti Std;
+	font-weight: normal;
+	color: #B1ECFF;
+	padding: 5px 13px;
+	background: url("../img/rectangle.png");
+	background-size: 100% 100%;
+}
+
+.table {
+	width: 100%;
+	height: 49%;
+	position: relative;
+	overflow: hidden;
+	color: #B1ECFF;
+}
+
+.chart {
+	width: 100%;
+	height: 35%;
+	margin-top: 10px;
+}
+
+.scroll {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	/*cursor: pointer;*/
+}
+
+.scroll .con1,
+.con2 {
+	width: 100%;
+}
+
+.scroll li {
+	text-align: center;
+	height: 16px;
+	margin-bottom: 16px;
+}
+
+.tableOptions {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 2px;
+}
+
+.tableOptions span {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 13px;
+}
+
+.tabletext:nth-child(1) {
+	width: 15%;
+}
+
+.tabletext:nth-child(2) {
+	width: 40%;
+}
+
+.tabletext:nth-child(3) {
+	width: 31%;
+}
+
+.tabletext:nth-child(4) {
+	width: 20%;
+}
+
+.tableOptions span:nth-child(1) {
+	width: 15%;
+}
+
+.tableOptions span:nth-child(2) {
+	width: 40%;
+}
+
+.tableOptions span:nth-child(3) {
+	width: 28%;
+}
+
+.tableOptions span:nth-child(4) {
+	width: 20%;
+}

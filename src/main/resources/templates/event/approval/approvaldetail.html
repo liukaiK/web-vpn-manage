@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('违规审批')" />
+</head>
+<body>
+    <div class="main-content">
+        <form class="form-horizontal" id="form-user-edit" th:object="${event}">
+            <input name="id" type="hidden" th:value="*{id}"/>
+            <h4 class="form-header h4">违规审批</h4>
+            <div class="row">
+            	<div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">车牌号：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static" th:text="*{vehicleNumber}"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">车辆类型：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static" th:text="*{vehicleSize}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            	<div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">车主：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static" th:text="*{driverName}"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">所属单位：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static" th:text="*{bmmc}"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">联系电话：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static" th:text="*{driverPhone}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">车道号：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static" th:text="*{laneNumber}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">违规地点：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static" th:text="*{place}"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">违规时间：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static" th:text="*{#temporals.format(time, 'yyyy-MM-dd HH:mm:ss')}"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3" th:unless="*{violationName eq '违章停车'}">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">车速：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static" th:text="*{speed + ' km/h'}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">分值：</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static" th:text="*{score}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">违规图片：</label>
+                        <div class="col-sm-8">
+                            <img th:src="*{imageUrl}" style="height: 300px;width: 400px"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-5 col-sm-10">
+            <button type="button" class="btn btn-sm btn-primary" onclick="submitHandler()"><i class="fa fa-check"></i>审 批</button>&nbsp;
+            <button type="button" class="btn btn-sm btn-danger" onclick="closeItem()"><i class="fa fa-reply-all"></i>关 闭 </button>
+        </div>
+    </div>
+
+    <div id="image-cover-modal" class="image-cover-modal">
+        <img id="image-cover-image" class="image-cover-modal-content">
+        <div id="image-cover-caption"></div>
+    </div>
+
+</body>
+<th:block th:include="include :: footer" />
+<script th:inline="javascript">
+
+
+
+    let approvalUrl = /*[[@{/event/approval/approval}]]*/ "";
+
+    function submitHandler() {
+        var data = $("#form-user-edit").serializeArray();
+        $.operate.saveTab(approvalUrl, data);
+    }
+
+
+    // Get the DOM
+    var modal = document.getElementById('image-cover-modal');
+    var modalImg = document.getElementById("image-cover-image");
+    var captionText = document.getElementById("image-cover-caption");
+    var span = document.getElementsByClassName("image-cover-close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    modal.onclick = function() {
+        this.classList.remove("model-shown");
+    }
+
+    var i;
+    for (i = 0; i < document.images.length; i++) {
+
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        var img = document.images[i];
+
+        img.onclick = function(){
+            modal.classList.add("model-shown");
+            modalImg.src = this.src;
+            captionText.innerHTML = this.alt;
+        }
+    }
+
+</script>
+</html>

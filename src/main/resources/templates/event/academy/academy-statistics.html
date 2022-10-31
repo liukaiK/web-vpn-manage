@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:include="include :: header('学院违规数据统计列表')"/>
+    <th:block th:include="include :: layout-latest-css"/>
+    <th:block th:include="include :: ztree-css"/>
+</head>
+<body class="gray-bg">
+
+<div class="ui-layout-center">
+    <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="user-form">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                所属单位：<input type="text" name="collegeName"/>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-warning" onclick="convert()">
+                    <i class="fa fa-download"></i> 图表转换
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+            <div class="col-sm-12" id="echarts_div">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <div class="echarts" id="echarts-bar-chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<th:block th:include="include :: footer"/>
+<th:block th:include="include :: layout-latest-js"/>
+<th:block th:include="include :: ztree-js"/>
+<th:block th:include="include :: echarts-js"/>
+<script th:inline="javascript">
+    $(function () {
+        search();
+        initChart();
+    });
+
+
+    let searchUrl = /*[[@{/event/academy/search}]]*/ "";
+
+    function search() {
+        var options = {
+            url: searchUrl,
+            type: 'post',
+            uniqueId: 'id',
+            sortName: "num",
+            sortOrder: "desc",
+            modalName: "学院违规数据统计",
+            columns: [
+                {
+                    title: "序号",
+                    formatter: function (value, row, index) {
+                        return $.table.serialNumber(index);
+                    }
+                },
+                {
+                    field: 'name',
+                    title: '所属单位',
+                    formatter: function (value, row, index) {
+                        if (row.bmmc === null) {
+                            return '未知';
+                        }
+                        return value;
+                    },
+                },
+                {
+                    field: 'latestTime',
+                    title: '最新违规时间',
+                    sortable: true
+                },
+                {
+                    field: 'num',
+                    title: '车辆违规次数'
+                }
+            ]
+        };
+        $.table.serialNumber();
+        $.table.init(options);
+
+    }
+
+    function initChart() {
+        $.ajax({
+            url: searchUrl,
+            type: 'post',
+            uniqueId: 'id',
+            data: {sort: 'num,desc'},
+            beforeSend: function (request) {
+                if (csrfToken && csrfHeader) {
+                    request.setRequestHeader(csrfHeader, csrfToken);
+                }
+            },
+            success: function (result) {
+                let data = result.data.content;
+                let vehicleNumberArrays = [];
+                let countArrays = [];
+                for (let i = 0; i < data.length; i++) {
+                    vehicleNumberArrays.push(data[i].name);
+                    countArrays.push(data[i].num);
+                }
+                var barChart = echarts.init(document.getElementById("echarts-bar-chart"));
+                var baroption = {
+                    title: {
+                        text: '本年度学院违规数据统计前十'
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    calculable: true,
+                    xAxis: [
+                        {
+                            type: 'category',
+                            data: vehicleNumberArrays
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value'
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '违规次数',
+                            type: 'bar',
+                            data: countArrays,
+                        },
+                    ]
+                };
+                barChart.setOption(baroption);
+                $('#echarts_div').hide();
+            }
+        });
+    }
+
+    var options = {
+        url: searchUrl,
+        uniqueId: 'id',
+        sortName: "num",
+        sortOrder: "desc",
+        modalName: "违规数据统计",
+        columns: [
+            {
+                title: "序号",
+                formatter: function (value, row, index) {
+                    return $.table.serialNumber(index);
+                }
+            },
+            {
+                field: 'name',
+                title: '所属单位',
+                formatter: function (value, row, index) {
+                    if (row.bmmc === null) {
+                        return '未知';
+                    }
+                    return value;
+                },
+            },
+            {
+                field: 'latestTime',
+                title: '最新违规时间',
+                sortable: true
+            },
+            {
+                field: 'num',
+                title: '车辆违规次数'
+            }
+        ]
+    };
+
+    let displayTable2 = false;
+
+    function convert() {
+        if (displayTable2) {
+            $.table.init(options);
+            $('#echarts_div').hide();
+            displayTable2 = false;
+        } else {
+            $.table.destroy();
+            $('#echarts_div').show();
+            displayTable2 = true;
+        }
+
+    }
+
+
+</script>
+</html>

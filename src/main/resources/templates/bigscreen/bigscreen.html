@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>哈尔滨工业大学</title>
+    <link rel="shortcut icon" th:href="@{/img/cgicon.png}" type="image/x-icon" />
+    <link rel="stylesheet" th:href="@{/css/bigscreen/canSee.css}">
+    <link rel="stylesheet" th:href="@{/css/bigscreen/gridInformation.css}">
+</head>
+
+<body>
+<div class="big_int">
+    <div class="top_quneen">
+        <div class="left_boxin">
+            <label>
+                    <span>
+                        <img th:src="@{/img/1.png}" alt="" class="title_logo">
+                    </span>
+                <span>哈尔滨工业大学</span>
+            </label>
+        </div>
+        <div class="right_boxin">
+            <span></span>
+            <span class="time_queen">
+                    <div class="time_yiqi" style="margin-left: 45px;">
+                        <div class="zhong_zhong">
+                        </div>
+                        <div class="shi_text" style="margin-left: 15px">时间</div>
+                    </div>
+                    <div class="time_ni" id='date'></div>
+                    <div class="time_san" id="time"></div>
+                </span>
+        </div>
+    </div>
+    <div class="bottom_queen">
+        <div class="math_ranm">
+            <div class="map_queen">
+                <div class="hlj_screen" style="height: 100%;width: 100%;">
+                    <div class="mac_top">
+                        <div class="title_queen_keep">违规趋势</div>
+                        <div class="echart_here" id="sjzz"></div>
+                    </div>
+                    <div class="mac_bottom">
+                        <div class="title_queen_keep">停车场列表</div>
+                        <div class="echart_here">
+                            <div class="tableTitle" style="background-color:#04577D;padding: 10px 0">
+                                <div class="tabletext">序号</div>
+                                <div class="tabletext">停车场名称</div>
+                                <div class="tabletext">已用车位</div>
+                                <div class="tabletext">未用车位</div>
+                                <div class="tabletext">全部车位</div>
+                            </div>
+                            <div class="table" style="height: 90%">
+                                <div id="scroll2" class="scroll">
+                                    <div id="con3">
+                                        <ul>
+                                            <li class="tableOptions">
+                                                <span>1</span>
+                                                <span>
+                                                        <a href="">停车场A</a>
+                                                    </span>
+                                                <span>50</span>
+                                                <span>100</span>
+                                                <span>150</span>
+                                            </li>
+                                            <li class="tableOptions">
+                                                <span>2</span>
+                                                <span>
+                                                        <a href="">停车场A</a>
+                                                    </span>
+                                                <span>50</span>
+                                                <span>100</span>
+                                                <span>150</span>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="echarts_queen">
+                <div class="chart_first charter">
+                    <div class="picks">
+                        <div class="title_queen_keep">停车场使用率</div>
+                        <div class="echart_here" id="jal"></div>
+                    </div>
+                    <div class="picks">
+                        <div class="title_queen_keep">违规处理情况</div>
+                        <div class="echart_here" id="ajcl"></div>
+                    </div>
+                </div>
+                <div class="chart_second charter">
+                    <div class="title_queen_keep base_ne">重点路口车流量情况</div>
+                    <div class="echart_here" id="newchar"></div>
+                </div>
+                <div class="chart_third charter">
+                    <div class="title_queen_keep base_ne">24小时车流量情况</div>
+                    <div class="echart_here" id="newnewnewchar"></div>
+                </div>
+            </div>
+            <div class="message_queen">
+                <div class="mac_top">
+                    <div class="title_queen_keep">违规车辆统计</div>
+                    <div class="echart_here" id="zybm"></div>
+                </div>
+                <div class="mac_bottom">
+                    <div class="title_queen_keep">违规列表</div>
+                    <div class="echart_here">
+                        <div class="tableTitle" style="background-color:#04577D;padding: 10px 0">
+                            <div class="tabletext">车牌号</div>
+                            <div class="tabletext">违规名称</div>
+                            <div class="tabletext">违规地点</div>
+                            <div class="tabletext">违规时间</div>
+                        </div>
+                        <div class="table" style="height: 90%">
+                            <div id="scroll" class="scroll">
+                                <div id="con1">
+                                    <ul>
+                                        <li class="tableOptions" th:each="record : ${recordList}">
+                                            <span th:text="${record.vehicleNumber}"></span>
+                                            <span>超速</span>
+                                            <span th:text="${record.place}">南岗区南岗区南岗区南岗区南岗区南岗区</span>
+                                            <span th:text="${#temporals.format(record.time, 'yyyy-MM-dd HH:mm:ss')}">2020/12/12</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+<!--                                <div class="con2 bak"></div>-->
+<!--                                <div class="con2 bak"></div>-->
+<!--                                <div class="con2 bak"></div>-->
+<!--                                <div class="con2 bak"></div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/ajax/libs/report/echarts/echarts-all.js}"></script>
+<script th:src="@{/js/vintage.js}"></script>
+<script th:src="@{/js/echarts-liquidfill.min.js}"></script>
+<script th:inline="javascript">
+    $(function() {
+
+
+        var time = 60;
+        var box = document.getElementById('scroll');
+        var con1 = document.getElementById('con1');
+        var con2 = document.querySelectorAll('.bak');
+        $(".bak").html($("#con1").html())
+
+        function Up() {
+            if (box.scrollTop >= con1.offsetHeight) {
+                box.scrollTop = 0;
+            } else {
+                box.scrollTop++
+            }
+        }
+
+        var setlId = setInterval(Up, time);
+
+        $("#scroll").mouseover(function() {
+            clearInterval(setlId);
+        })
+
+        $("#scroll").mouseleave(function() {
+            setlId = setInterval(Up, time);
+        })
+
+        var time1 = 60;
+        var box1 = document.getElementById('scroll1');
+        var con2 = document.getElementById('con2');
+        var con3 = document.querySelectorAll('.con3');
+        $(".con3").html($("#con2").html())
+
+        function Up1() {
+            // if (box1.scrollTop >= con2.offsetHeight) {
+            //     box1.scrollTop = 0;
+            // } else {
+            //     box1.scrollTop++
+            // }
+        }
+
+        var setlId1 = setInterval(Up1, time1);
+
+        $("#scroll1").mouseover(function() {
+            clearInterval(setlId1);
+        })
+
+        $("#scroll1").mouseleave(function() {
+            setlId1 = setInterval(Up1, time1);
+        })
+
+        var time2 = 60;
+        var box2 = document.getElementById('scroll2');
+        var con3 = document.getElementById('con3');
+        var con4 = document.querySelectorAll('.con4');
+        $(".con4").html($("#con3").html())
+
+        function Up2() {
+            if (box2.scrollTop >= con3.offsetHeight) {
+                box2.scrollTop = 0;
+            } else {
+                box2.scrollTop++
+            }
+        }
+
+        var setlId2 = setInterval(Up2, time2);
+
+        $("#scroll2").mouseover(function() {
+            clearInterval(setlId2);
+        })
+
+        $("#scroll2").mouseleave(function() {
+            setlId2 = setInterval(Up2, time2);
+        })
+
+        var date = new Date()
+        let YYYY = date.getFullYear()
+        let dd = date.getMonth()
+        if (dd < 10) {
+            dd = '0' + dd
+        }
+        let day = date.getDay()
+        if (day < 10) {
+            day = "0" + day
+        }
+
+        $("#date").html(YYYY + '-' + dd + '-' + day)
+        setInterval(() => {
+            let HH = date.getHours()
+            let mm = date.getMinutes()
+            $("#time").html(HH + ':' + mm)
+        }, 1000);
+
+
+        //横柱图
+        var hz = echarts.init(document.getElementById('newchar'));
+        let optionhz = {
+            title: {
+                show: false,
+                text: '世界人口总量',
+                subtext: ''
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                show: false,
+                data: ['2011年']
+            },
+            toolbox: {
+                show: false,
+                feature: {
+                    mark: {
+                        show: true
+                    },
+                    dataView: {
+                        show: true,
+                        readOnly: false
+                    },
+                    magicType: {
+                        show: true,
+                        type: ['line', 'bar']
+                    },
+                    restore: {
+                        show: true
+                    },
+                    saveAsImage: {
+                        show: true
+                    }
+                }
+            },
+            calculable: true,
+            xAxis: [{
+                type: 'value',
+                boundaryGap: [0, 0.01],
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: ['#033b65'],
+                        width: 1,
+                        type: 'solid'
+                    }
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#fff'
+                    },
+                    lineStyle: {
+                        color: new echarts.graphic.LinearGradient(
+                            0, 0, 1, 0, [{
+                                offset: 0,
+                                color: '#CE9FFC'
+                            }, {
+                                offset: 1,
+                                color: '#7367F0'
+                            }]
+                        )
+                    }
+                },
+            }],
+            yAxis: [{
+                type: 'category',
+                data: ['路口1', '路口2', '路口3', '路口4', '路口5', ],
+                splitLine: {
+
+                    show: false,
+                    lineStyle: {
+                        color: ['#033b65'],
+                        width: 1,
+                        type: 'solid'
+                    }
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#fff'
+                    },
+                    lineStyle: {
+                        color: new echarts.graphic.LinearGradient(
+                            0, 0, 1, 0, [{
+                                offset: 0,
+                                color: '#CE9FFC'
+                            }, {
+                                offset: 1,
+                                color: '#7367F0'
+                            }]
+                        )
+                    }
+                }
+            }],
+            series: [{
+                name: "立案量",
+                barWidth: 10,
+                type: "bar",
+                data: [18203, 23489, 29034, 104970, 131744],
+                itemStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(
+                            0, 0, 1, 0, [{
+                                offset: 0,
+                                color: '#3977E6'
+                            }, {
+                                offset: 1,
+                                color: '#37BBF8'
+                            }]
+                        )
+                    }
+                }
+            }, ],
+            grid: {
+                x: 56,
+                x2: 51,
+                y2: 38,
+                y: 38
+            }
+        };
+        hz.setOption(optionhz);
+
+
+        ////面积图
+        var schar = echarts.init(document.getElementById('newnewnewchar'));
+        let Soption = {
+            title: {
+                show: false,
+                text: '某楼盘销售情况',
+                subtext: '纯属虚构'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                show: false,
+                data: ['意向', '预购', '成交']
+            },
+            toolbox: {
+                show: false,
+                feature: {
+                    mark: {
+                        show: true
+                    },
+                    dataView: {
+                        show: true,
+                        readOnly: false
+                    },
+                    magicType: {
+                        show: true,
+                        type: ['line', 'bar', 'stack', 'tiled']
+                    },
+                    restore: {
+                        show: true
+                    },
+                    saveAsImage: {
+                        show: true
+                    }
+                }
+            },
+            calculable: true,
+            xAxis: [{
+                type: 'category',
+                boundaryGap: false,
+                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+                splitLine: {
+                    show: false,
+                    lineStyle: {
+                        color: ['#033b65'],
+                        width: 1,
+                        type: 'solid'
+                    }
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#fff'
+                    },
+                },
+            }],
+            yAxis: [{
+                type: 'value',
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: ['#033b65'],
+                        width: 1,
+                        type: 'solid'
+                    }
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#fff'
+                    },
+                },
+            }],
+            series: [{
+                name: '成交',
+                type: 'line',
+                smooth: true,
+                itemStyle: {
+                    normal: {
+                        areaStyle: {
+                            type: 'default'
+                        }
+                    }
+                },
+                data: [10, 12, 21, 54, 260, 830, 710]
+            }, {
+                name: '预购',
+                type: 'line',
+                smooth: true,
+                itemStyle: {
+                    normal: {
+                        areaStyle: {
+                            type: 'default'
+                        }
+                    }
+                },
+                data: [30, 182, 434, 791, 390, 30, 10]
+            }, {
+                name: '意向',
+                type: 'line',
+                smooth: true,
+                itemStyle: {
+                    normal: {
+                        areaStyle: {
+                            type: 'default'
+                        }
+                    }
+                },
+                data: [1320, 1132, 601, 234, 120, 90, 20]
+            }],
+            grid: {
+                x: 56,
+                x2: 51,
+                y2: 38,
+                y: 38
+            }
+        };
+        schar.setOption(Soption);
+
+
+
+
+        var zybm = [[${zybm}]]
+        var zybmx = [];
+        var zybmy = [];
+
+
+        for (let i = 0; i < zybm.length; i++) {
+            zybmx.push(zybm[i][0]);
+            zybmy.push(zybm[i][1]);
+        }
+
+        // 违规车辆统计
+        var myChart3 = echarts.init(document.getElementById('zybm'));
+        var option3 = {
+            title: {
+                show: false,
+                x: "left"
+            },
+            legend: {
+                show: false,
+                data: ["违规数量"],
+                x: "right",
+                orient: "horizontal",
+                y: "top",
+                textStyle: {
+                    color: '#ffffff' //字体颜色
+                }
+            },
+            tooltip: {
+                trigger: "axis"
+            },
+            toolbox: {
+                show: false,
+                feature: {
+                    mark: {
+                        show: true
+                    },
+                    dataView: {
+                        show: true,
+                        readOnly: true
+                    },
+                    magicType: {
+                        show: false,
+                        type: ["line", "bar"]
+                    },
+                    restore: {
+                        show: true
+                    },
+                    saveAsImage: {
+                        show: true
+                    }
+                }
+            },
+            calculable: true,
+            xAxis: [{
+                type: "category",
+                data: zybmx,
+                splitArea: {
+                    show: false
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#fff'
+                    },
+                    lineStyle: {
+                        color: new echarts.graphic.LinearGradient(
+                            0, 0, 1, 0, [{
+                                offset: 0,
+                                color: '#CE9FFC'
+                            }, {
+                                offset: 1,
+                                color: '#7367F0'
+                            }]
+                        )
+                    }
+                },
+                position: "bottom",
+                axisTick: {
+                    show: true
+                },
+                splitLine: {
+                    show: false
+                },
+                nameTextStyle: {
+                    color: "#C4EAFC"
+                }
+            }],
+            yAxis: [{
+                type: "value",
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: ['#033b65'],
+                        width: 1,
+                        type: 'solid'
+                    }
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#fff'
+                    },
+                    lineStyle: {
+                        color: new echarts.graphic.LinearGradient(
+                            0, 0, 1, 0, [{
+                                offset: 0,
+                                color: '#CE9FFC'
+                            }, {
+                                offset: 1,
+                                color: '#7367F0'
+                            }]
+                        )
+                    }
+                }
+            }],
+            series: [{
+                name: "违规数",
+                barWidth: 10,
+                type: "bar",
+                data: zybmy,
+                itemStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(
+                            0, 0, 1, 0, [{
+                                offset: 0,
+                                color: '#3977E6'
+                            }, {
+                                offset: 1,
+                                color: '#37BBF8'
+                            }
+
+                            ]
+                        )
+                    }
+                }
+            },
+
+            ],
+            calculableColor: "rgba(255,165,0,0.6)",
+            animation: true,
+            animationEasing: "ExponentialInOut",
+            grid: {
+                x: 56,
+                x2: 51,
+                y2: 38,
+                y: 38
+            }
+        };
+        myChart3.setOption(option3);
+
+
+
+
+
+
+        var myChart = echarts.init(document.getElementById('ajcl'));
+        var option = {
+            color: ['#00E5FF', '#20B5F1'],
+            backgroundColor: 'rgba(0,20,67,0)',
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            legend: {
+                left: 'center',
+                top: 'bottom',
+                // data: ['rose1', 'rose2', 'rose3', 'rose4', 'rose5', 'rose6', 'rose7', 'rose8']
+            },
+            toolbox: {
+                show: false,
+                feature: {
+                    mark: {
+                        show: true
+                    },
+                    dataView: {
+                        show: true,
+                        readOnly: false
+                    },
+                    magicType: {
+                        show: true,
+                        type: ['pie', 'funnel']
+                    },
+                    restore: {
+                        show: true
+                    },
+                    saveAsImage: {
+                        show: true
+                    }
+                }
+            },
+            series: [{
+                name: '半径模式',
+                type: 'pie',
+                radius: [50, 130],
+                center: ['50%', '50%'],
+                roseType: 'radius',
+                label: {
+                    show: false
+                },
+                labelLine: {
+                    normal: {
+                        length: 10,
+                        length2: 10,
+                        lineStyle: {
+                            width: 1,
+                            color: '#CDCDCD'
+                        }
+                    }
+                },
+                emphasis: {
+                    label: {
+                        show: true
+                    }
+                },
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: '#ffffff'
+                    },
+                    shadowBlur: 10,
+                    shadowColor: 'rgba(0, 103, 255, 0.2)',
+                    shadowOffsetX: -5,
+                    shadowOffsetY: 5,
+                    color: function(params) { // 颜色定制显示（按顺序）
+                        var colorList = [
+                            ['#df2679', '#e69029'],
+                            ['#007be4', '#08b7a5'],
+                            ['#f1d72b', '#cf7f14'],
+                            ['#16e5cc', '#139dd6'],
+                            ['#23a8e6', '#4359ea']
+                        ]
+                        let obj = {
+                            type: 'linear',
+                            x: 0,
+                            y: 0,
+                            x2: 0,
+                            y2: 1,
+                            colorStops: [{
+                                offset: 0,
+                                color: colorList[params.dataIndex][0] // 0% 处的颜色
+                            }, {
+                                offset: 1,
+                                color: colorList[params.dataIndex][1] // 100% 处的颜色
+                            }],
+                            global: false // 缺省为 false
+                        }
+                        return obj
+
+                    }
+
+                },
+                data: [{
+                    value: 10,
+                    name: '已处置',
+                    itemStyle: {
+                        normal: {
+                            //设置渐变色
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: '#00DB99'
+                            }, {
+                                offset: 0.5,
+                                color: '#00F7E0'
+                            }, {
+                                offset: 1,
+                                color: '#00DB99'
+                            }])
+                        }
+                    }
+                }, {
+                    value: 15,
+                    name: '未处置',
+                    itemStyle: {
+                        normal: {
+
+                            //设置渐变色
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: '#12BBE4'
+                            }, {
+                                offset: 0.5,
+                                color: '#0B8EDB'
+                            }, {
+                                offset: 1,
+                                color: '#0252D0'
+                            }])
+                        }
+                    }
+                },
+
+                ]
+            },
+
+            ]
+        };
+        myChart.setOption(option);
+
+
+        var myChart1 = echarts.init(document.getElementById('jal'));
+        var getname = ['已结案', '未结案'];
+        var getvalue = [180, 200];
+        var indata = [];
+        for (var i = 0; i < getname.length; i++) {
+            indata.push({
+                name: getname[i],
+                value: getvalue[i]
+            })
+        }
+
+        var colorList = ['#16BBFF', '#FB9532']
+        option1 = {
+            title: {
+                text: '83%',
+                textStyle: {
+                    color: '#fcfafa',
+                    fontSize: 17
+                },
+
+                subtextStyle: {
+                    color: '#717171',
+                    fontSize: 15
+                },
+                itemGap: 20,
+                left: 'center',
+                top: '45%'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            series: [{
+                type: 'pie',
+                radius: ['70%', '83%'],
+                center: ["50%", "50%"],
+                clockwise: true,
+                avoidLabelOverlap: true,
+                hoverOffset: 15,
+                itemStyle: {
+                    normal: {
+                        color: function(params) {
+                            return colorList[params.dataIndex]
+                        }
+                    }
+                },
+                label: {
+                    show: true,
+                    position: 'outside',
+                    formatter: '{a|{b}}\n{b|{c}千瓦时}\n{hr|●}',
+                    rich: {
+                        hr: {
+                            width: 6,
+                            height: 6,
+                            padding: [3, -10, 0, -10]
+                        },
+                        a: {
+                            padding: [-30, 15, -40, 15],
+                            color: '#666666',
+                            fontSize: 14
+                        },
+                        b: {
+                            padding: [-30, 15, 0, 15],
+                            color: '#666666',
+                            fontSize: 14
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        length: 10,
+                        length2: 10,
+                        lineStyle: {
+                            width: 1,
+                            color: '#CDCDCD'
+                        }
+                    }
+                },
+                data: indata,
+            }, {
+                itemStyle: {
+                    normal: {
+                        color: '#22378d',
+                    }
+                },
+                type: 'pie',
+                hoverAnimation: false,
+                radius: ['67%', '85%'],
+                center: ["50%", "50%"],
+                label: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data: [{
+                    value: 1,
+                }],
+                z: -1
+            }]
+        };
+        myChart1.setOption(option1);
+
+
+
+
+
+
+
+        // 事件增长
+        var myChart4 = echarts.init(document.getElementById('sjzz'));
+        var option4 = {
+            tooltip: {
+                trigger: "axis"
+            },
+            legend: {
+                data: ["立案量"],
+                x: "right",
+                orient: "horizontal",
+                y: "top",
+                textStyle: {
+                    color: '#ffffff' //字体颜色
+                }
+            },
+            toolbox: {
+                show: false,
+                feature: {
+                    dataView: {
+                        readOnly: true
+                    },
+                    magicType: {
+                        type: ["line", "bar"],
+                        show: false
+                    }
+                }
+            },
+            calculable: true,
+            xAxis: [{
+                type: "category",
+                data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+                axisTick: {
+                    lineStyle: {
+                        color: "rgb(56, 178, 234)"
+                    },
+                    show: false
+                },
+                splitLine: {
+                    show: false
+                },
+                boundaryGap: false,
+                axisLine: {
+                    show: false
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#3677FF'
+                    }
+                }
+            }],
+            yAxis: [{
+                type: "value",
+                axisLine: {
+                    show: false
+                },
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: "#C4EAFC",
+                        width: 1
+                    }
+                },
+                splitArea: {
+                    show: false
+                },
+                nameTextStyle: {
+                    color: "rgb(20, 159, 224)"
+                },
+                axisLabel: {
+                    show: true,
+                    textStyle: {
+                        color: '#3677FF'
+                    }
+                }
+            }],
+            series: [{
+                name: "结案量",
+                type: "line",
+                data: [11, 10, 32, 4, 21, 8, 33],
+                smooth: true,
+                itemStyle: {
+                    normal: {
+                        color: "#71f5eb"
+                    }
+                }
+            },
+
+            ],
+            grid: {
+                x: 56,
+                x2: 51,
+                y2: 38,
+                y: 38
+            }
+        };
+        myChart4.setOption(option4);
+
+
+    })
+</script>
+
+</html>
