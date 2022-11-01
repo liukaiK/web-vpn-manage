@@ -1,5 +1,7 @@
 package cn.com.goodlan.webvpn.controller.login;
 
+import cn.com.goodlan.webvpn.security.captcha.CaptchaConstant;
+import cn.com.goodlan.webvpn.security.captcha.CaptchaGenerator;
 import cn.com.goodlan.webvpn.utils.RSAUtil;
 import cn.hutool.captcha.ICaptcha;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -38,11 +40,11 @@ public class LoginController {
         return !(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken);
     }
 
-//    @GetMapping(value = "/captcha.jpeg", produces = MediaType.IMAGE_JPEG_VALUE)
-//    public void getCaptcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//        ICaptcha captcha = CaptchaGenerator.generate(200, 100, CaptchaConstant.CAPTCHA_LENGTH, CaptchaConstant.CAPTCHA_EXPIRE_TIME);
-//        request.getSession().setAttribute(CaptchaConstant.CAPTCHA_SESSION_KEY, captcha);
-//        captcha.write(response.getOutputStream());
-//    }
+    @GetMapping(value = "/captcha.jpeg", produces = MediaType.IMAGE_JPEG_VALUE)
+    public void getCaptcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ICaptcha captcha = CaptchaGenerator.generate(200, 100, CaptchaConstant.CAPTCHA_LENGTH, CaptchaConstant.CAPTCHA_EXPIRE_TIME);
+        request.getSession().setAttribute(CaptchaConstant.CAPTCHA_SESSION_KEY, captcha);
+        captcha.write(response.getOutputStream());
+    }
 
 }
