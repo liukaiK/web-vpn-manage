@@ -1,4 +1,4 @@
-package cn.com.goodlan.webvpn.security;
+package cn.com.goodlan.webvpn.security.web;
 
 import java.io.Serializable;
 

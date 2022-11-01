@@ -29,17 +29,17 @@ public class SystemUser extends AbstractEntity {
 
     private String name;
 
-    private Character sex;
+//    private Character sex;
 
-    private String email;
+//    private String email;
 
     @Embedded
     private Password password;
 
-    @Embedded
-    private PhoneNumber phoneNumber;
+//    @Embedded
+//    private PhoneNumber phoneNumber;
 
-    private String remark;
+//    private String remark;
 
     /**
      * 最后登录时间
@@ -54,13 +54,13 @@ public class SystemUser extends AbstractEntity {
 
     }
 
-    public void updateEmail(String email) {
-        this.email = email;
-    }
+//    public void updateEmail(String email) {
+//        this.email = email;
+//    }
 
-    public void updateSex(Character sex) {
-        this.sex = sex;
-    }
+//    public void updateSex(Character sex) {
+//        this.sex = sex;
+//    }
 
     public void updateName(String name) {
         this.setName(name);
@@ -70,13 +70,13 @@ public class SystemUser extends AbstractEntity {
         this.setUsername(username);
     }
 
-    public void updatePhoneNumber(PhoneNumber phoneNumber) {
-        this.setPhoneNumber(phoneNumber);
-    }
+//    public void updatePhoneNumber(PhoneNumber phoneNumber) {
+//        this.setPhoneNumber(phoneNumber);
+//    }
 
-    public void updateRemark(String remark) {
-        this.remark = remark;
-    }
+//    public void updateRemark(String remark) {
+//        this.remark = remark;
+//    }
 
     public void updatePassword(Password password) {
         this.password = password;
@@ -129,36 +129,36 @@ public class SystemUser extends AbstractEntity {
         this.lastLoginTime = lastLoginTime;
     }
 
-    public Character getSex() {
-        return sex;
-    }
+//    public Character getSex() {
+//        return sex;
+//    }
 
-    public void setSex(Character sex) {
-        this.sex = sex;
-    }
+//    public void setSex(Character sex) {
+//        this.sex = sex;
+//    }
 
-    public String getEmail() {
-        return email;
-    }
+//    public String getEmail() {
+//        return email;
+//    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 
-    public String getRemark() {
-        return remark;
-    }
+//    public String getRemark() {
+//        return remark;
+//    }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
+//    public void setRemark(String remark) {
+//        this.remark = remark;
+//    }
 
-    public PhoneNumber getPhoneNumber() {
-        return phoneNumber;
-    }
+//    public PhoneNumber getPhoneNumber() {
+//        return phoneNumber;
+//    }
 
-    protected void setPhoneNumber(PhoneNumber phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+//    protected void setPhoneNumber(PhoneNumber phoneNumber) {
+//        this.phoneNumber = phoneNumber;
+//    }
 
 }
