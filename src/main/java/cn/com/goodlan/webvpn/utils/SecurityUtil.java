@@ -33,25 +33,6 @@ public abstract class SecurityUtil {
     }
 
     /**
-     * 获取当前登录人部门ID
-     *
-     * @return 部门ID集合
-     */
-    public static String getCollegeId() {
-        return getUser().getCollege().getId();
-    }
-
-
-    /**
-     * 获取当前登录人部门名称
-     *
-     * @return 部门名称集合
-     */
-    public static String getCollegeName() {
-        return getUser().getCollege().getCollegeName();
-    }
-
-    /**
      * 获取当前登录人角色ID
      *
      * @return 角色ID集合

@@ -25,8 +25,6 @@ public class SecurityUserBean implements UserDetails {
 
     private String password;
 
-    private SecurityCollegeBean college;
-
     private List<SecurityRoleBean> roleList;
 
     private List<SecurityAuthorityBean> authorities;
@@ -42,14 +40,9 @@ public class SecurityUserBean implements UserDetails {
         this.name = user.getName();
         this.username = user.getUsername().getUsername();
         this.password = user.getPassword().getPassword();
-//        this.college = obtainCollege(user.getCollege());
-//        this.roleList = obtainRoles(user.getRoleList());
-//        this.authorities = obtainAuthorities(user.getRoleList());
+        this.roleList = obtainRoles(user.getRoleList());
+        this.authorities = obtainAuthorities(user.getRoleList());
     }
-
-//    private SecurityCollegeBean obtainCollege(College college) {
-//        return SecurityCollegeBean.convertFromCollege(college);
-//    }
 
     private List<SecurityRoleBean> obtainRoles(List<Role> roleList) {
         List<SecurityRoleBean> roles = new ArrayList<>();
@@ -132,14 +125,6 @@ public class SecurityUserBean implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public SecurityCollegeBean getCollege() {
-        return college;
-    }
-
-    public void setCollege(SecurityCollegeBean college) {
-        this.college = college;
     }
 
     public List<SecurityRoleBean> getRoleList() {

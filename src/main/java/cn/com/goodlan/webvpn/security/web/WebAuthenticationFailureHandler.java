@@ -23,13 +23,13 @@ import java.io.IOException;
  *
  * @author liukai
  */
-public class LoginFailureHandler extends AbstractAuthenticationHandler implements AuthenticationFailureHandler {
+public class WebAuthenticationFailureHandler extends AbstractAuthenticationHandler implements AuthenticationFailureHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(LoginFailureHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(WebAuthenticationSuccessHandler.class);
 
     private ObjectMapper objectMapper;
 
-    public LoginFailureHandler(ObjectMapper objectMapper) {
+    public WebAuthenticationFailureHandler(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
 

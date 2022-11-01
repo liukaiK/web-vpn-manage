@@ -1,11 +1,14 @@
 package cn.com.goodlan.webvpn.pojo.entity.systemuser;
 
 import cn.com.goodlan.webvpn.pojo.entity.AbstractEntity;
+import cn.com.goodlan.webvpn.pojo.entity.role.Role;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 管理员实体
@@ -40,6 +43,10 @@ public class SystemUser extends AbstractEntity {
 //    private PhoneNumber phoneNumber;
 
 //    private String remark;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "system_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roleList = new ArrayList<>();
 
     /**
      * 最后登录时间
@@ -80,6 +87,14 @@ public class SystemUser extends AbstractEntity {
 
     public void updatePassword(Password password) {
         this.password = password;
+    }
+
+    public void removeAllRole() {
+        this.roleList = new ArrayList<>();
+    }
+
+    public void addRole(Role role) {
+        roleList.add(role);
     }
 
     /**
@@ -127,6 +142,14 @@ public class SystemUser extends AbstractEntity {
 
     public void setLastLoginTime(LocalDateTime lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
+    }
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
     }
 
 //    public Character getSex() {

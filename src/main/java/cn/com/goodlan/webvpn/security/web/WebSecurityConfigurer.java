@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.RequestCacheAwareFilter;
 
 import java.util.Arrays;
@@ -50,7 +52,19 @@ public class WebSecurityConfigurer {
     public UsernamePasswordCaptchaAuthenticationFilter usernamePasswordCaptchaAuthenticationFilter() {
         UsernamePasswordCaptchaAuthenticationFilter usernamePasswordCaptchaAuthenticationFilter = new UsernamePasswordCaptchaAuthenticationFilter();
         usernamePasswordCaptchaAuthenticationFilter.setAuthenticationManager(new ProviderManager(Arrays.asList(authenticationProvider())));
+        usernamePasswordCaptchaAuthenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler());
+        usernamePasswordCaptchaAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler());
         return usernamePasswordCaptchaAuthenticationFilter;
+    }
+
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        AuthenticationSuccessHandler authenticationSuccessHandler = new WebAuthenticationSuccessHandler(objectMapper, userRepository);
+        return authenticationSuccessHandler;
+    }
+
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        AuthenticationFailureHandler authenticationFailureHandler = new WebAuthenticationFailureHandler(objectMapper);
+        return authenticationFailureHandler;
     }
 
     @Autowired
@@ -73,6 +87,7 @@ public class WebSecurityConfigurer {
         return securityAuthenticationEntryPoint;
     }
 
+    @Bean
     public UserDetailsService userDetailsService(SystemUserRepository systemUserRepository) {
         UserDetailsServiceImpl userDetailsService = new UserDetailsServiceImpl();
         userDetailsService.setUserRepository(systemUserRepository);

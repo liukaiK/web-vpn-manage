@@ -19,15 +19,15 @@ import java.time.LocalDateTime;
  *
  * @author liukai
  */
-public class LoginSuccessHandler extends AbstractAuthenticationHandler implements AuthenticationSuccessHandler {
+public class WebAuthenticationSuccessHandler extends AbstractAuthenticationHandler implements AuthenticationSuccessHandler {
 
-    private static final Logger log = LoggerFactory.getLogger(LoginFailureHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(WebAuthenticationSuccessHandler.class);
 
     private ObjectMapper objectMapper;
 
     private SystemUserRepository userRepository;
 
-    public LoginSuccessHandler(ObjectMapper objectMapper, SystemUserRepository userRepository) {
+    public WebAuthenticationSuccessHandler(ObjectMapper objectMapper, SystemUserRepository userRepository) {
         this.objectMapper = objectMapper;
         this.userRepository = userRepository;
     }
