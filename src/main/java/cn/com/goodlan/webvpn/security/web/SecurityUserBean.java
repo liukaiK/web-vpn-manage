@@ -40,8 +40,8 @@ public class SecurityUserBean implements UserDetails {
         this.name = user.getName();
         this.username = user.getUsername().getUsername();
         this.password = user.getPassword().getPassword();
-        this.roleList = obtainRoles(user.getRoleList());
-        this.authorities = obtainAuthorities(user.getRoleList());
+        this.roleList = obtainRoles(user.getRoles());
+        this.authorities = obtainAuthorities(user.getRoles());
     }
 
     private List<SecurityRoleBean> obtainRoles(List<Role> roleList) {
@@ -55,7 +55,7 @@ public class SecurityUserBean implements UserDetails {
     private List<SecurityAuthorityBean> obtainAuthorities(List<Role> roleList) {
         List<SecurityAuthorityBean> grantedAuthorities = new ArrayList<>();
         for (Role role : roleList) {
-            List<Menu> menuList = role.getMenuList();
+            List<Menu> menuList = role.getMenus();
             for (Menu menu : menuList) {
                 grantedAuthorities.add(SecurityAuthorityBean.convertFormMenu(menu));
             }

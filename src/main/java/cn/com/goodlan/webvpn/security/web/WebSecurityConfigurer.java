@@ -10,7 +10,7 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.RequestCacheAwareFilter;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * SpringSecurity核心配置类
@@ -31,16 +31,21 @@ public class WebSecurityConfigurer {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private SystemUserRepository userRepository;
+
     @Bean
     public SecurityFilterChain webLoginSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/login").permitAll()
+                .antMatchers(SecurityConstant.LOGIN_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .logout().logoutSuccessUrl("/login")
+                .logout().logoutSuccessUrl(SecurityConstant.LOGIN_PAGE_URL)
                 .and()
                 .headers().frameOptions().sameOrigin()
+                .and()
+                .csrf().ignoringAntMatchers("/druid/**", "/common/upload")
                 .and()
                 .addFilterBefore(usernamePasswordCaptchaAuthenticationFilter(), RequestCacheAwareFilter.class)
 //                .addFilterBefore(new XssFilter(), WebAsyncManagerIntegrationFilter.class)
@@ -51,7 +56,7 @@ public class WebSecurityConfigurer {
 
     public UsernamePasswordCaptchaAuthenticationFilter usernamePasswordCaptchaAuthenticationFilter() {
         UsernamePasswordCaptchaAuthenticationFilter usernamePasswordCaptchaAuthenticationFilter = new UsernamePasswordCaptchaAuthenticationFilter();
-        usernamePasswordCaptchaAuthenticationFilter.setAuthenticationManager(new ProviderManager(Arrays.asList(authenticationProvider())));
+        usernamePasswordCaptchaAuthenticationFilter.setAuthenticationManager(new ProviderManager(Collections.singletonList(authenticationProvider())));
         usernamePasswordCaptchaAuthenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler());
         usernamePasswordCaptchaAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler());
         return usernamePasswordCaptchaAuthenticationFilter;
@@ -67,8 +72,6 @@ public class WebSecurityConfigurer {
         return authenticationFailureHandler;
     }
 
-    @Autowired
-    private SystemUserRepository userRepository;
 
     public AuthenticationProvider authenticationProvider() {
         UserDetailsAuthenticationProvider authenticationProvider = new UserDetailsAuthenticationProvider();
@@ -77,8 +80,9 @@ public class WebSecurityConfigurer {
         return authenticationProvider;
     }
 
+    @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 
     public AuthenticationEntryPoint securityAuthenticationEntryPoint() {

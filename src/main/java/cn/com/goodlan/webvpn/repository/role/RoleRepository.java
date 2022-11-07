@@ -9,7 +9,7 @@ import java.util.List;
 public interface RoleRepository extends CustomizeRepository<Role, Long> {
 
 
-    @Query(value = "from Role r left join r.userList u where u.id = ?1")
+    @Query(value = "from Role r left join r.users u where u.id = ?1")
     List<Role> findByUserList(Long userId);
 
     boolean existsByName(String roleName);

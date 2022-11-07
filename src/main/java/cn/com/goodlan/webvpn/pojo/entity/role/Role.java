@@ -31,11 +31,11 @@ public class Role extends AbstractEntity {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "system_user_role", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<SystemUser> userList = new ArrayList<>();
+    private List<SystemUser> users = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "system_role_menu", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "menu_id"))
-    private List<Menu> menuList = new ArrayList<>();
+    private List<Menu> menus = new ArrayList<>();
 
 
     public Role() {
@@ -57,15 +57,15 @@ public class Role extends AbstractEntity {
      * 角色下面是否有人
      */
     public boolean hasUser() {
-        return CollectionUtil.isNotEmpty(this.userList);
+        return CollectionUtil.isNotEmpty(this.users);
     }
 
     public void addMenu(Menu menu) {
-        menuList.add(menu);
+        menus.add(menu);
     }
 
     public void removeAllMenu() {
-        this.menuList = new ArrayList<>();
+        this.menus = new ArrayList<>();
     }
 
     public Long getId() {
@@ -85,21 +85,21 @@ public class Role extends AbstractEntity {
     }
 
 
-    public List<Menu> getMenuList() {
-        return menuList;
+    public List<Menu> getMenus() {
+        return menus;
     }
 
-    public void setMenuList(List<Menu> menuList) {
-        this.menuList = menuList;
+    public void setMenus(List<Menu> menuList) {
+        this.menus = menuList;
     }
 
 
-    public List<SystemUser> getUserList() {
-        return userList;
+    public List<SystemUser> getUsers() {
+        return users;
     }
 
-    public void setUserList(List<SystemUser> userList) {
-        this.userList = userList;
+    public void setUsers(List<SystemUser> userList) {
+        this.users = userList;
     }
 
     public String getRemark() {

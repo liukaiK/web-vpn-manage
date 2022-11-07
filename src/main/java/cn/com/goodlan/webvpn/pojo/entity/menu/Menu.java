@@ -66,7 +66,7 @@ public class Menu extends AbstractEntity {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "system_role_menu", joinColumns = @JoinColumn(name = "menu_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roleList = new ArrayList<>();
+    private List<Role> roles = new ArrayList<>();
 
     public Menu() {
     }
@@ -100,7 +100,7 @@ public class Menu extends AbstractEntity {
      * 是否已经分配了角色
      */
     public boolean hasRole() {
-        return CollectionUtil.isNotEmpty(this.roleList);
+        return CollectionUtil.isNotEmpty(this.roles);
     }
 
 
@@ -190,12 +190,12 @@ public class Menu extends AbstractEntity {
         this.menuType = menuType;
     }
 
-    public List<Role> getRoleList() {
-        return roleList;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setRoleList(List<Role> roleList) {
-        this.roleList = roleList;
+    public void setRoles(List<Role> roleList) {
+        this.roles = roleList;
     }
 
     public String getVisible() {

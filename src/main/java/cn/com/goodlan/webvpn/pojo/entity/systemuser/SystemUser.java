@@ -27,31 +27,33 @@ public class SystemUser extends AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
     @Embedded
     private Username username;
 
-    private String name;
+    @Embedded
+    private Password password;
+
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "system_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
+
+    /**
+     * 最后登录时间
+     */
+    private LocalDateTime lastLoginTime;
 
 //    private Character sex;
 
 //    private String email;
-
-    @Embedded
-    private Password password;
 
 //    @Embedded
 //    private PhoneNumber phoneNumber;
 
 //    private String remark;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "system_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roleList = new ArrayList<>();
-
-    /**
-     * 最后登录时间
-     */
-    private LocalDateTime lastLoginTime;
 
     public SystemUser(Long id) {
         this.id = id;
@@ -90,11 +92,11 @@ public class SystemUser extends AbstractEntity {
     }
 
     public void removeAllRole() {
-        this.roleList = new ArrayList<>();
+        this.roles = new ArrayList<>();
     }
 
     public void addRole(Role role) {
-        roleList.add(role);
+        roles.add(role);
     }
 
     /**
@@ -132,7 +134,7 @@ public class SystemUser extends AbstractEntity {
         return password;
     }
 
-    public void setPassword(Password password) {
+    protected void setPassword(Password password) {
         this.password = password;
     }
 
@@ -140,16 +142,16 @@ public class SystemUser extends AbstractEntity {
         return lastLoginTime;
     }
 
-    public void setLastLoginTime(LocalDateTime lastLoginTime) {
+    protected void setLastLoginTime(LocalDateTime lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
 
-    public List<Role> getRoleList() {
-        return roleList;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setRoleList(List<Role> roleList) {
-        this.roleList = roleList;
+    protected void setRoles(List<Role> roleList) {
+        this.roles = roleList;
     }
 
 //    public Character getSex() {

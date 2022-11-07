@@ -114,7 +114,7 @@ public class MenuServiceImpl implements MenuService {
                 throw new BusinessException("存在子菜单,不允许删除");
             }
             if (menu.get().hasRole()) {
-                throw new BusinessException("菜单已分配" + StringUtils.join(menu.get().getRoleList().stream().map(Role::getName).toArray(), ",") + "角色,不允许删除 ");
+                throw new BusinessException("菜单已分配" + StringUtils.join(menu.get().getRoles().stream().map(Role::getName).toArray(), ",") + "角色,不允许删除 ");
             }
             menuRepository.deleteById(menuId);
         }
