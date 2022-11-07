@@ -33,7 +33,7 @@ public class RoleServiceImpl implements RoleService {
         Specification<Role> specification = (root, query, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
             if (StringUtils.isNotEmpty(roleDTO.getRoleName())) {
-                list.add(criteriaBuilder.like(root.get("name").as(String.class), roleDTO.getRoleName() + "%"));
+                list.add(criteriaBuilder.like(root.get("name").as(String.class), "%" + roleDTO.getRoleName() + "%"));
             }
             Predicate[] p = new Predicate[list.size()];
             return criteriaBuilder.and(list.toArray(p));
