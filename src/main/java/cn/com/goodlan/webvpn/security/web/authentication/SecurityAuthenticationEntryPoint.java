@@ -1,4 +1,4 @@
-package cn.com.goodlan.webvpn.security.web;
+package cn.com.goodlan.webvpn.security.web.authentication;
 
 import cn.com.goodlan.webvpn.utils.HttpUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;

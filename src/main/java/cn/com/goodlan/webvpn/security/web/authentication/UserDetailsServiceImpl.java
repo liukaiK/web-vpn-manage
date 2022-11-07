@@ -1,11 +1,14 @@
-package cn.com.goodlan.webvpn.security.web;
+package cn.com.goodlan.webvpn.security.web.authentication;
 
 import cn.com.goodlan.webvpn.pojo.entity.systemuser.SystemUser;
 import cn.com.goodlan.webvpn.pojo.entity.systemuser.Username;
 import cn.com.goodlan.webvpn.repository.systemuser.SystemUserRepository;
+import cn.com.goodlan.webvpn.security.web.userdetails.SecurityUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
@@ -15,8 +18,10 @@ import java.util.Optional;
  *
  * @author liukai
  */
+@Component
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+    @Autowired
     private SystemUserRepository userRepository;
 
     @Override
@@ -27,11 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         SystemUser user = userOptional.orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
 
-        return SecurityUserBean.convertFromUser(user);
-    }
-
-    public void setUserRepository(SystemUserRepository userRepository) {
-        this.userRepository = userRepository;
+        return SecurityUser.convertFromUser(user);
     }
 
 }

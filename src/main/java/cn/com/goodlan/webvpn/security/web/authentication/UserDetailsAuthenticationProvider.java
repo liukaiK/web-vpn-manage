@@ -1,4 +1,4 @@
-package cn.com.goodlan.webvpn.security.web;
+package cn.com.goodlan.webvpn.security.web.authentication;
 
 
 import cn.com.goodlan.webvpn.exception.authentication.BadCaptchaException;

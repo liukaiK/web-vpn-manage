@@ -1,14 +1,14 @@
-package cn.com.goodlan.webvpn.security.web;
+package cn.com.goodlan.webvpn.security.web.userdetails;
 
 import cn.com.goodlan.webvpn.pojo.entity.role.Role;
 
-public class SecurityRoleBean {
+public class SecurityRole {
 
     private Long id;
 
     private String name;
 
-    public SecurityRoleBean(Role role) {
+    public SecurityRole(Role role) {
         this.id = role.getId();
         this.name = role.getName();
     }

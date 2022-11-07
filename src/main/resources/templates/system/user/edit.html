@@ -8,7 +8,7 @@
     <div class="main-content">
         <form class="form-horizontal" id="form-user-edit" th:object="${user}">
             <input name="id" type="hidden" th:value="*{id}"/>
-            <input name="collegeId" type="hidden" th:value="*{collegeId}" id="treeId"/>
+<!--            <input name="collegeId" type="hidden" th:value="*{collegeId}" id="treeId"/>-->
             <h4 class="form-header h4">基本信息</h4>
             <div class="row">
             	<div class="col-sm-6">
@@ -19,42 +19,42 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">归属学院：</label>
-                        <div class="col-sm-8">
-                            <div class="input-group">
-                                <input class="form-control" type="text" name="deptName" onclick="selectDeptTree()" id="treeName" th:value="*{collegeName}">
-                            	<span class="input-group-addon"><i class="fa fa-search"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!--                <div class="col-sm-6">-->
+<!--                    <div class="form-group">-->
+<!--                        <label class="col-sm-4 control-label">归属学院：</label>-->
+<!--                        <div class="col-sm-8">-->
+<!--                            <div class="input-group">-->
+<!--                                <input class="form-control" type="text" name="deptName" onclick="selectDeptTree()" id="treeName" th:value="*{collegeName}">-->
+<!--                            	<span class="input-group-addon"><i class="fa fa-search"></i></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">手机号码：</label>
-                        <div class="col-sm-8">
-                            <div class="input-group">
-                                <input name="phoneNumber" placeholder="请输入手机号码" class="form-control" type="text" maxlength="11" th:value="*{phoneNumber}">
-                                <span class="input-group-addon"><i class="fa fa-mobile"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">邮箱：</label>
-                        <div class="col-sm-8">
-                            <div class="input-group">
-                                <input name="email" class="form-control email" type="text" maxlength="50" placeholder="请输入邮箱" th:value="*{email}">
-                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="row">-->
+<!--                <div class="col-sm-6">-->
+<!--                    <div class="form-group">-->
+<!--                        <label class="col-sm-4 control-label">手机号码：</label>-->
+<!--                        <div class="col-sm-8">-->
+<!--                            <div class="input-group">-->
+<!--                                <input name="phoneNumber" placeholder="请输入手机号码" class="form-control" type="text" maxlength="11" th:value="*{phoneNumber}">-->
+<!--                                <span class="input-group-addon"><i class="fa fa-mobile"></i></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-sm-6">-->
+<!--                    <div class="form-group">-->
+<!--                        <label class="col-sm-4 control-label">邮箱：</label>-->
+<!--                        <div class="col-sm-8">-->
+<!--                            <div class="input-group">-->
+<!--                                <input name="email" class="form-control email" type="text" maxlength="50" placeholder="请输入邮箱" th:value="*{email}">-->
+<!--                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
@@ -76,7 +76,7 @@
 <!--                    </div>-->
 <!--                </div>-->
             </div>
-            <div class="row">
+<!--            <div class="row">-->
 <!--                <div class="col-sm-6">-->
 <!--                    <div class="form-group">-->
 <!--                        <label class="col-sm-4 control-label">岗位：</label>-->
@@ -87,22 +87,22 @@
 <!--                        </div>-->
 <!--                    </div>-->
 <!--                </div>-->
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">用户性别：</label>
-                        <div class="col-sm-8">
-<!--                            <select name="sex" class="form-control m-b" th:with="type=${@dict.getType('sys_user_sex')}">-->
-<!--				                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{sex}"></option>-->
-<!--				            </select>                            -->
-                            <select name="sex" class="form-control m-b">
-                                <option value="男" th:selected="*{sex eq '男'}">男</option>
-                                <option value="女" th:selected="*{sex eq '女'}">女</option>
-				            </select>
-                        </div>
-                    </div>
+<!--                <div class="col-sm-6">-->
+<!--                    <div class="form-group">-->
+<!--                        <label class="col-sm-4 control-label">用户性别：</label>-->
+<!--                        <div class="col-sm-8">-->
+<!--&lt;!&ndash;                            <select name="sex" class="form-control m-b" th:with="type=${@dict.getType('sys_user_sex')}">&ndash;&gt;-->
+<!--&lt;!&ndash;				                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{sex}"></option>&ndash;&gt;-->
+<!--&lt;!&ndash;				            </select>                            &ndash;&gt;-->
+<!--                            <select name="sex" class="form-control m-b">-->
+<!--                                <option value="男" th:selected="*{sex eq '男'}">男</option>-->
+<!--                                <option value="女" th:selected="*{sex eq '女'}">女</option>-->
+<!--				            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
-                </div>
-            </div>
+<!--                </div>-->
+<!--            </div>-->
             <div class="row">
             	<div class="col-sm-12">
                     <div class="form-group">
@@ -116,17 +116,17 @@
                     </div>
                 </div>
             </div>
-            <h4 class="form-header h4">其他信息</h4>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label class="col-xs-2 control-label">备注：</label>
-                        <div class="col-xs-10">
-                            <textarea name="remark" maxlength="500" class="form-control" rows="3">[[*{remark}]]</textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--            <h4 class="form-header h4">其他信息</h4>-->
+<!--            <div class="row">-->
+<!--                <div class="col-sm-12">-->
+<!--                    <div class="form-group">-->
+<!--                        <label class="col-xs-2 control-label">备注：</label>-->
+<!--                        <div class="col-xs-10">-->
+<!--                            <textarea name="remark" maxlength="500" class="form-control" rows="3">[[*{remark}]]</textarea>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </form>
     </div>
     <div class="row">

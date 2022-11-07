@@ -1,4 +1,4 @@
-package cn.com.goodlan.webvpn.security.web;
+package cn.com.goodlan.webvpn.security.web.userdetails;
 
 import cn.com.goodlan.webvpn.pojo.entity.menu.Menu;
 import cn.com.goodlan.webvpn.pojo.entity.role.Role;
@@ -6,6 +6,7 @@ import cn.com.goodlan.webvpn.pojo.entity.systemuser.SystemUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  *
  * @author liukai
  */
-public class SecurityUserBean implements UserDetails {
+public class SecurityUser implements UserDetails, Serializable {
 
     private Long id;
 
@@ -25,39 +26,39 @@ public class SecurityUserBean implements UserDetails {
 
     private String password;
 
-    private List<SecurityRoleBean> roleList;
+    private List<SecurityRole> securityRole;
 
-    private List<SecurityAuthorityBean> authorities;
+    private List<SecurityAuthority> authorities;
 
-    private Integer sts;
+    private Integer status;
 
-    public static SecurityUserBean convertFromUser(SystemUser user) {
-        return new SecurityUserBean(user);
+    public static SecurityUser convertFromUser(SystemUser user) {
+        return new SecurityUser(user);
     }
 
-    private SecurityUserBean(SystemUser user) {
+    private SecurityUser(SystemUser user) {
         this.id = user.getId();
         this.name = user.getName();
         this.username = user.getUsername().getUsername();
         this.password = user.getPassword().getPassword();
-        this.roleList = obtainRoles(user.getRoles());
+        this.securityRole = obtainRoles(user.getRoles());
         this.authorities = obtainAuthorities(user.getRoles());
     }
 
-    private List<SecurityRoleBean> obtainRoles(List<Role> roleList) {
-        List<SecurityRoleBean> roles = new ArrayList<>();
+    private List<SecurityRole> obtainRoles(List<Role> roleList) {
+        List<SecurityRole> roles = new ArrayList<>();
         for (Role role : roleList) {
-            roles.add(new SecurityRoleBean(role));
+            roles.add(new SecurityRole(role));
         }
         return roles;
     }
 
-    private List<SecurityAuthorityBean> obtainAuthorities(List<Role> roleList) {
-        List<SecurityAuthorityBean> grantedAuthorities = new ArrayList<>();
+    private List<SecurityAuthority> obtainAuthorities(List<Role> roleList) {
+        List<SecurityAuthority> grantedAuthorities = new ArrayList<>();
         for (Role role : roleList) {
             List<Menu> menuList = role.getMenus();
             for (Menu menu : menuList) {
-                grantedAuthorities.add(SecurityAuthorityBean.convertFormMenu(menu));
+                grantedAuthorities.add(SecurityAuthority.convertFormMenu(menu));
             }
         }
         return grantedAuthorities;
@@ -127,23 +128,23 @@ public class SecurityUserBean implements UserDetails {
         this.password = password;
     }
 
-    public List<SecurityRoleBean> getRoleList() {
-        return roleList;
+    public List<SecurityRole> getSecurityRole() {
+        return securityRole;
     }
 
-    public void setRoleList(List<SecurityRoleBean> roleList) {
-        this.roleList = roleList;
+    public void setSecurityRole(List<SecurityRole> securityRole) {
+        this.securityRole = securityRole;
     }
 
-    public void setAuthorities(List<SecurityAuthorityBean> authorities) {
+    public void setAuthorities(List<SecurityAuthority> authorities) {
         this.authorities = authorities;
     }
 
-    public Integer getSts() {
-        return sts;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setSts(Integer sts) {
-        this.sts = sts;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

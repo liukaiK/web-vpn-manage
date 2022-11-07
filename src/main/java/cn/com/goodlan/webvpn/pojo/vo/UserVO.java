@@ -4,13 +4,17 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
 
-public class RoleVO {
+public class UserVO {
 
     private Long id;
 
     private String name;
 
-    private Boolean check;
+    private String username;
+
+    private String email;
+
+    private String phoneNumber;
 
     private String remark;
 
@@ -19,6 +23,9 @@ public class RoleVO {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime lastLoginTime;
 
     public Long getId() {
         return id;
@@ -36,12 +43,28 @@ public class RoleVO {
         this.name = name;
     }
 
-    public Boolean getCheck() {
-        return check;
+    public String getUsername() {
+        return username;
     }
 
-    public void setCheck(Boolean check) {
-        this.check = check;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getRemark() {
@@ -66,5 +89,13 @@ public class RoleVO {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public LocalDateTime getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(LocalDateTime lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 }

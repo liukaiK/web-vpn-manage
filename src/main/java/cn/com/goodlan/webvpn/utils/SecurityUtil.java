@@ -1,6 +1,6 @@
 package cn.com.goodlan.webvpn.utils;
 
-import cn.com.goodlan.webvpn.security.web.SecurityUserBean;
+import cn.com.goodlan.webvpn.security.web.userdetails.SecurityUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -12,9 +12,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public abstract class SecurityUtil {
 
 
-    public static SecurityUserBean getUser() {
+    public static SecurityUser getUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return (SecurityUserBean) authentication.getPrincipal();
+        return (SecurityUser) authentication.getPrincipal();
     }
 
     /**

@@ -1,10 +1,11 @@
-package cn.com.goodlan.webvpn.security.web;
+package cn.com.goodlan.webvpn.security.web.authentication;
 
 import cn.com.goodlan.webvpn.exception.authentication.BadCaptchaException;
 import cn.com.goodlan.webvpn.exception.authentication.CaptchaExpiredException;
 import cn.com.goodlan.webvpn.exception.authentication.NotDeptException;
 import cn.com.goodlan.webvpn.exception.authentication.UsernameMoreThanOneException;
 import cn.com.goodlan.webvpn.pojo.Result;
+import cn.com.goodlan.webvpn.security.web.AbstractAuthenticationHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

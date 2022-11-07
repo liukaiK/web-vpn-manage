@@ -45,8 +45,6 @@ public class SystemUser extends AbstractEntity {
      */
     private LocalDateTime lastLoginTime;
 
-//    private Character sex;
-
 //    private String email;
 
 //    @Embedded
@@ -67,10 +65,6 @@ public class SystemUser extends AbstractEntity {
 //        this.email = email;
 //    }
 
-//    public void updateSex(Character sex) {
-//        this.sex = sex;
-//    }
-
     public void updateName(String name) {
         this.setName(name);
     }
@@ -88,7 +82,7 @@ public class SystemUser extends AbstractEntity {
 //    }
 
     public void updatePassword(Password password) {
-        this.password = password;
+        this.setPassword(password);
     }
 
     public void removeAllRole() {
@@ -153,14 +147,6 @@ public class SystemUser extends AbstractEntity {
     protected void setRoles(List<Role> roleList) {
         this.roles = roleList;
     }
-
-//    public Character getSex() {
-//        return sex;
-//    }
-
-//    public void setSex(Character sex) {
-//        this.sex = sex;
-//    }
 
 //    public String getEmail() {
 //        return email;

@@ -1,26 +1,28 @@
-package cn.com.goodlan.webvpn.security.web;
+package cn.com.goodlan.webvpn.security.web.userdetails;
 
 import cn.com.goodlan.webvpn.pojo.entity.menu.Menu;
 import org.springframework.security.core.GrantedAuthority;
+
+import java.io.Serializable;
 
 /**
  * 存放在SpringSecurity中的实体角色对象
  *
  * @author liukai
  */
-public class SecurityAuthorityBean implements GrantedAuthority {
+public class SecurityAuthority implements GrantedAuthority, Serializable {
 
     private Long id;
 
     private String authority;
 
-    private SecurityAuthorityBean(Menu menu) {
+    private SecurityAuthority(Menu menu) {
         this.id = menu.getId();
         this.authority = menu.getAuthority();
     }
 
-    public static SecurityAuthorityBean convertFormMenu(Menu menu) {
-        return new SecurityAuthorityBean(menu);
+    public static SecurityAuthority convertFormMenu(Menu menu) {
+        return new SecurityAuthority(menu);
     }
 
     @Override
@@ -40,7 +42,7 @@ public class SecurityAuthorityBean implements GrantedAuthority {
         if (this.getClass() != obj.getClass()) {
             return false;
         }
-        SecurityAuthorityBean authority = (SecurityAuthorityBean) obj;
+        SecurityAuthority authority = (SecurityAuthority) obj;
         return this.id.equals(authority.getId());
     }
 
