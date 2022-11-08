@@ -84,6 +84,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(UserDTO userDTO) {
         SystemUser user = userRepository.getById(userDTO.getId());
+        user.updateName(userDTO.getName());
 //        user.updateRemark(userDTO.getRemark());
 //        user.updateSex(userDTO.getSex());
 //        user.updateEmail(userDTO.getEmail());
