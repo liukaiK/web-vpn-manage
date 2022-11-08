@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public class MenuVO {
 
-    private String id;
+    private Long id;
 
     private String name;
 
@@ -39,11 +39,11 @@ public class MenuVO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

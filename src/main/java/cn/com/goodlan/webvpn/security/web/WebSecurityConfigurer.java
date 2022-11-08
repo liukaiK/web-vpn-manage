@@ -1,6 +1,6 @@
 package cn.com.goodlan.webvpn.security.web;
 
-import cn.com.goodlan.webvpn.repository.systemuser.SystemUserRepository;
+import cn.com.goodlan.webvpn.repository.system.user.SystemUserRepository;
 import cn.com.goodlan.webvpn.security.web.authentication.*;
 import cn.com.goodlan.webvpn.security.xss.XssFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;

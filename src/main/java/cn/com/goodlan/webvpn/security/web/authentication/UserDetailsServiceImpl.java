@@ -2,7 +2,7 @@ package cn.com.goodlan.webvpn.security.web.authentication;
 
 import cn.com.goodlan.webvpn.pojo.entity.systemuser.SystemUser;
 import cn.com.goodlan.webvpn.pojo.entity.systemuser.Username;
-import cn.com.goodlan.webvpn.repository.systemuser.SystemUserRepository;
+import cn.com.goodlan.webvpn.repository.system.user.SystemUserRepository;
 import cn.com.goodlan.webvpn.security.web.userdetails.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

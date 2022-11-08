@@ -1,7 +1,7 @@
 package cn.com.goodlan.webvpn.security.web.authentication;
 
 import cn.com.goodlan.webvpn.pojo.Result;
-import cn.com.goodlan.webvpn.repository.systemuser.SystemUserRepository;
+import cn.com.goodlan.webvpn.repository.system.user.SystemUserRepository;
 import cn.com.goodlan.webvpn.security.web.AbstractAuthenticationHandler;
 import cn.com.goodlan.webvpn.utils.SecurityUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
