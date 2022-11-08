@@ -1,5 +1,6 @@
-package cn.com.goodlan.webvpn.repository.system.user;
+package cn.com.goodlan.webvpn.repository.school.user;
 
+import cn.com.goodlan.webvpn.pojo.entity.school.user.SchoolUser;
 import cn.com.goodlan.webvpn.pojo.entity.system.user.SystemUser;
 import cn.com.goodlan.webvpn.pojo.entity.system.user.Username;
 import cn.com.goodlan.webvpn.repository.CustomizeRepository;
@@ -10,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-public interface SystemUserRepository extends CustomizeRepository<SystemUser, Long> {
+public interface SchoolUserRepository extends CustomizeRepository<SchoolUser, Long> {
 
     Optional<SystemUser> getByUsername(Username username);
 

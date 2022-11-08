@@ -1,6 +1,6 @@
 package cn.com.goodlan.webvpn.service.system.index;
 
-import cn.com.goodlan.webvpn.pojo.entity.menu.Menu;
+import cn.com.goodlan.webvpn.pojo.entity.system.menu.Menu;
 import cn.com.goodlan.webvpn.repository.system.menu.MenuRepository;
 import cn.com.goodlan.webvpn.utils.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;

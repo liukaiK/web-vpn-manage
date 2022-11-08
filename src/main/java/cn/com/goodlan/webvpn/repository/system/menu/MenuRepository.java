@@ -1,6 +1,6 @@
 package cn.com.goodlan.webvpn.repository.system.menu;
 
-import cn.com.goodlan.webvpn.pojo.entity.menu.Menu;
+import cn.com.goodlan.webvpn.pojo.entity.system.menu.Menu;
 import cn.com.goodlan.webvpn.repository.CustomizeRepository;
 import org.springframework.data.jpa.repository.Query;
 

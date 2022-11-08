@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
 
-public class UserVO {
+public class SystemUserVO {
 
     private Long id;
 

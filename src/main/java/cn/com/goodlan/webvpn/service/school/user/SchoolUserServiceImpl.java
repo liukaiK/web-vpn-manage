@@ -1,18 +1,19 @@
-package cn.com.goodlan.webvpn.service.system.user;
-
+package cn.com.goodlan.webvpn.service.school.user;
 
 import cn.com.goodlan.webvpn.exception.BusinessException;
-import cn.com.goodlan.webvpn.mapstruct.UserMapper;
+import cn.com.goodlan.webvpn.mapstruct.SchoolUserMapper;
+import cn.com.goodlan.webvpn.mapstruct.SystemUserMapper;
 import cn.com.goodlan.webvpn.pojo.dto.ChangePasswordDTO;
 import cn.com.goodlan.webvpn.pojo.dto.ResetPasswordDTO;
-import cn.com.goodlan.webvpn.pojo.dto.UpdateProfileDTO;
 import cn.com.goodlan.webvpn.pojo.dto.UserDTO;
-import cn.com.goodlan.webvpn.pojo.entity.role.Role;
-import cn.com.goodlan.webvpn.pojo.entity.systemuser.Password;
-import cn.com.goodlan.webvpn.pojo.entity.systemuser.SystemUser;
-import cn.com.goodlan.webvpn.pojo.entity.systemuser.Username;
-import cn.com.goodlan.webvpn.pojo.vo.UserVO;
-import cn.com.goodlan.webvpn.repository.system.user.SystemUserRepository;
+import cn.com.goodlan.webvpn.pojo.entity.school.user.SchoolUser;
+import cn.com.goodlan.webvpn.pojo.entity.system.role.SystemRole;
+import cn.com.goodlan.webvpn.pojo.entity.system.user.Password;
+import cn.com.goodlan.webvpn.pojo.entity.system.user.SystemUser;
+import cn.com.goodlan.webvpn.pojo.entity.system.user.Username;
+import cn.com.goodlan.webvpn.pojo.vo.SchoolUserVO;
+import cn.com.goodlan.webvpn.pojo.vo.SystemUserVO;
+import cn.com.goodlan.webvpn.repository.school.user.SchoolUserRepository;
 import cn.com.goodlan.webvpn.utils.AESUtil;
 import cn.com.goodlan.webvpn.utils.SecurityUtil;
 import cn.hutool.core.convert.Convert;
@@ -35,17 +36,17 @@ import java.util.List;
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class UserServiceImpl implements UserService {
+public class SchoolUserServiceImpl implements SchoolUserService {
 
     @Autowired
-    private SystemUserRepository userRepository;
+    private SchoolUserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public Page<UserVO> search(UserDTO userDTO, Pageable pageable) {
-        Specification<SystemUser> specification = (root, query, criteriaBuilder) -> {
+    public Page<SchoolUserVO> search(UserDTO userDTO, Pageable pageable) {
+        Specification<SchoolUser> specification = (root, query, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
             if (StringUtils.isNotEmpty(userDTO.getName())) {
                 list.add(criteriaBuilder.like(root.get("name").as(String.class), userDTO.getName() + "%"));
@@ -59,8 +60,8 @@ public class UserServiceImpl implements UserService {
             Predicate[] p = new Predicate[list.size()];
             return criteriaBuilder.and(list.toArray(p));
         };
-        Page<SystemUser> page = userRepository.findAll(specification, pageable);
-        List<UserVO> list = UserMapper.INSTANCE.convertList(page.getContent());
+        Page<SchoolUser> page = userRepository.findAll(specification, pageable);
+        List<SchoolUserVO> list = SchoolUserMapper.INSTANCE.convert(page.getContent());
         return new PageImpl<>(list, page.getPageable(), page.getTotalElements());
     }
 
@@ -69,69 +70,60 @@ public class UserServiceImpl implements UserService {
         SystemUser user = new SystemUser();
         user.updateName(userDTO.getName());
 //        user.updateEmail(userDTO.getEmail());
-        user.updateUsername(new Username(userDTO.getUsername()));
+//        user.updateUsername(new Username(userDTO.getUsername()));
 //        user.updatePhoneNumber(new PhoneNumber(userDTO.getPhoneNumber()));
 //        user.updateSex(userDTO.getSex());
 //        user.updateRemark(userDTO.getRemark());
-        user.updatePassword(new Password(userDTO.getPassword()));
-        Long[] roleIds = Convert.toLongArray(userDTO.getRoleIds());
-        for (Long roleId : roleIds) {
-            user.addRole(new Role(roleId));
-        }
-        userRepository.save(user);
+//        user.updatePassword(new Password(userDTO.getPassword()));
+//        Long[] roleIds = Convert.toLongArray(userDTO.getRoleIds());
+//        for (Long roleId : roleIds) {
+//            user.addRole(new SystemRole(roleId));
+//        }
+//        userRepository.save(user);
     }
 
     @Override
     public void update(UserDTO userDTO) {
-        SystemUser user = userRepository.getById(userDTO.getId());
-        user.updateName(userDTO.getName());
+//        SystemUser user = userRepository.getById(userDTO.getId());
+//        user.updateName(userDTO.getName());
 //        user.updateRemark(userDTO.getRemark());
 //        user.updateSex(userDTO.getSex());
 //        user.updateEmail(userDTO.getEmail());
 //        user.updatePhoneNumber(new PhoneNumber(userDTO.getPhoneNumber()));
 //        user.addCollege(userDTO.getCollegeId());
-        Long[] roleIds = Convert.toLongArray(userDTO.getRoleIds());
-        user.removeAllRole();
-        for (Long roleId : roleIds) {
-            user.addRole(new Role(roleId));
-        }
-        userRepository.save(user);
+//        Long[] roleIds = Convert.toLongArray(userDTO.getRoleIds());
+//        user.removeAllRole();
+//        for (Long roleId : roleIds) {
+//            user.addRole(new SystemRole(roleId));
+//        }
+//        userRepository.save(user);
     }
 
     @Override
     public void remove(String ids) {
-        Long[] userIds = Convert.toLongArray(ids);
-        for (Long userId : userIds) {
-            SystemUser user = new SystemUser(userId);
-            if (user.isAdmin()) {
-                throw new BusinessException("超级管理员不能被删除");
-            }
-            userRepository.delete(user);
-        }
+//        Long[] userIds = Convert.toLongArray(ids);
+//        for (Long userId : userIds) {
+//            SystemUser user = new SystemUser(userId);
+//            if (user.isAdmin()) {
+//                throw new BusinessException("超级管理员不能被删除");
+//            }
+//            userRepository.delete(user);
+//        }
     }
 
     @Override
-    public UserVO getById(Long id) {
-        SystemUser user = userRepository.getById(id);
-        return UserMapper.INSTANCE.convert(user);
+    public SystemUserVO getById(Long id) {
+//        SystemUser user = userRepository.getById(id);
+//        return SystemUserMapper.INSTANCE.convert(user);
+        return null;
     }
 
     @Override
     public void resetPassword(ResetPasswordDTO resetPasswordDTO) {
-        SystemUser user = userRepository.getById(resetPasswordDTO.getId());
-        user.updatePassword(new Password(resetPasswordDTO.getPassword()));
-        userRepository.save(user);
+//        SystemUser user = userRepository.getById(resetPasswordDTO.getId());
+//        user.updatePassword(new Password(resetPasswordDTO.getPassword()));
+//        userRepository.save(user);
     }
-
-    @Override
-    public void updateProfile(UpdateProfileDTO updateProfileDTO) {
-        SystemUser user = userRepository.getById(SecurityUtil.getUserId());
-//        user.updateEmail(updateProfileDTO.getEmail());
-//        user.updateSex(updateProfileDTO.getSex());
-//        user.updatePhoneNumber(new PhoneNumber(updateProfileDTO.getPhoneNumber()));
-        userRepository.save(user);
-    }
-
 
     @Override
     public boolean checkUsernameUnique(String username) {
@@ -145,15 +137,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void changePassword(ChangePasswordDTO changePasswordDTO) {
-        SystemUser user = userRepository.getById(SecurityUtil.getUserId());
-        if (passwordIsError(changePasswordDTO, user)) {
-            throw new BusinessException("原密码错误!");
-        }
-        if (!StringUtils.equals(changePasswordDTO.getNewPassword(), changePasswordDTO.getConfirmPassword())) {
-            throw new BusinessException("确认密码与新密码不一致!");
-        }
-        user.updatePassword(new Password(changePasswordDTO.getNewPassword()));
-        userRepository.save(user);
+//        SystemUser user = userRepository.getById(SecurityUtil.getUserId());
+//        if (passwordIsError(changePasswordDTO, user)) {
+//            throw new BusinessException("原密码错误!");
+//        }
+//        if (!StringUtils.equals(changePasswordDTO.getNewPassword(), changePasswordDTO.getConfirmPassword())) {
+//            throw new BusinessException("确认密码与新密码不一致!");
+//        }
+//        user.updatePassword(new Password(changePasswordDTO.getNewPassword()));
+//        userRepository.save(user);
     }
 
     private boolean passwordIsError(ChangePasswordDTO changePasswordDTO, SystemUser user) {

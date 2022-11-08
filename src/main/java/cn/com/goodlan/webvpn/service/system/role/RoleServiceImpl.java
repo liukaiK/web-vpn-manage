@@ -3,10 +3,10 @@ package cn.com.goodlan.webvpn.service.system.role;
 import cn.com.goodlan.webvpn.exception.BusinessException;
 import cn.com.goodlan.webvpn.mapstruct.RoleMapper;
 import cn.com.goodlan.webvpn.pojo.dto.RoleDTO;
-import cn.com.goodlan.webvpn.pojo.entity.menu.Menu;
-import cn.com.goodlan.webvpn.pojo.entity.role.Role;
+import cn.com.goodlan.webvpn.pojo.entity.system.menu.Menu;
+import cn.com.goodlan.webvpn.pojo.entity.system.role.SystemRole;
 import cn.com.goodlan.webvpn.pojo.vo.RoleVO;
-import cn.com.goodlan.webvpn.repository.system.role.RoleRepository;
+import cn.com.goodlan.webvpn.repository.system.role.SystemRoleRepository;
 import cn.hutool.core.convert.Convert;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +26,11 @@ import java.util.List;
 public class RoleServiceImpl implements RoleService {
 
     @Autowired
-    private RoleRepository roleRepository;
+    private SystemRoleRepository roleRepository;
 
     @Override
     public Page<RoleVO> search(RoleDTO roleDTO, Pageable pageable) {
-        Specification<Role> specification = (root, query, criteriaBuilder) -> {
+        Specification<SystemRole> specification = (root, query, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
             if (StringUtils.isNotEmpty(roleDTO.getRoleName())) {
                 list.add(criteriaBuilder.like(root.get("name").as(String.class), "%" + roleDTO.getRoleName() + "%"));
@@ -38,21 +38,21 @@ public class RoleServiceImpl implements RoleService {
             Predicate[] p = new Predicate[list.size()];
             return criteriaBuilder.and(list.toArray(p));
         };
-        Page<Role> page = roleRepository.findAll(specification, pageable);
+        Page<SystemRole> page = roleRepository.findAll(specification, pageable);
         List<RoleVO> list = RoleMapper.INSTANCE.convertList(page.getContent());
         return new PageImpl<>(list, page.getPageable(), page.getTotalElements());
     }
 
     @Override
     public RoleVO getById(Long roleId) {
-        Role role = roleRepository.getById(roleId);
+        SystemRole role = roleRepository.getById(roleId);
         return RoleMapper.INSTANCE.convert(role);
     }
 
     @Override
     public void update(RoleDTO roleDTO) {
         Long[] menuIds = Convert.toLongArray(roleDTO.getMenuIds());
-        Role role = roleRepository.getById(roleDTO.getId());
+        SystemRole role = roleRepository.getById(roleDTO.getId());
         role.updateName(roleDTO.getRoleName());
         role.updateRemark(roleDTO.getRemark());
         role.removeAllMenu();
@@ -64,7 +64,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void save(RoleDTO roleDTO) {
-        Role role = new Role();
+        SystemRole role = new SystemRole();
         role.updateName(roleDTO.getRoleName());
         role.updateRemark(roleDTO.getRemark());
         Long[] menuIds = Convert.toLongArray(roleDTO.getMenuIds());
@@ -76,16 +76,16 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<RoleVO> selectRoleAll() {
-        List<Role> roleList = roleRepository.findAll();
+        List<SystemRole> roleList = roleRepository.findAll();
         return RoleMapper.INSTANCE.convertList(roleList);
     }
 
     @Override
     public List<RoleVO> selectRoleByUser(Long userId) {
         List<RoleVO> roleVOList = selectRoleAll();
-        List<Role> roleList = roleRepository.findByUserList(userId);
+        List<SystemRole> roleList = roleRepository.findByUserList(userId);
         for (RoleVO roleVO : roleVOList) {
-            for (Role role : roleList) {
+            for (SystemRole role : roleList) {
                 if (roleVO.getId().equals(role.getId())) {
                     roleVO.setCheck(true);
                 }
@@ -109,7 +109,7 @@ public class RoleServiceImpl implements RoleService {
     public void remove(String ids) {
         Long[] roleIds = Convert.toLongArray(ids);
         for (Long roleId : roleIds) {
-            Role role = roleRepository.getById(roleId);
+            SystemRole role = roleRepository.getById(roleId);
             if (role.hasUser()) {
                 throw new BusinessException(String.format("%1$s已分配,不能删除", role.getName()));
             }

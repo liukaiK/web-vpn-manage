@@ -1,7 +1,7 @@
 package cn.com.goodlan.webvpn.mapstruct;
 
-import cn.com.goodlan.webvpn.pojo.entity.systemuser.SystemUser;
-import cn.com.goodlan.webvpn.pojo.vo.UserVO;
+import cn.com.goodlan.webvpn.pojo.entity.system.user.SystemUser;
+import cn.com.goodlan.webvpn.pojo.vo.SystemUserVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -10,11 +10,11 @@ import org.mapstruct.factory.Mappers;
 import java.util.List;
 
 @Mapper
-public interface UserMapper {
+public interface SystemUserMapper {
 
-    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
+    SystemUserMapper INSTANCE = Mappers.getMapper(SystemUserMapper.class);
 
-    List<UserVO> convertList(List<SystemUser> userList);
+    List<SystemUserVO> convert(List<SystemUser> users);
 
     @Mappings({
 //            @Mapping(source = "phoneNumber.phoneNumber", target = "phoneNumber"),
@@ -22,6 +22,6 @@ public interface UserMapper {
             @Mapping(source = "username.username", target = "username"),
 //            @Mapping(source = "college.id", target = "collegeId")
     })
-    UserVO convert(SystemUser user);
+    SystemUserVO convert(SystemUser user);
 
 }

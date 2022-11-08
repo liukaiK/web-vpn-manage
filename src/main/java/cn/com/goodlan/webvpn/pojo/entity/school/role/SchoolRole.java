@@ -1,9 +1,10 @@
-package cn.com.goodlan.webvpn.pojo.entity.role;
+package cn.com.goodlan.webvpn.pojo.entity.school.role;
 
 import cn.com.goodlan.webvpn.pojo.entity.AbstractEntity;
-import cn.com.goodlan.webvpn.pojo.entity.menu.Menu;
-import cn.com.goodlan.webvpn.pojo.entity.systemuser.SystemUser;
+import cn.com.goodlan.webvpn.pojo.entity.school.user.SchoolUser;
 import cn.hutool.core.collection.CollectionUtil;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,8 +16,10 @@ import java.util.List;
  * @author liukai
  */
 @Entity
-@Table(name = "system_role")
-public class Role extends AbstractEntity {
+@DynamicInsert
+@DynamicUpdate
+@Table(name = "school_role")
+public class SchoolRole extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,18 +33,13 @@ public class Role extends AbstractEntity {
     private String remark;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "system_user_role", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<SystemUser> users = new ArrayList<>();
+    @JoinTable(name = "school_user_role", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<SchoolUser> users = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "system_role_menu", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "menu_id"))
-    private List<Menu> menus = new ArrayList<>();
-
-
-    public Role() {
+    public SchoolRole() {
     }
 
-    public Role(Long id) {
+    public SchoolRole(Long id) {
         this.id = id;
     }
 
@@ -60,14 +58,6 @@ public class Role extends AbstractEntity {
         return CollectionUtil.isNotEmpty(this.users);
     }
 
-    public void addMenu(Menu menu) {
-        menus.add(menu);
-    }
-
-    public void removeAllMenu() {
-        this.menus = new ArrayList<>();
-    }
-
     public Long getId() {
         return id;
     }
@@ -84,21 +74,11 @@ public class Role extends AbstractEntity {
         this.name = name;
     }
 
-
-    public List<Menu> getMenus() {
-        return menus;
-    }
-
-    public void setMenus(List<Menu> menuList) {
-        this.menus = menuList;
-    }
-
-
-    public List<SystemUser> getUsers() {
+    public List<SchoolUser> getUsers() {
         return users;
     }
 
-    public void setUsers(List<SystemUser> userList) {
+    public void setUsers(List<SchoolUser> userList) {
         this.users = userList;
     }
 

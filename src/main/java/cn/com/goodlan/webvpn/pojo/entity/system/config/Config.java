@@ -1,6 +1,8 @@
-package cn.com.goodlan.webvpn.pojo.entity.config;
+package cn.com.goodlan.webvpn.pojo.entity.system.config;
 
 import cn.com.goodlan.webvpn.pojo.entity.AbstractEntity;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -10,6 +12,8 @@ import javax.persistence.*;
  * @author liukai
  */
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Table(name = "system_config")
 public class Config extends AbstractEntity {
 

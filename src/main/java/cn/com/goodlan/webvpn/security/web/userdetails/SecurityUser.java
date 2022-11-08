@@ -1,8 +1,8 @@
 package cn.com.goodlan.webvpn.security.web.userdetails;
 
-import cn.com.goodlan.webvpn.pojo.entity.menu.Menu;
-import cn.com.goodlan.webvpn.pojo.entity.role.Role;
-import cn.com.goodlan.webvpn.pojo.entity.systemuser.SystemUser;
+import cn.com.goodlan.webvpn.pojo.entity.system.menu.Menu;
+import cn.com.goodlan.webvpn.pojo.entity.system.role.SystemRole;
+import cn.com.goodlan.webvpn.pojo.entity.system.user.SystemUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -45,17 +45,17 @@ public class SecurityUser implements UserDetails, Serializable {
         this.authorities = obtainAuthorities(user.getRoles());
     }
 
-    private List<SecurityRole> obtainRoles(List<Role> roleList) {
+    private List<SecurityRole> obtainRoles(List<SystemRole> roleList) {
         List<SecurityRole> roles = new ArrayList<>();
-        for (Role role : roleList) {
+        for (SystemRole role : roleList) {
             roles.add(new SecurityRole(role));
         }
         return roles;
     }
 
-    private List<SecurityAuthority> obtainAuthorities(List<Role> roleList) {
+    private List<SecurityAuthority> obtainAuthorities(List<SystemRole> roleList) {
         List<SecurityAuthority> grantedAuthorities = new ArrayList<>();
-        for (Role role : roleList) {
+        for (SystemRole role : roleList) {
             List<Menu> menuList = role.getMenus();
             for (Menu menu : menuList) {
                 grantedAuthorities.add(SecurityAuthority.convertFormMenu(menu));

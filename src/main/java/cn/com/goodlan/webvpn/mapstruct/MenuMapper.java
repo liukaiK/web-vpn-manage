@@ -1,6 +1,6 @@
 package cn.com.goodlan.webvpn.mapstruct;
 
-import cn.com.goodlan.webvpn.pojo.entity.menu.Menu;
+import cn.com.goodlan.webvpn.pojo.entity.system.menu.Menu;
 import cn.com.goodlan.webvpn.pojo.vo.MenuVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

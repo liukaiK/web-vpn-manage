@@ -1,6 +1,6 @@
 package cn.com.goodlan.webvpn.security.web.userdetails;
 
-import cn.com.goodlan.webvpn.pojo.entity.role.Role;
+import cn.com.goodlan.webvpn.pojo.entity.system.role.SystemRole;
 
 public class SecurityRole {
 
@@ -8,7 +8,7 @@ public class SecurityRole {
 
     private String name;
 
-    public SecurityRole(Role role) {
+    public SecurityRole(SystemRole role) {
         this.id = role.getId();
         this.name = role.getName();
     }

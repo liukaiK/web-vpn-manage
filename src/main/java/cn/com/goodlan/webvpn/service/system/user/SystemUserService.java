@@ -4,13 +4,13 @@ import cn.com.goodlan.webvpn.pojo.dto.ChangePasswordDTO;
 import cn.com.goodlan.webvpn.pojo.dto.ResetPasswordDTO;
 import cn.com.goodlan.webvpn.pojo.dto.UpdateProfileDTO;
 import cn.com.goodlan.webvpn.pojo.dto.UserDTO;
-import cn.com.goodlan.webvpn.pojo.vo.UserVO;
+import cn.com.goodlan.webvpn.pojo.vo.SystemUserVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface UserService {
+public interface SystemUserService {
 
-    Page<UserVO> search(UserDTO userDTO, Pageable pageable);
+    Page<SystemUserVO> search(UserDTO userDTO, Pageable pageable);
 
     void save(UserDTO userDTO);
 
@@ -18,7 +18,7 @@ public interface UserService {
 
     void remove(String ids);
 
-    UserVO getById(Long id);
+    SystemUserVO getById(Long id);
 
     /**
      * 重置密码

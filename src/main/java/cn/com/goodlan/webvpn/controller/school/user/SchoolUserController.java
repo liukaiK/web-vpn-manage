@@ -6,9 +6,9 @@ import cn.com.goodlan.webvpn.pojo.dto.ChangePasswordDTO;
 import cn.com.goodlan.webvpn.pojo.dto.ResetPasswordDTO;
 import cn.com.goodlan.webvpn.pojo.dto.UpdateProfileDTO;
 import cn.com.goodlan.webvpn.pojo.dto.UserDTO;
-import cn.com.goodlan.webvpn.pojo.vo.UserVO;
+import cn.com.goodlan.webvpn.pojo.vo.SystemUserVO;
 import cn.com.goodlan.webvpn.service.system.role.RoleService;
-import cn.com.goodlan.webvpn.service.system.user.UserService;
+import cn.com.goodlan.webvpn.service.system.user.SystemUserService;
 import cn.com.goodlan.webvpn.utils.SecurityUtil;
 import cn.hutool.core.util.ObjectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ import javax.validation.Valid;
 public class SchoolUserController {
 
     @Autowired
-    private UserService userService;
+    private SystemUserService userService;
 
     @Autowired
     private RoleService roleService;
@@ -50,7 +50,7 @@ public class SchoolUserController {
      */
     @PostMapping("/search")
     @PreAuthorize("hasAuthority('system:user:search')")
-    public Page<UserVO> search(UserDTO userDTO, @PageableDefault Pageable pageable) {
+    public Page<SystemUserVO> search(UserDTO userDTO, @PageableDefault Pageable pageable) {
         return userService.search(userDTO, pageable);
     }
 

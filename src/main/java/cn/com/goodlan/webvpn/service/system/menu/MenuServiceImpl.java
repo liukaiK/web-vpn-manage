@@ -3,8 +3,8 @@ package cn.com.goodlan.webvpn.service.system.menu;
 import cn.com.goodlan.webvpn.exception.BusinessException;
 import cn.com.goodlan.webvpn.mapstruct.MenuMapper;
 import cn.com.goodlan.webvpn.pojo.dto.MenuDTO;
-import cn.com.goodlan.webvpn.pojo.entity.menu.Menu;
-import cn.com.goodlan.webvpn.pojo.entity.role.Role;
+import cn.com.goodlan.webvpn.pojo.entity.system.menu.Menu;
+import cn.com.goodlan.webvpn.pojo.entity.system.role.SystemRole;
 import cn.com.goodlan.webvpn.pojo.vo.MenuVO;
 import cn.com.goodlan.webvpn.pojo.vo.Ztree;
 import cn.com.goodlan.webvpn.repository.system.menu.MenuRepository;
@@ -114,7 +114,7 @@ public class MenuServiceImpl implements MenuService {
                 throw new BusinessException("存在子菜单,不允许删除");
             }
             if (menu.get().hasRole()) {
-                throw new BusinessException("菜单已分配" + StringUtils.join(menu.get().getRoles().stream().map(Role::getName).toArray(), ",") + "角色,不允许删除 ");
+                throw new BusinessException("菜单已分配" + StringUtils.join(menu.get().getRoles().stream().map(SystemRole::getName).toArray(), ",") + "角色,不允许删除 ");
             }
             menuRepository.deleteById(menuId);
         }

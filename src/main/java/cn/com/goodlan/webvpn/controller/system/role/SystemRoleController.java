@@ -24,7 +24,7 @@ import javax.validation.Valid;
 @RestController
 @ResponseResultBody
 @RequestMapping("/system/role")
-public class RoleController {
+public class SystemRoleController {
 
     @Autowired
     private RoleService roleService;

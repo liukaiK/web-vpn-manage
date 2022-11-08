@@ -1,7 +1,7 @@
 package cn.com.goodlan.webvpn.utils;
 
 
-import cn.com.goodlan.webvpn.pojo.entity.menu.Menu;
+import cn.com.goodlan.webvpn.pojo.entity.system.menu.Menu;
 
 import java.util.ArrayList;
 import java.util.List;

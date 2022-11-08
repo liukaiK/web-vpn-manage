@@ -1,4 +1,4 @@
-package cn.com.goodlan.webvpn.pojo.entity.application;
+package cn.com.goodlan.webvpn.pojo.entity.school.application;
 
 import cn.com.goodlan.webvpn.pojo.entity.AbstractEntity;
 import org.hibernate.annotations.DynamicInsert;

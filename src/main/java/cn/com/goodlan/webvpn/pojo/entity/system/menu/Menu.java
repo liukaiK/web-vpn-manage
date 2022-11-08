@@ -1,8 +1,10 @@
-package cn.com.goodlan.webvpn.pojo.entity.menu;
+package cn.com.goodlan.webvpn.pojo.entity.system.menu;
 
 import cn.com.goodlan.webvpn.pojo.entity.AbstractEntity;
-import cn.com.goodlan.webvpn.pojo.entity.role.Role;
+import cn.com.goodlan.webvpn.pojo.entity.system.role.SystemRole;
 import cn.hutool.core.collection.CollectionUtil;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
@@ -15,6 +17,8 @@ import java.util.List;
  * @author liukai
  */
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @Table(name = "system_menu")
 public class Menu extends AbstractEntity {
 
@@ -66,7 +70,7 @@ public class Menu extends AbstractEntity {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "system_role_menu", joinColumns = @JoinColumn(name = "menu_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles = new ArrayList<>();
+    private List<SystemRole> roles = new ArrayList<>();
 
     public Menu() {
     }
@@ -190,11 +194,11 @@ public class Menu extends AbstractEntity {
         this.menuType = menuType;
     }
 
-    public List<Role> getRoles() {
+    public List<SystemRole> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roleList) {
+    public void setRoles(List<SystemRole> roleList) {
         this.roles = roleList;
     }
 

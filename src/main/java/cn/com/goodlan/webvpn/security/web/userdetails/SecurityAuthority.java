@@ -1,6 +1,6 @@
 package cn.com.goodlan.webvpn.security.web.userdetails;
 
-import cn.com.goodlan.webvpn.pojo.entity.menu.Menu;
+import cn.com.goodlan.webvpn.pojo.entity.system.menu.Menu;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;

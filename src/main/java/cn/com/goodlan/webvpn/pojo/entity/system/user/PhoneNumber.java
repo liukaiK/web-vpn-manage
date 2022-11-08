@@ -1,4 +1,4 @@
-package cn.com.goodlan.webvpn.pojo.entity.systemuser;
+package cn.com.goodlan.webvpn.pojo.entity.system.user;
 
 
 import cn.com.goodlan.webvpn.utils.AESUtil;

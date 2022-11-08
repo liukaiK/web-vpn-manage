@@ -1,16 +1,15 @@
 package cn.com.goodlan.webvpn.repository.system.role;
 
-import cn.com.goodlan.webvpn.pojo.entity.role.Role;
+import cn.com.goodlan.webvpn.pojo.entity.system.role.SystemRole;
 import cn.com.goodlan.webvpn.repository.CustomizeRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface RoleRepository extends CustomizeRepository<Role, Long> {
+public interface SystemRoleRepository extends CustomizeRepository<SystemRole, Long> {
 
-
-    @Query(value = "from Role r left join r.users u where u.id = ?1")
-    List<Role> findByUserList(Long userId);
+    @Query(value = "from SystemRole r left join r.users u where u.id = ?1")
+    List<SystemRole> findByUserList(Long userId);
 
     boolean existsByName(String roleName);
 
