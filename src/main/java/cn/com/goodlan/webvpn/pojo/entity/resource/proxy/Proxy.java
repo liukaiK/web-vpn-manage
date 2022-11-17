@@ -65,6 +65,18 @@ public class Proxy extends AbstractEntity {
         this.name = name;
     }
 
+    public void updateVirDomainName(String virDomainName) {
+        this.virDomainName = virDomainName;
+    }
+
+    public void updateProxyIp(String proxyIp) {
+        this.proxyIp = proxyIp;
+    }
+
+    public void updatePrefixType(PrefixType prefixType) {
+        this.prefixType = prefixType;
+    }
+
     /**
      * 一定要实现BaseEnum
      *

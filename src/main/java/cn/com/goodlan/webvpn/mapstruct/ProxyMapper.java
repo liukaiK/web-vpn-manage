@@ -18,4 +18,6 @@ public interface ProxyMapper {
     })
     List<ProxyVO> convert(List<Proxy> proxy);
 
+    ProxyVO convert(Proxy proxy);
+
 }

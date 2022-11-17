@@ -9,6 +9,12 @@ public interface ProxyService {
 
     void save(ProxyDTO proxyDTO);
 
+    ProxyVO getById(Long id);
+
+    void update(ProxyDTO proxyDTO);
+
+    void remove(Long id);
+
     Page<ProxyVO> search(ProxyDTO proxyDTO, Pageable pageable);
 
 }

@@ -26,7 +26,34 @@ public class ProxyServiceImpl implements ProxyService {
     public void save(ProxyDTO proxyDTO) {
         Proxy proxy = new Proxy();
         proxy.updateName(proxyDTO.getName());
+        proxy.updateVirDomainName(proxyDTO.getVirDomainName());
+        proxy.updateProxyIp(proxyDTO.getProxyIp());
+        proxy.updatePrefixType(proxyDTO.getPrefixType());
         proxyRepository.save(proxy);
+    }
+
+    @Override
+    public ProxyVO getById(Long id) {
+        Proxy proxy = proxyRepository.getReferenceById(id);
+        return ProxyMapper.INSTANCE.convert(proxy);
+    }
+
+    @Override
+    public void update(ProxyDTO proxyDTO) {
+        Long id = proxyDTO.getId();
+
+        Proxy proxy = proxyRepository.getReferenceById(id);
+        proxy.updateName(proxyDTO.getName());
+        proxy.updateVirDomainName(proxyDTO.getVirDomainName());
+        proxy.updateProxyIp(proxyDTO.getProxyIp());
+        proxy.updatePrefixType(proxyDTO.getPrefixType());
+        proxyRepository.save(proxy);
+
+    }
+
+    @Override
+    public void remove(Long id) {
+        proxyRepository.deleteById(id);
     }
 
     @Override
