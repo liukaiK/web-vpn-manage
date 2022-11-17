@@ -1,8 +1,8 @@
 package cn.com.goodlan.webvpn.pojo.entity.school.user;
 
 import cn.com.goodlan.webvpn.pojo.entity.AbstractEntity;
+import cn.com.goodlan.webvpn.pojo.entity.school.role.SchoolRole;
 import cn.com.goodlan.webvpn.pojo.entity.system.role.SystemRole;
-import cn.com.goodlan.webvpn.pojo.entity.system.user.Password;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -36,7 +36,7 @@ public class SchoolUser extends AbstractEntity {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "school_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<SystemRole> roles = new ArrayList<>();
+    private List<SchoolRole> roles = new ArrayList<>();
 
     /**
      * 最后登录时间
@@ -84,7 +84,7 @@ public class SchoolUser extends AbstractEntity {
         this.roles = new ArrayList<>();
     }
 
-    public void addRole(SystemRole role) {
+    public void addRole(SchoolRole role) {
         roles.add(role);
     }
 
@@ -120,11 +120,11 @@ public class SchoolUser extends AbstractEntity {
         this.lastLoginTime = lastLoginTime;
     }
 
-    public List<SystemRole> getRoles() {
+    public List<SchoolRole> getRoles() {
         return roles;
     }
 
-    protected void setRoles(List<SystemRole> roleList) {
+    protected void setRoles(List<SchoolRole> roleList) {
         this.roles = roleList;
     }
 
