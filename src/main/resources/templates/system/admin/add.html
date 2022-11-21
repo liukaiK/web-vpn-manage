@@ -152,7 +152,7 @@
 <th:block th:include="include :: select2-js" />
 <script type="text/javascript" th:inline="javascript">
 
-    let checkUsernameUniqueUrl = /*[[@{/system/user/checkUsernameUnique}]]*/ "";
+    let checkUsernameUniqueUrl = /*[[@{/system/admin/checkUsernameUnique}]]*/ "";
 
     $("#form-user-add").validate({
         onkeyup: false,
@@ -215,7 +215,7 @@
         focusCleanup: true
     });
 
-    let createUrl = /*[[@{/system/user/add}]]*/ "";
+    let createUrl = /*[[@{/system/admin/add}]]*/ "";
 
     function submitHandler() {
         var chrtype = [[${#strings.defaultString(@config.getKey('sys.account.chrtype'), 0)}]];

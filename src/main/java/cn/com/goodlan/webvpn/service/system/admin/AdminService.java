@@ -1,4 +1,4 @@
-package cn.com.goodlan.webvpn.service.system.user;
+package cn.com.goodlan.webvpn.service.system.admin;
 
 import cn.com.goodlan.webvpn.pojo.dto.ChangePasswordDTO;
 import cn.com.goodlan.webvpn.pojo.dto.ResetPasswordDTO;
@@ -8,7 +8,7 @@ import cn.com.goodlan.webvpn.pojo.vo.SystemUserVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface SystemUserService {
+public interface AdminService {
 
     Page<SystemUserVO> search(UserDTO userDTO, Pageable pageable);
 

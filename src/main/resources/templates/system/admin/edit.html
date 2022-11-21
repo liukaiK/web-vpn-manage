@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <head>
-	<th:block th:include="include :: header('修改用户')" />
+	<th:block th:include="include :: header('修改管理员')" />
 	<th:block th:include="include :: select2-css" />
 </head>
 <body>
@@ -193,7 +193,7 @@
         // });
 
 
-        let updateUrl = /*[[@{/system/user/edit}]]*/ "";
+        let updateUrl = /*[[@{/system/admin/edit}]]*/ "";
 
         function submitHandler() {
             if ($.validate.form()) {

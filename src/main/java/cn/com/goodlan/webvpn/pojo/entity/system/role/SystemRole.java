@@ -2,7 +2,7 @@ package cn.com.goodlan.webvpn.pojo.entity.system.role;
 
 import cn.com.goodlan.webvpn.pojo.entity.AbstractEntity;
 import cn.com.goodlan.webvpn.pojo.entity.system.menu.Menu;
-import cn.com.goodlan.webvpn.pojo.entity.system.user.SystemUser;
+import cn.com.goodlan.webvpn.pojo.entity.system.user.Admin;
 import cn.hutool.core.collection.CollectionUtil;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -34,8 +34,8 @@ public class SystemRole extends AbstractEntity {
     private String remark;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "system_user_role", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<SystemUser> users = new ArrayList<>();
+    @JoinTable(name = "system_admin_role", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "admin_id"))
+    private List<Admin> admins = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "system_role_menu", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "menu_id"))
@@ -61,7 +61,7 @@ public class SystemRole extends AbstractEntity {
      * 角色下面是否有人
      */
     public boolean hasUser() {
-        return CollectionUtil.isNotEmpty(this.users);
+        return CollectionUtil.isNotEmpty(this.admins);
     }
 
     public void addMenu(Menu menu) {
@@ -98,12 +98,12 @@ public class SystemRole extends AbstractEntity {
     }
 
 
-    public List<SystemUser> getUsers() {
-        return users;
+    public List<Admin> getAdmins() {
+        return admins;
     }
 
-    public void setUsers(List<SystemUser> userList) {
-        this.users = userList;
+    public void setAdmins(List<Admin> userList) {
+        this.admins = userList;
     }
 
     public String getRemark() {

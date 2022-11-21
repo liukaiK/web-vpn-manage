@@ -65,19 +65,19 @@
 				</div>
 
 		        <div class="btn-group-sm" id="toolbar" role="group">
-		        	<a class="btn btn-success" onclick="$.operate.addTab()" sec:authorize="hasAuthority('system:user:add')">
+		        	<a class="btn btn-success" onclick="$.operate.addTab()" sec:authorize="hasAuthority('system:admin:add')">
 		                <i class="fa fa-plus"></i> 新增
 		            </a>
-		             <a class="btn btn-primary single disabled" onclick="$.operate.editTab()" sec:authorize="hasAuthority('system:user:edit')">
+		             <a class="btn btn-primary single disabled" onclick="$.operate.editTab()" sec:authorize="hasAuthority('system:admin:edit')">
 			            <i class="fa fa-edit"></i> 修改
 			        </a>
-		            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" sec:authorize="hasAuthority('system:user:remove')">
+		            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" sec:authorize="hasAuthority('system:admin:remove')">
 		                <i class="fa fa-remove"></i> 删除
 		            </a>
-<!--		            <a class="btn btn-info" onclick="$.table.importExcel()" shiro:hasPermission="system:user:import">-->
+<!--		            <a class="btn btn-info" onclick="$.table.importExcel()" shiro:hasPermission="system:admin:import">-->
 <!--			            <i class="fa fa-upload"></i> 导入-->
 <!--			        </a>-->
-<!--		            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:user:export">-->
+<!--		            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:admin:export">-->
 <!--			            <i class="fa fa-download"></i> 导出-->
 <!--			        </a>-->
 		        </div>

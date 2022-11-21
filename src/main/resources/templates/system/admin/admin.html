@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<th:block th:include="include :: header('用户列表')" />
+	<th:block th:include="include :: header('管理员列表')" />
 	<th:block th:include="include :: layout-latest-css" />
 	<th:block th:include="include :: ztree-css" />
 </head>
@@ -65,19 +65,19 @@
 				</div>
 
 		        <div class="btn-group-sm" id="toolbar" role="group">
-		        	<a class="btn btn-success" onclick="$.operate.addTab()" sec:authorize="hasAuthority('system:user:add')">
+		        	<a class="btn btn-success" onclick="$.operate.addTab()" sec:authorize="hasAuthority('system:admin:add')">
 		                <i class="fa fa-plus"></i> 新增
 		            </a>
-		             <a class="btn btn-primary single disabled" onclick="$.operate.editTab()" sec:authorize="hasAuthority('system:user:edit')">
+		             <a class="btn btn-primary single disabled" onclick="$.operate.editTab()" sec:authorize="hasAuthority('system:admin:edit')">
 			            <i class="fa fa-edit"></i> 修改
 			        </a>
-		            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" sec:authorize="hasAuthority('system:user:remove')">
+		            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" sec:authorize="hasAuthority('system:admin:remove')">
 		                <i class="fa fa-remove"></i> 删除
 		            </a>
-<!--		            <a class="btn btn-info" onclick="$.table.importExcel()" shiro:hasPermission="system:user:import">-->
+<!--		            <a class="btn btn-info" onclick="$.table.importExcel()" shiro:hasPermission="system:admin:import">-->
 <!--			            <i class="fa fa-upload"></i> 导入-->
 <!--			        </a>-->
-<!--		            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:user:export">-->
+<!--		            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:admin:export">-->
 <!--			            <i class="fa fa-download"></i> 导出-->
 <!--			        </a>-->
 		        </div>
@@ -113,14 +113,14 @@
 
 
 
-		let searchUrl = /*[[@{/system/user/search}]]*/ "";
-		let createUrl = /*[[@{/system/user/add}]]*/ "";
-		let updateUrl = /*[[@{/system/user/edit/{id}}]]*/ "";
-		let removeUrl = /*[[@{/system/user/remove}]]*/ "";
+		let searchUrl = /*[[@{/system/admin/search}]]*/ "";
+		let createUrl = /*[[@{/system/admin/add}]]*/ "";
+		let updateUrl = /*[[@{/system/admin/edit/{id}}]]*/ "";
+		let removeUrl = /*[[@{/system/admin/remove}]]*/ "";
 
-		let editFlag = [[${@authority.hasAuthority('system:user:edit')}]];
-		let removeFlag = [[${@authority.hasAuthority('system:user:remove')}]];
-		let resetPwdFlag = [[${@authority.hasAuthority('system:user:resetPassword')}]];
+		let editFlag = [[${@authority.hasAuthority('system:admin:edit')}]];
+		let removeFlag = [[${@authority.hasAuthority('system:admin:remove')}]];
+		let resetPwdFlag = [[${@authority.hasAuthority('system:admin:resetPassword')}]];
 
 		function queryUserList() {
 			var options = {
@@ -240,9 +240,9 @@
 		// }
 
 		/* 用户管理-重置密码 */
-		let resetPasswordUrl = /*[[@{/system/user/resetPassword/}]]*/ "";
-		function resetPwd(userId) {
-		    $.modal.open("重置密码", resetPasswordUrl + userId, '800', '300');
+		let resetPasswordUrl = /*[[@{/system/admin/resetPassword/}]]*/ "";
+		function resetPwd(id) {
+		    $.modal.open("重置密码", resetPasswordUrl + id, '800', '300');
 		}
 
 		/* 用户管理-分配角色 */

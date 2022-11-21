@@ -1,22 +1,16 @@
 package cn.com.goodlan.webvpn.service.school.user;
 
-import cn.com.goodlan.webvpn.exception.BusinessException;
 import cn.com.goodlan.webvpn.mapstruct.SchoolUserMapper;
-import cn.com.goodlan.webvpn.mapstruct.SystemUserMapper;
 import cn.com.goodlan.webvpn.pojo.dto.ChangePasswordDTO;
 import cn.com.goodlan.webvpn.pojo.dto.ResetPasswordDTO;
 import cn.com.goodlan.webvpn.pojo.dto.UserDTO;
 import cn.com.goodlan.webvpn.pojo.entity.school.user.SchoolUser;
-import cn.com.goodlan.webvpn.pojo.entity.system.role.SystemRole;
-import cn.com.goodlan.webvpn.pojo.entity.system.user.Password;
-import cn.com.goodlan.webvpn.pojo.entity.system.user.SystemUser;
+import cn.com.goodlan.webvpn.pojo.entity.system.user.Admin;
 import cn.com.goodlan.webvpn.pojo.entity.system.user.Username;
 import cn.com.goodlan.webvpn.pojo.vo.SchoolUserVO;
 import cn.com.goodlan.webvpn.pojo.vo.SystemUserVO;
 import cn.com.goodlan.webvpn.repository.school.user.SchoolUserRepository;
 import cn.com.goodlan.webvpn.utils.AESUtil;
-import cn.com.goodlan.webvpn.utils.SecurityUtil;
-import cn.hutool.core.convert.Convert;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -67,7 +61,7 @@ public class SchoolUserServiceImpl implements SchoolUserService {
 
     @Override
     public void save(UserDTO userDTO) {
-        SystemUser user = new SystemUser();
+        Admin user = new Admin();
         user.updateName(userDTO.getName());
 //        user.updateEmail(userDTO.getEmail());
 //        user.updateUsername(new Username(userDTO.getUsername()));
@@ -148,7 +142,7 @@ public class SchoolUserServiceImpl implements SchoolUserService {
 //        userRepository.save(user);
     }
 
-    private boolean passwordIsError(ChangePasswordDTO changePasswordDTO, SystemUser user) {
+    private boolean passwordIsError(ChangePasswordDTO changePasswordDTO, Admin user) {
         return !passwordEncoder.matches(changePasswordDTO.getOldPassword(), user.getPassword().getPassword());
     }
 

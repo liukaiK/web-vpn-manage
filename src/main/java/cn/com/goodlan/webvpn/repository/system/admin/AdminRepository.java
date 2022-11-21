@@ -1,6 +1,6 @@
-package cn.com.goodlan.webvpn.repository.system.user;
+package cn.com.goodlan.webvpn.repository.system.admin;
 
-import cn.com.goodlan.webvpn.pojo.entity.system.user.SystemUser;
+import cn.com.goodlan.webvpn.pojo.entity.system.user.Admin;
 import cn.com.goodlan.webvpn.pojo.entity.system.user.Username;
 import cn.com.goodlan.webvpn.repository.CustomizeRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -10,13 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-public interface SystemUserRepository extends CustomizeRepository<SystemUser, Long> {
+public interface AdminRepository extends CustomizeRepository<Admin, Long> {
 
-    Optional<SystemUser> getByUsername(Username username);
+    Optional<Admin> getByUsername(Username username);
 
     @Modifying
     @Transactional
-    @Query("update SystemUser set lastLoginTime = ?1 where id = ?2")
+    @Query("update Admin set lastLoginTime = ?1 where id = ?2")
     void updateLastLoginTime(LocalDateTime localDateTime, Long userId);
 
     boolean existsByUsername(Username username);

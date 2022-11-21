@@ -1,8 +1,8 @@
 package cn.com.goodlan.webvpn.security.web.authentication;
 
-import cn.com.goodlan.webvpn.pojo.entity.system.user.SystemUser;
+import cn.com.goodlan.webvpn.pojo.entity.system.user.Admin;
 import cn.com.goodlan.webvpn.pojo.entity.system.user.Username;
-import cn.com.goodlan.webvpn.repository.system.user.SystemUserRepository;
+import cn.com.goodlan.webvpn.repository.system.admin.AdminRepository;
 import cn.com.goodlan.webvpn.security.web.userdetails.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,15 +22,15 @@ import java.util.Optional;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private SystemUserRepository userRepository;
+    private AdminRepository userRepository;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Optional<SystemUser> userOptional = userRepository.getByUsername(new Username(username));
+        Optional<Admin> userOptional = userRepository.getByUsername(new Username(username));
 
-        SystemUser user = userOptional.orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
+        Admin user = userOptional.orElseThrow(() -> new UsernameNotFoundException(username + " not found"));
 
         return SecurityUser.convertFromUser(user);
     }

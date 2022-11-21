@@ -1,4 +1,4 @@
-package cn.com.goodlan.webvpn.service.system.user;
+package cn.com.goodlan.webvpn.service.system.admin;
 
 
 import cn.com.goodlan.webvpn.exception.BusinessException;
@@ -8,11 +8,11 @@ import cn.com.goodlan.webvpn.pojo.dto.ResetPasswordDTO;
 import cn.com.goodlan.webvpn.pojo.dto.UpdateProfileDTO;
 import cn.com.goodlan.webvpn.pojo.dto.UserDTO;
 import cn.com.goodlan.webvpn.pojo.entity.system.role.SystemRole;
+import cn.com.goodlan.webvpn.pojo.entity.system.user.Admin;
 import cn.com.goodlan.webvpn.pojo.entity.system.user.Password;
-import cn.com.goodlan.webvpn.pojo.entity.system.user.SystemUser;
 import cn.com.goodlan.webvpn.pojo.entity.system.user.Username;
 import cn.com.goodlan.webvpn.pojo.vo.SystemUserVO;
-import cn.com.goodlan.webvpn.repository.system.user.SystemUserRepository;
+import cn.com.goodlan.webvpn.repository.system.admin.AdminRepository;
 import cn.com.goodlan.webvpn.utils.AESUtil;
 import cn.com.goodlan.webvpn.utils.SecurityUtil;
 import cn.hutool.core.convert.Convert;
@@ -35,17 +35,17 @@ import java.util.List;
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class SystemUserServiceImpl implements SystemUserService {
+public class AdminServiceImpl implements AdminService {
 
     @Autowired
-    private SystemUserRepository userRepository;
+    private AdminRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
     public Page<SystemUserVO> search(UserDTO userDTO, Pageable pageable) {
-        Specification<SystemUser> specification = (root, query, criteriaBuilder) -> {
+        Specification<Admin> specification = (root, query, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
             if (StringUtils.isNotEmpty(userDTO.getName())) {
                 list.add(criteriaBuilder.like(root.get("name").as(String.class), userDTO.getName() + "%"));
@@ -59,14 +59,14 @@ public class SystemUserServiceImpl implements SystemUserService {
             Predicate[] p = new Predicate[list.size()];
             return criteriaBuilder.and(list.toArray(p));
         };
-        Page<SystemUser> page = userRepository.findAll(specification, pageable);
+        Page<Admin> page = userRepository.findAll(specification, pageable);
         List<SystemUserVO> list = SystemUserMapper.INSTANCE.convert(page.getContent());
         return new PageImpl<>(list, page.getPageable(), page.getTotalElements());
     }
 
     @Override
     public void save(UserDTO userDTO) {
-        SystemUser user = new SystemUser();
+        Admin user = new Admin();
         user.updateName(userDTO.getName());
 //        user.updateEmail(userDTO.getEmail());
         user.updateUsername(new Username(userDTO.getUsername()));
@@ -83,7 +83,7 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     @Override
     public void update(UserDTO userDTO) {
-        SystemUser user = userRepository.getById(userDTO.getId());
+        Admin user = userRepository.getById(userDTO.getId());
         user.updateName(userDTO.getName());
 //        user.updateRemark(userDTO.getRemark());
 //        user.updateSex(userDTO.getSex());
@@ -102,7 +102,7 @@ public class SystemUserServiceImpl implements SystemUserService {
     public void remove(String ids) {
         Long[] userIds = Convert.toLongArray(ids);
         for (Long userId : userIds) {
-            SystemUser user = new SystemUser(userId);
+            Admin user = new Admin(userId);
             if (user.isAdmin()) {
                 throw new BusinessException("超级管理员不能被删除");
             }
@@ -112,20 +112,20 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     @Override
     public SystemUserVO getById(Long id) {
-        SystemUser user = userRepository.getById(id);
+        Admin user = userRepository.getReferenceById(id);
         return SystemUserMapper.INSTANCE.convert(user);
     }
 
     @Override
     public void resetPassword(ResetPasswordDTO resetPasswordDTO) {
-        SystemUser user = userRepository.getById(resetPasswordDTO.getId());
+        Admin user = userRepository.getById(resetPasswordDTO.getId());
         user.updatePassword(new Password(resetPasswordDTO.getPassword()));
         userRepository.save(user);
     }
 
     @Override
     public void updateProfile(UpdateProfileDTO updateProfileDTO) {
-        SystemUser user = userRepository.getById(SecurityUtil.getUserId());
+        Admin user = userRepository.getById(SecurityUtil.getAdminId());
 //        user.updateEmail(updateProfileDTO.getEmail());
 //        user.updateSex(updateProfileDTO.getSex());
 //        user.updatePhoneNumber(new PhoneNumber(updateProfileDTO.getPhoneNumber()));
@@ -145,7 +145,7 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     @Override
     public void changePassword(ChangePasswordDTO changePasswordDTO) {
-        SystemUser user = userRepository.getById(SecurityUtil.getUserId());
+        Admin user = userRepository.getById(SecurityUtil.getAdminId());
         if (passwordIsError(changePasswordDTO, user)) {
             throw new BusinessException("原密码错误!");
         }
@@ -156,7 +156,7 @@ public class SystemUserServiceImpl implements SystemUserService {
         userRepository.save(user);
     }
 
-    private boolean passwordIsError(ChangePasswordDTO changePasswordDTO, SystemUser user) {
+    private boolean passwordIsError(ChangePasswordDTO changePasswordDTO, Admin user) {
         return !passwordEncoder.matches(changePasswordDTO.getOldPassword(), user.getPassword().getPassword());
     }
 

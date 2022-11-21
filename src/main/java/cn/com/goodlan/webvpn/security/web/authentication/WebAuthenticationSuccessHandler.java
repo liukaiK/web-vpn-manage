@@ -1,7 +1,7 @@
 package cn.com.goodlan.webvpn.security.web.authentication;
 
 import cn.com.goodlan.webvpn.pojo.Result;
-import cn.com.goodlan.webvpn.repository.system.user.SystemUserRepository;
+import cn.com.goodlan.webvpn.repository.system.admin.AdminRepository;
 import cn.com.goodlan.webvpn.security.web.AbstractAuthenticationHandler;
 import cn.com.goodlan.webvpn.utils.SecurityUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,11 +24,11 @@ public class WebAuthenticationSuccessHandler extends AbstractAuthenticationHandl
 
     private static final Logger log = LoggerFactory.getLogger(WebAuthenticationSuccessHandler.class);
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
-    private SystemUserRepository userRepository;
+    private final AdminRepository userRepository;
 
-    public WebAuthenticationSuccessHandler(ObjectMapper objectMapper, SystemUserRepository userRepository) {
+    public WebAuthenticationSuccessHandler(ObjectMapper objectMapper, AdminRepository userRepository) {
         this.objectMapper = objectMapper;
         this.userRepository = userRepository;
     }
@@ -50,7 +50,7 @@ public class WebAuthenticationSuccessHandler extends AbstractAuthenticationHandl
     }
 
     private void updateLastLoginTime() {
-        userRepository.updateLastLoginTime(LocalDateTime.now(), SecurityUtil.getUserId());
+        userRepository.updateLastLoginTime(LocalDateTime.now(), SecurityUtil.getAdminId());
     }
 
 

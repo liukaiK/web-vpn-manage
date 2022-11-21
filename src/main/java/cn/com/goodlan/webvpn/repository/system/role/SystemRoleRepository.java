@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface SystemRoleRepository extends CustomizeRepository<SystemRole, Long> {
 
-    @Query(value = "from SystemRole r left join r.users u where u.id = ?1")
+    @Query(value = "from SystemRole r left join r.admins u where u.id = ?1")
     List<SystemRole> findByUserList(Long userId);
 
     boolean existsByName(String roleName);

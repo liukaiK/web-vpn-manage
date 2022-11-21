@@ -12,7 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public abstract class SecurityUtil {
 
 
-    public static SecurityUser getUser() {
+    public static SecurityUser getAdmin() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return (SecurityUser) authentication.getPrincipal();
     }
@@ -20,8 +20,8 @@ public abstract class SecurityUtil {
     /**
      * 获取当前登录人的用户ID
      */
-    public static Long getUserId() {
-        return getUser().getId();
+    public static Long getAdminId() {
+        return getAdmin().getId();
     }
 
 
@@ -29,7 +29,7 @@ public abstract class SecurityUtil {
      * 获取当前登录人的登录账号
      */
     public static String getUsername() {
-        return getUser().getUsername();
+        return getAdmin().getUsername();
     }
 
     /**

@@ -2,7 +2,7 @@ package cn.com.goodlan.webvpn.security.web.userdetails;
 
 import cn.com.goodlan.webvpn.pojo.entity.system.menu.Menu;
 import cn.com.goodlan.webvpn.pojo.entity.system.role.SystemRole;
-import cn.com.goodlan.webvpn.pojo.entity.system.user.SystemUser;
+import cn.com.goodlan.webvpn.pojo.entity.system.user.Admin;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -32,11 +32,11 @@ public class SecurityUser implements UserDetails, Serializable {
 
     private Integer status;
 
-    public static SecurityUser convertFromUser(SystemUser user) {
+    public static SecurityUser convertFromUser(Admin user) {
         return new SecurityUser(user);
     }
 
-    private SecurityUser(SystemUser user) {
+    private SecurityUser(Admin user) {
         this.id = user.getId();
         this.name = user.getName();
         this.username = user.getUsername().getUsername();
@@ -69,8 +69,8 @@ public class SecurityUser implements UserDetails, Serializable {
         return authorities;
     }
 
-    public SystemUser castToUser() {
-        return new SystemUser(this.id);
+    public Admin castToUser() {
+        return new Admin(this.id);
     }
 
     @Override

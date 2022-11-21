@@ -18,8 +18,8 @@ import java.util.List;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "system_user")
-public class SystemUser extends AbstractEntity {
+@Table(name = "system_admin")
+public class Admin extends AbstractEntity {
 
     private final static Long ADMIN_ID = 1L;
 
@@ -27,6 +27,9 @@ public class SystemUser extends AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * 姓名
+     */
     private String name;
 
     @Embedded
@@ -37,7 +40,7 @@ public class SystemUser extends AbstractEntity {
 
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "system_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "system_admin_role", joinColumns = @JoinColumn(name = "admin_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<SystemRole> roles = new ArrayList<>();
 
     /**
@@ -53,11 +56,11 @@ public class SystemUser extends AbstractEntity {
 //    private String remark;
 
 
-    public SystemUser(Long id) {
+    public Admin(Long id) {
         this.id = id;
     }
 
-    public SystemUser() {
+    public Admin() {
 
     }
 

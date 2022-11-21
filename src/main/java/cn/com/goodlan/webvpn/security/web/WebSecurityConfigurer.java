@@ -1,6 +1,6 @@
 package cn.com.goodlan.webvpn.security.web;
 
-import cn.com.goodlan.webvpn.repository.system.user.SystemUserRepository;
+import cn.com.goodlan.webvpn.repository.system.admin.AdminRepository;
 import cn.com.goodlan.webvpn.security.web.authentication.*;
 import cn.com.goodlan.webvpn.security.xss.XssFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,7 +35,7 @@ public class WebSecurityConfigurer {
     private ObjectMapper objectMapper;
 
     @Autowired
-    private SystemUserRepository userRepository;
+    private AdminRepository userRepository;
 
     @Autowired
     private RememberMeServices rememberMeServices;

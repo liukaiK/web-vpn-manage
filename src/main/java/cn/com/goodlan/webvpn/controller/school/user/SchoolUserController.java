@@ -8,7 +8,7 @@ import cn.com.goodlan.webvpn.pojo.dto.UpdateProfileDTO;
 import cn.com.goodlan.webvpn.pojo.dto.UserDTO;
 import cn.com.goodlan.webvpn.pojo.vo.SystemUserVO;
 import cn.com.goodlan.webvpn.service.system.role.RoleService;
-import cn.com.goodlan.webvpn.service.system.user.SystemUserService;
+import cn.com.goodlan.webvpn.service.system.admin.AdminService;
 import cn.com.goodlan.webvpn.utils.SecurityUtil;
 import cn.hutool.core.util.ObjectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +34,13 @@ import javax.validation.Valid;
 public class SchoolUserController {
 
     @Autowired
-    private SystemUserService userService;
+    private AdminService userService;
 
     @Autowired
     private RoleService roleService;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('system:user:view')")
+    @PreAuthorize("hasAuthority('system:admin:view')")
     public ModelAndView user() {
         return new ModelAndView("system/user/user");
     }
@@ -49,7 +49,7 @@ public class SchoolUserController {
      * 分页查询
      */
     @PostMapping("/search")
-    @PreAuthorize("hasAuthority('system:user:search')")
+    @PreAuthorize("hasAuthority('system:admin:search')")
     public Page<SystemUserVO> search(UserDTO userDTO, @PageableDefault Pageable pageable) {
         return userService.search(userDTO, pageable);
     }
@@ -59,7 +59,7 @@ public class SchoolUserController {
      * 跳转到新增页面
      */
     @GetMapping("/add")
-    @PreAuthorize("hasAuthority('system:user:add')")
+    @PreAuthorize("hasAuthority('system:admin:add')")
     public ModelAndView add(Model model) {
         model.addAttribute("roles", roleService.selectRoleAll());
         return new ModelAndView("system/user/add");
@@ -69,7 +69,7 @@ public class SchoolUserController {
      * 新增用户
      */
     @PostMapping("/add")
-    @PreAuthorize("hasAuthority('system:user:add')")
+    @PreAuthorize("hasAuthority('system:admin:add')")
     public void add(@Validated(Create.class) UserDTO userDTO) {
         userService.save(userDTO);
     }
@@ -79,7 +79,7 @@ public class SchoolUserController {
      * 跳转到修改页面
      */
     @GetMapping("/edit/{id}")
-    @PreAuthorize("hasAuthority('system:user:edit')")
+    @PreAuthorize("hasAuthority('system:admin:edit')")
     public ModelAndView edit(@PathVariable Long id, Model model) {
         model.addAttribute("user", userService.getById(id));
         model.addAttribute("roles", roleService.selectRoleByUser(id));
@@ -90,7 +90,7 @@ public class SchoolUserController {
      * 修改保存
      */
     @PostMapping("/edit")
-    @PreAuthorize("hasAuthority('system:user:edit')")
+    @PreAuthorize("hasAuthority('system:admin:edit')")
     public void edit(@Valid UserDTO userDTO) {
         userService.update(userDTO);
     }
@@ -99,7 +99,7 @@ public class SchoolUserController {
      * 删除用户
      */
     @PostMapping("/remove")
-    @PreAuthorize("hasAuthority('system:user:remove')")
+    @PreAuthorize("hasAuthority('system:admin:remove')")
     public void remove(String ids) {
         userService.remove(ids);
     }
@@ -108,7 +108,7 @@ public class SchoolUserController {
      * 跳转到重置密码页面
      */
     @GetMapping("/resetPassword/{id}")
-    @PreAuthorize("hasAuthority('system:user:resetPassword')")
+    @PreAuthorize("hasAuthority('system:admin:resetPassword')")
     public ModelAndView resetPassword(@PathVariable Long id, Model model) {
         model.addAttribute("user", userService.getById(id));
         return new ModelAndView("system/user/resetpassword");
@@ -119,7 +119,7 @@ public class SchoolUserController {
      * 重置密码
      */
     @PostMapping("/resetPassword")
-    @PreAuthorize("hasAuthority('system:user:resetPassword')")
+    @PreAuthorize("hasAuthority('system:admin:resetPassword')")
     public void resetPassword(@Valid ResetPasswordDTO resetPasswordDTO) {
         userService.resetPassword(resetPasswordDTO);
     }
@@ -129,7 +129,7 @@ public class SchoolUserController {
      */
     @GetMapping("/profile")
     public ModelAndView profile(Model model) {
-        model.addAttribute("user", userService.getById(SecurityUtil.getUserId()));
+        model.addAttribute("user", userService.getById(SecurityUtil.getAdminId()));
         return new ModelAndView("system/user/profile/profile");
     }
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface MenuRepository extends CustomizeRepository<Menu, Long> {
 
-    @Query("select distinct m from Menu m left join m.roles role left join role.users user where user.id = ?1 and m.menuType in ?2 order by m.sort")
+    @Query("select distinct m from Menu m left join m.roles role left join role.admins admin where admin.id = ?1 and m.menuType in ?2 order by m.sort")
     List<Menu> findByMenuTypeIn(Long userId, List<String> menuTypeList);
 
 

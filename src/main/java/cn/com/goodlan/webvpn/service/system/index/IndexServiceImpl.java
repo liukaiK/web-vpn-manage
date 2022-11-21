@@ -22,7 +22,7 @@ public class IndexServiceImpl implements IndexService {
 
     @Override
     public List<Menu> findMenuByCurrentUser() {
-        return menuRepository.findByMenuTypeIn(SecurityUtil.getUserId(), Arrays.asList(Menu.M, Menu.C));
+        return menuRepository.findByMenuTypeIn(SecurityUtil.getAdminId(), Arrays.asList(Menu.M, Menu.C));
     }
 
 

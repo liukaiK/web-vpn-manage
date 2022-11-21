@@ -101,7 +101,7 @@ public class AuthorityService {
      * @return 用户是否具备某权限
      */
     public boolean isPermitted(String permission) {
-        Collection<? extends GrantedAuthority> authorities = SecurityUtil.getUser().getAuthorities();
+        Collection<? extends GrantedAuthority> authorities = SecurityUtil.getAdmin().getAuthorities();
         return authorities.parallelStream().anyMatch(authority -> authority.getAuthority().equals(permission));
     }
 
