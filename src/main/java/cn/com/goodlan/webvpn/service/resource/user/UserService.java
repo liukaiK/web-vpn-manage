@@ -1,16 +1,16 @@
-package cn.com.goodlan.webvpn.service.school.user;
+package cn.com.goodlan.webvpn.service.resource.user;
 
 import cn.com.goodlan.webvpn.pojo.dto.ChangePasswordDTO;
 import cn.com.goodlan.webvpn.pojo.dto.ResetPasswordDTO;
 import cn.com.goodlan.webvpn.pojo.dto.UserDTO;
-import cn.com.goodlan.webvpn.pojo.vo.SchoolUserVO;
+import cn.com.goodlan.webvpn.pojo.vo.UserVO;
 import cn.com.goodlan.webvpn.pojo.vo.SystemUserVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface SchoolUserService {
+public interface UserService {
 
-    Page<SchoolUserVO> search(UserDTO userDTO, Pageable pageable);
+    Page<UserVO> search(UserDTO userDTO, Pageable pageable);
 
     void save(UserDTO userDTO);
 

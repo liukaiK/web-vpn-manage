@@ -1,13 +1,11 @@
-package cn.com.goodlan.webvpn.pojo.entity.school.user;
+package cn.com.goodlan.webvpn.pojo.entity.resource.user;
 
 import cn.com.goodlan.webvpn.pojo.entity.AbstractEntity;
-import cn.com.goodlan.webvpn.pojo.entity.school.role.SchoolRole;
-import cn.com.goodlan.webvpn.pojo.entity.system.role.SystemRole;
+import cn.com.goodlan.webvpn.pojo.entity.resource.role.Role;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +17,8 @@ import java.util.List;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "school_user")
-public class SchoolUser extends AbstractEntity {
+@Table(name = "resource_user")
+public class User extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,13 +33,8 @@ public class SchoolUser extends AbstractEntity {
 
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "school_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<SchoolRole> roles = new ArrayList<>();
-
-    /**
-     * 最后登录时间
-     */
-    private LocalDateTime lastLoginTime;
+    @JoinTable(name = "resource_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
 
 //    private String email;
 
@@ -51,11 +44,11 @@ public class SchoolUser extends AbstractEntity {
 //    private String remark;
 
 
-    public SchoolUser(Long id) {
+    public User(Long id) {
         this.id = id;
     }
 
-    public SchoolUser() {
+    public User() {
 
     }
 
@@ -84,7 +77,7 @@ public class SchoolUser extends AbstractEntity {
         this.roles = new ArrayList<>();
     }
 
-    public void addRole(SchoolRole role) {
+    public void addRole(Role role) {
         roles.add(role);
     }
 
@@ -112,19 +105,11 @@ public class SchoolUser extends AbstractEntity {
 //        this.password = password;
 //    }
 
-    public LocalDateTime getLastLoginTime() {
-        return lastLoginTime;
-    }
-
-    protected void setLastLoginTime(LocalDateTime lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
-    }
-
-    public List<SchoolRole> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    protected void setRoles(List<SchoolRole> roleList) {
+    protected void setRoles(List<Role> roleList) {
         this.roles = roleList;
     }
 

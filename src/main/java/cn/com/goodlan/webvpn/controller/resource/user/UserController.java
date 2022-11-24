@@ -1,4 +1,4 @@
-package cn.com.goodlan.webvpn.controller.school.user;
+package cn.com.goodlan.webvpn.controller.resource.user;
 
 import cn.com.goodlan.webvpn.annotations.Create;
 import cn.com.goodlan.webvpn.annotations.ResponseResultBody;
@@ -7,8 +7,9 @@ import cn.com.goodlan.webvpn.pojo.dto.ResetPasswordDTO;
 import cn.com.goodlan.webvpn.pojo.dto.UpdateProfileDTO;
 import cn.com.goodlan.webvpn.pojo.dto.UserDTO;
 import cn.com.goodlan.webvpn.pojo.vo.SystemUserVO;
+import cn.com.goodlan.webvpn.pojo.vo.UserVO;
+import cn.com.goodlan.webvpn.service.resource.user.UserService;
 import cn.com.goodlan.webvpn.service.system.role.RoleService;
-import cn.com.goodlan.webvpn.service.system.admin.AdminService;
 import cn.com.goodlan.webvpn.utils.SecurityUtil;
 import cn.hutool.core.util.ObjectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,27 +31,27 @@ import javax.validation.Valid;
  */
 @RestController
 @ResponseResultBody
-@RequestMapping("/school/user")
-public class SchoolUserController {
-
-    @Autowired
-    private AdminService userService;
+@RequestMapping("/resource/user")
+public class UserController {
 
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping
-    @PreAuthorize("hasAuthority('system:admin:view')")
+    @PreAuthorize("hasAuthority('resource:user:view')")
     public ModelAndView user() {
-        return new ModelAndView("system/user/user");
+        return new ModelAndView("resource/user/user");
     }
 
     /**
      * 分页查询
      */
     @PostMapping("/search")
-    @PreAuthorize("hasAuthority('system:admin:search')")
-    public Page<SystemUserVO> search(UserDTO userDTO, @PageableDefault Pageable pageable) {
+    @PreAuthorize("hasAuthority('resource:user:search')")
+    public Page<UserVO> search(UserDTO userDTO, @PageableDefault Pageable pageable) {
         return userService.search(userDTO, pageable);
     }
 
@@ -138,7 +139,7 @@ public class SchoolUserController {
      */
     @PostMapping("/profile/update")
     public void updateProfile(@Valid UpdateProfileDTO updateProfileDTO) {
-        userService.updateProfile(updateProfileDTO);
+//        userService.updateProfile(updateProfileDTO);
     }
 
 

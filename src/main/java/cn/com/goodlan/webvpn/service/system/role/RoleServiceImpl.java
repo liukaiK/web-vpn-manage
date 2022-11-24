@@ -39,7 +39,7 @@ public class RoleServiceImpl implements RoleService {
             return criteriaBuilder.and(list.toArray(p));
         };
         Page<SystemRole> page = roleRepository.findAll(specification, pageable);
-        List<RoleVO> list = RoleMapper.INSTANCE.convertList(page.getContent());
+        List<RoleVO> list = RoleMapper.INSTANCE.convert(page.getContent());
         return new PageImpl<>(list, page.getPageable(), page.getTotalElements());
     }
 
@@ -77,7 +77,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleVO> selectRoleAll() {
         List<SystemRole> roleList = roleRepository.findAll();
-        return RoleMapper.INSTANCE.convertList(roleList);
+        return RoleMapper.INSTANCE.convert(roleList);
     }
 
     @Override

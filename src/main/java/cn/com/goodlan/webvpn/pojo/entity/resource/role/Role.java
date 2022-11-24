@@ -1,7 +1,7 @@
-package cn.com.goodlan.webvpn.pojo.entity.school.role;
+package cn.com.goodlan.webvpn.pojo.entity.resource.role;
 
 import cn.com.goodlan.webvpn.pojo.entity.AbstractEntity;
-import cn.com.goodlan.webvpn.pojo.entity.school.user.SchoolUser;
+import cn.com.goodlan.webvpn.pojo.entity.resource.user.User;
 import cn.hutool.core.collection.CollectionUtil;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -18,8 +18,8 @@ import java.util.List;
 @Entity
 @DynamicInsert
 @DynamicUpdate
-@Table(name = "school_role")
-public class SchoolRole extends AbstractEntity {
+@Table(name = "resource_role")
+public class Role extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,13 +33,13 @@ public class SchoolRole extends AbstractEntity {
     private String remark;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "school_user_role", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<SchoolUser> users = new ArrayList<>();
+    @JoinTable(name = "resource_user_role", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> users = new ArrayList<>();
 
-    public SchoolRole() {
+    public Role() {
     }
 
-    public SchoolRole(Long id) {
+    public Role(Long id) {
         this.id = id;
     }
 
@@ -74,11 +74,11 @@ public class SchoolRole extends AbstractEntity {
         this.name = name;
     }
 
-    public List<SchoolUser> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<SchoolUser> userList) {
+    public void setUsers(List<User> userList) {
         this.users = userList;
     }
 

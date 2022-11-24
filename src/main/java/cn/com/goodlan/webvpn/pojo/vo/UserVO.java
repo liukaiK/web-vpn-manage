@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
 
-public class SchoolUserVO {
+public class UserVO {
 
     private Long id;
 

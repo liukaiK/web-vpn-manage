@@ -1,15 +1,15 @@
-package cn.com.goodlan.webvpn.service.school.user;
+package cn.com.goodlan.webvpn.service.resource.user;
 
 import cn.com.goodlan.webvpn.mapstruct.SchoolUserMapper;
 import cn.com.goodlan.webvpn.pojo.dto.ChangePasswordDTO;
 import cn.com.goodlan.webvpn.pojo.dto.ResetPasswordDTO;
 import cn.com.goodlan.webvpn.pojo.dto.UserDTO;
-import cn.com.goodlan.webvpn.pojo.entity.school.user.SchoolUser;
+import cn.com.goodlan.webvpn.pojo.entity.resource.user.User;
 import cn.com.goodlan.webvpn.pojo.entity.system.user.Admin;
 import cn.com.goodlan.webvpn.pojo.entity.system.user.Username;
-import cn.com.goodlan.webvpn.pojo.vo.SchoolUserVO;
+import cn.com.goodlan.webvpn.pojo.vo.UserVO;
 import cn.com.goodlan.webvpn.pojo.vo.SystemUserVO;
-import cn.com.goodlan.webvpn.repository.school.user.SchoolUserRepository;
+import cn.com.goodlan.webvpn.repository.resource.user.UserRepository;
 import cn.com.goodlan.webvpn.utils.AESUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,32 +30,32 @@ import java.util.List;
  */
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class SchoolUserServiceImpl implements SchoolUserService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
-    private SchoolUserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public Page<SchoolUserVO> search(UserDTO userDTO, Pageable pageable) {
-        Specification<SchoolUser> specification = (root, query, criteriaBuilder) -> {
+    public Page<UserVO> search(UserDTO userDTO, Pageable pageable) {
+        Specification<User> specification = (root, query, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
-            if (StringUtils.isNotEmpty(userDTO.getName())) {
-                list.add(criteriaBuilder.like(root.get("name").as(String.class), userDTO.getName() + "%"));
-            }
-            if (StringUtils.isNotEmpty(userDTO.getUsername())) {
-                list.add(criteriaBuilder.like(root.get("username").get("username").as(String.class), userDTO.getUsername() + "%"));
-            }
-            if (StringUtils.isNotEmpty(userDTO.getPhoneNumber())) {
-                list.add(criteriaBuilder.equal(root.get("phoneNumber").as(String.class), AESUtil.encrypt(userDTO.getPhoneNumber())));
-            }
+//            if (StringUtils.isNotEmpty(userDTO.getName())) {
+//                list.add(criteriaBuilder.like(root.get("name").as(String.class), userDTO.getName() + "%"));
+//            }
+//            if (StringUtils.isNotEmpty(userDTO.getUsername())) {
+//                list.add(criteriaBuilder.like(root.get("username").get("username").as(String.class), userDTO.getUsername() + "%"));
+//            }
+//            if (StringUtils.isNotEmpty(userDTO.getPhoneNumber())) {
+//                list.add(criteriaBuilder.equal(root.get("phoneNumber").as(String.class), AESUtil.encrypt(userDTO.getPhoneNumber())));
+//            }
             Predicate[] p = new Predicate[list.size()];
             return criteriaBuilder.and(list.toArray(p));
         };
-        Page<SchoolUser> page = userRepository.findAll(specification, pageable);
-        List<SchoolUserVO> list = SchoolUserMapper.INSTANCE.convert(page.getContent());
+        Page<User> page = userRepository.findAll(specification, pageable);
+        List<UserVO> list = SchoolUserMapper.INSTANCE.convert(page.getContent());
         return new PageImpl<>(list, page.getPageable(), page.getTotalElements());
     }
 
