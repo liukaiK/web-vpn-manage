@@ -11,7 +11,7 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								角色名称：<input type="text" name="roleName"/>
+								角色名称：<input type="text" name="name"/>
 							</li>
 <!--							<li>-->
 <!--								权限字符：<input type="text" name="roleKey"/>-->
@@ -74,10 +74,10 @@
 				createUrl: createUrl,
 				updateUrl: updateUrl,
 				removeUrl: removeUrl,
-				exportUrl: "/export",
 				uniqueId: 'id',
 				sortName: "updateTime",
-				modalName: "角色",
+				sortOrder: "desc",
+				modalName: "资源角色",
 				columns: [{
 					checkbox: true
 				},
@@ -87,27 +87,8 @@
 					// },
 					{
 						field: 'name',
-						title: '角色名称',
-						sortable: true
+						title: '角色名称'
 					},
-					// {
-					// 	field: 'roleKey',
-					// 	title: '权限字符',
-					// 	sortable: true
-					// },
-					// {
-					// 	field: 'roleSort',
-					// 	title: '显示顺序',
-					// 	sortable: true
-					// },
-					// {
-					// 	visible: editFlag == 'hidden' ? false : true,
-					// 	title: '角色状态',
-					// 	align: 'center',
-					// 	formatter: function (value, row, index) {
-					// 		return statusTools(row);
-					// 	}
-					// },
 					{
 						field: 'createTime',
 						title: '创建时间',

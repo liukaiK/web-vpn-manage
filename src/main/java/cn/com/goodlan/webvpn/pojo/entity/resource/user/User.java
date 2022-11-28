@@ -1,7 +1,7 @@
 package cn.com.goodlan.webvpn.pojo.entity.resource.user;
 
 import cn.com.goodlan.webvpn.pojo.entity.AbstractEntity;
-import cn.com.goodlan.webvpn.pojo.entity.resource.role.Role;
+import cn.com.goodlan.webvpn.pojo.entity.resource.role.ResourceRole;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -34,7 +34,7 @@ public class User extends AbstractEntity {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "resource_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles = new ArrayList<>();
+    private List<ResourceRole> roles = new ArrayList<>();
 
 //    private String email;
 
@@ -77,7 +77,7 @@ public class User extends AbstractEntity {
         this.roles = new ArrayList<>();
     }
 
-    public void addRole(Role role) {
+    public void addRole(ResourceRole role) {
         roles.add(role);
     }
 
@@ -105,11 +105,11 @@ public class User extends AbstractEntity {
 //        this.password = password;
 //    }
 
-    public List<Role> getRoles() {
+    public List<ResourceRole> getRoles() {
         return roles;
     }
 
-    protected void setRoles(List<Role> roleList) {
+    protected void setRoles(List<ResourceRole> roleList) {
         this.roles = roleList;
     }
 

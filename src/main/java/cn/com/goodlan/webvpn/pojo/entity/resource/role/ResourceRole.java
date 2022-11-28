@@ -1,8 +1,10 @@
 package cn.com.goodlan.webvpn.pojo.entity.resource.role;
 
+import cn.com.goodlan.webvpn.exception.BusinessException;
 import cn.com.goodlan.webvpn.pojo.entity.AbstractEntity;
 import cn.com.goodlan.webvpn.pojo.entity.resource.user.User;
 import cn.hutool.core.collection.CollectionUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -19,7 +21,7 @@ import java.util.List;
 @DynamicInsert
 @DynamicUpdate
 @Table(name = "resource_role")
-public class Role extends AbstractEntity {
+public class ResourceRole extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,25 +32,35 @@ public class Role extends AbstractEntity {
     /**
      * 备注
      */
-    private String remark;
+    private String description;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "resource_user_role", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users = new ArrayList<>();
 
-    public Role() {
+
+    protected ResourceRole() {
+
     }
 
-    public Role(Long id) {
+    public ResourceRole(Long id) {
         this.id = id;
+    }
+
+    public ResourceRole(String name, String description) {
+        if (StringUtils.isEmpty(name)) {
+            throw new BusinessException("角色名称不能为空");
+        }
+        this.name = name;
+        this.description = description;
     }
 
     public void updateName(String name) {
         this.name = name;
     }
 
-    public void updateRemark(String remark) {
-        this.remark = remark;
+    public void updateDescription(String description) {
+        this.description = description;
     }
 
     /**
@@ -62,32 +74,16 @@ public class Role extends AbstractEntity {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> userList) {
-        this.users = userList;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public String getDescription() {
+        return description;
     }
 
 }

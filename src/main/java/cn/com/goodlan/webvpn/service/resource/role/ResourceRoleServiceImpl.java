@@ -1,10 +1,13 @@
 package cn.com.goodlan.webvpn.service.resource.role;
 
+import cn.com.goodlan.webvpn.exception.BusinessException;
 import cn.com.goodlan.webvpn.mapstruct.RoleMapper;
-import cn.com.goodlan.webvpn.pojo.dto.RoleDTO;
-import cn.com.goodlan.webvpn.pojo.entity.resource.role.Role;
+import cn.com.goodlan.webvpn.pojo.dto.ResourceRoleDTO;
+import cn.com.goodlan.webvpn.pojo.entity.resource.role.ResourceRole;
+import cn.com.goodlan.webvpn.pojo.vo.ResourceRoleVO;
 import cn.com.goodlan.webvpn.pojo.vo.RoleVO;
-import cn.com.goodlan.webvpn.repository.resource.role.RoleRepository;
+import cn.com.goodlan.webvpn.repository.resource.role.ResourceRoleRepository;
+import cn.hutool.core.convert.Convert;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,49 +24,55 @@ public class ResourceRoleServiceImpl implements ResourceRoleService {
 
 
     @Autowired
-    private RoleRepository roleRepository;
+    private ResourceRoleRepository resourceRoleRepository;
 
     @Override
-    public Page<RoleVO> search(String name, Pageable pageable) {
-        Page<Role> page;
+    public Page<ResourceRoleVO> search(String name, Pageable pageable) {
+        Page<ResourceRole> page;
         if (StringUtils.isEmpty(name)) {
-            page = roleRepository.findAll(pageable);
+            page = resourceRoleRepository.findAll(pageable);
         } else {
-            page = roleRepository.findByName(name, pageable);
+            page = resourceRoleRepository.findByName(name, pageable);
         }
-        List<RoleVO> list = RoleMapper.INSTANCE.convertResourceRole(page.getContent());
+        List<ResourceRoleVO> list = RoleMapper.INSTANCE.convertResourceRole(page.getContent());
         return new PageImpl<>(list, page.getPageable(), page.getTotalElements());
     }
 
     @Override
-    public RoleVO getById(Long id) {
-        Role role = roleRepository.getReferenceById(id);
+    public ResourceRoleVO getById(Long id) {
+        ResourceRole role = resourceRoleRepository.getReferenceById(id);
         return RoleMapper.INSTANCE.convert(role);
     }
 
     @Override
-    public void update(RoleDTO roleDTO) {
-//        Long[] menuIds = Convert.toLongArray(roleDTO.getMenuIds());
-//        SystemRole role = roleRepository.getById(roleDTO.getId());
-//        role.updateName(roleDTO.getRoleName());
-//        role.updateRemark(roleDTO.getRemark());
-//        role.removeAllMenu();
-//        for (Long menuId : menuIds) {
-//            role.addMenu(new Menu(menuId));
-//        }
-//        roleRepository.save(role);
+    public void update(ResourceRoleDTO resourceRoleDTO) {
+        Long id = resourceRoleDTO.getId();
+        String name = resourceRoleDTO.getRoleName();
+        String description = resourceRoleDTO.getDescription();
+
+        if (checkRoleNameUnique(id, name)) {
+            throw new BusinessException("角色名称已经存在!");
+        }
+        ResourceRole role = resourceRoleRepository.getReferenceById(id);
+        role.updateName(name);
+        role.updateDescription(description);
+        resourceRoleRepository.save(role);
     }
 
     @Override
-    public void save(RoleDTO roleDTO) {
-//        SystemRole role = new SystemRole();
-//        role.updateName(roleDTO.getRoleName());
-//        role.updateRemark(roleDTO.getRemark());
-//        Long[] menuIds = Convert.toLongArray(roleDTO.getMenuIds());
-//        for (Long menuId : menuIds) {
-//            role.addMenu(new Menu(menuId));
-//        }
-//        roleRepository.save(role);
+    public void save(ResourceRoleDTO resourceRoleDTO) {
+        String name = resourceRoleDTO.getRoleName();
+        String description = resourceRoleDTO.getDescription();
+        if (StringUtils.isEmpty(name)) {
+            throw new BusinessException("角色名称不能为空");
+        }
+
+        if (checkRoleNameUnique(name)) {
+            throw new BusinessException("角色名称已经存在!");
+        }
+
+        ResourceRole role = new ResourceRole(name, description);
+        resourceRoleRepository.save(role);
     }
 
     @Override
@@ -90,27 +99,25 @@ public class ResourceRoleServiceImpl implements ResourceRoleService {
 
     @Override
     public boolean checkRoleNameUnique(String roleName) {
-//        return roleRepository.existsByName(roleName);
-        return true;
+        return resourceRoleRepository.existsByName(roleName);
     }
 
     @Override
     public boolean checkRoleNameUnique(Long roleId, String roleName) {
-//        return roleRepository.existsByNameAndIdNot(roleName, roleId);
-        return true;
+        return resourceRoleRepository.existsByNameAndIdNot(roleName, roleId);
     }
 
 
     @Override
     public void remove(String ids) {
-//        Long[] roleIds = Convert.toLongArray(ids);
-//        for (Long roleId : roleIds) {
-//            SystemRole role = roleRepository.getById(roleId);
-//            if (role.hasUser()) {
-//                throw new BusinessException(String.format("%1$s已分配,不能删除", role.getName()));
-//            }
-//            roleRepository.delete(role);
-//        }
+        Long[] roleIds = Convert.toLongArray(ids);
+        for (Long roleId : roleIds) {
+            ResourceRole role = resourceRoleRepository.getReferenceById(roleId);
+            if (role.hasUser()) {
+                throw new BusinessException(String.format("%1$s已分配给用户,不能删除", role.getName()));
+            }
+            resourceRoleRepository.delete(role);
+        }
     }
 
 }

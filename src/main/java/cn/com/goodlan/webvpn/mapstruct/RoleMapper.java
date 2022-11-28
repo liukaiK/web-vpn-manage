@@ -1,7 +1,8 @@
 package cn.com.goodlan.webvpn.mapstruct;
 
-import cn.com.goodlan.webvpn.pojo.entity.resource.role.Role;
+import cn.com.goodlan.webvpn.pojo.entity.resource.role.ResourceRole;
 import cn.com.goodlan.webvpn.pojo.entity.system.role.SystemRole;
+import cn.com.goodlan.webvpn.pojo.vo.ResourceRoleVO;
 import cn.com.goodlan.webvpn.pojo.vo.RoleVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -18,8 +19,8 @@ public interface RoleMapper {
     RoleVO convert(SystemRole role);
 
 
-    List<RoleVO> convertResourceRole(List<Role> roles);
+    List<ResourceRoleVO> convertResourceRole(List<ResourceRole> roles);
 
-    RoleVO convert(Role role);
+    ResourceRoleVO convert(ResourceRole role);
 
 }

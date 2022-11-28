@@ -1,6 +1,7 @@
 package cn.com.goodlan.webvpn.service.resource.role;
 
-import cn.com.goodlan.webvpn.pojo.dto.RoleDTO;
+import cn.com.goodlan.webvpn.pojo.dto.ResourceRoleDTO;
+import cn.com.goodlan.webvpn.pojo.vo.ResourceRoleVO;
 import cn.com.goodlan.webvpn.pojo.vo.RoleVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,16 +10,16 @@ import java.util.List;
 
 public interface ResourceRoleService {
 
-    Page<RoleVO> search(String name, Pageable pageable);
+    Page<ResourceRoleVO> search(String name, Pageable pageable);
 
-    RoleVO getById(Long roleId);
+    ResourceRoleVO getById(Long roleId);
 
-    void update(RoleDTO roleDTO);
+    void update(ResourceRoleDTO resourceRoleDTO);
 
     /**
      * 保存角色
      */
-    void save(RoleDTO roleDTO);
+    void save(ResourceRoleDTO resourceRoleDTO);
 
     /**
      * 角色下拉框
@@ -49,4 +50,5 @@ public interface ResourceRoleService {
      * 删除角色
      */
     void remove(String ids);
+
 }
