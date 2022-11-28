@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.RememberMeServices;
@@ -64,7 +65,7 @@ public class WebSecurityConfigurer {
                 .and()
                 .addFilterBefore(usernamePasswordCaptchaAuthenticationFilter(), RequestCacheAwareFilter.class)
                 .addFilterBefore(new XssFilter(), WebAsyncManagerIntegrationFilter.class)
-                .exceptionHandling().authenticationEntryPoint(securityAuthenticationEntryPoint());
+                .exceptionHandling().authenticationEntryPoint(securityAuthenticationEntryPoint()).accessDeniedHandler(accessDeniedHandler());
 
         return http.build();
     }
@@ -100,6 +101,11 @@ public class WebSecurityConfigurer {
         return authenticationProvider;
     }
 
+    public AccessDeniedHandler accessDeniedHandler() {
+        WebAccessDeniedHandler webAccessDeniedHandler = new WebAccessDeniedHandler();
+        webAccessDeniedHandler.setObjectMapper(objectMapper);
+        return webAccessDeniedHandler;
+    }
 
     public AuthenticationEntryPoint securityAuthenticationEntryPoint() {
         SecurityAuthenticationEntryPoint securityAuthenticationEntryPoint = new SecurityAuthenticationEntryPoint();

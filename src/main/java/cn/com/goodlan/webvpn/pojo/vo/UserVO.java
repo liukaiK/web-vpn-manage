@@ -12,20 +12,18 @@ public class UserVO {
 
     private String username;
 
-    private String email;
+    /**
+     * 角色 以逗号分割
+     */
+    private String roleNames;
 
-    private String phoneNumber;
-
-    private String remark;
+    private String description;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime lastLoginTime;
 
     public Long getId() {
         return id;
@@ -51,30 +49,6 @@ public class UserVO {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
     public LocalDateTime getCreateTime() {
         return createTime;
     }
@@ -91,11 +65,19 @@ public class UserVO {
         this.updateTime = updateTime;
     }
 
-    public LocalDateTime getLastLoginTime() {
-        return lastLoginTime;
+    public String getRoleNames() {
+        return roleNames;
     }
 
-    public void setLastLoginTime(LocalDateTime lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
+    public void setRoleNames(String roleNames) {
+        this.roleNames = roleNames;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -5,7 +5,6 @@ import cn.com.goodlan.webvpn.mapstruct.RoleMapper;
 import cn.com.goodlan.webvpn.pojo.dto.ResourceRoleDTO;
 import cn.com.goodlan.webvpn.pojo.entity.resource.role.ResourceRole;
 import cn.com.goodlan.webvpn.pojo.vo.ResourceRoleVO;
-import cn.com.goodlan.webvpn.pojo.vo.RoleVO;
 import cn.com.goodlan.webvpn.repository.resource.role.ResourceRoleRepository;
 import cn.hutool.core.convert.Convert;
 import org.apache.commons.lang3.StringUtils;
@@ -76,25 +75,23 @@ public class ResourceRoleServiceImpl implements ResourceRoleService {
     }
 
     @Override
-    public List<RoleVO> selectRoleAll() {
-//        List<SystemRole> roleList = roleRepository.findAll();
-//        return RoleMapper.INSTANCE.convert(roleList);
-        return null;
+    public List<ResourceRoleVO> selectRoleAll() {
+        List<ResourceRole> roleList = resourceRoleRepository.findAll();
+        return RoleMapper.INSTANCE.convertResourceRole(roleList);
     }
 
     @Override
-    public List<RoleVO> selectRoleByUser(Long userId) {
-//        List<RoleVO> roleVOList = selectRoleAll();
-//        List<SystemRole> roleList = roleRepository.findByUserList(userId);
-//        for (RoleVO roleVO : roleVOList) {
-//            for (SystemRole role : roleList) {
-//                if (roleVO.getId().equals(role.getId())) {
-//                    roleVO.setCheck(true);
-//                }
-//            }
-//        }
-//        return roleVOList;
-        return null;
+    public List<ResourceRoleVO> selectRoleByUser(Long userId) {
+        List<ResourceRoleVO> allRole = selectRoleAll();
+        List<ResourceRole> roleList = resourceRoleRepository.findByUserList(userId);
+        for (ResourceRoleVO roleVO : allRole) {
+            for (ResourceRole role : roleList) {
+                if (roleVO.getId().equals(role.getId())) {
+                    roleVO.setCheck(true);
+                }
+            }
+        }
+        return allRole;
     }
 
     @Override

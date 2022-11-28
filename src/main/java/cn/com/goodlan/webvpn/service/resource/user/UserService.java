@@ -1,10 +1,7 @@
 package cn.com.goodlan.webvpn.service.resource.user;
 
-import cn.com.goodlan.webvpn.pojo.dto.ChangePasswordDTO;
-import cn.com.goodlan.webvpn.pojo.dto.ResetPasswordDTO;
 import cn.com.goodlan.webvpn.pojo.dto.UserDTO;
 import cn.com.goodlan.webvpn.pojo.vo.UserVO;
-import cn.com.goodlan.webvpn.pojo.vo.SystemUserVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,14 +15,7 @@ public interface UserService {
 
     void remove(String ids);
 
-    SystemUserVO getById(Long id);
-
-    /**
-     * 重置密码
-     *
-     * @param resetPasswordDTO
-     */
-    void resetPassword(ResetPasswordDTO resetPasswordDTO);
+    UserVO getById(Long id);
 
     /**
      * 检查账号是否已经存在
@@ -43,11 +33,6 @@ public interface UserService {
      * @return 是否存在
      */
     boolean checkUsernameUnique(Long userId, String username);
-
-    /**
-     * 修改密码
-     */
-    void changePassword(ChangePasswordDTO changePasswordDTO);
 
 
 }

@@ -2,11 +2,8 @@ package cn.com.goodlan.webvpn.controller.system.user;
 
 import cn.com.goodlan.webvpn.annotations.Create;
 import cn.com.goodlan.webvpn.annotations.ResponseResultBody;
-import cn.com.goodlan.webvpn.pojo.dto.ChangePasswordDTO;
-import cn.com.goodlan.webvpn.pojo.dto.ResetPasswordDTO;
-import cn.com.goodlan.webvpn.pojo.dto.UpdateProfileDTO;
-import cn.com.goodlan.webvpn.pojo.dto.UserDTO;
-import cn.com.goodlan.webvpn.pojo.vo.SystemUserVO;
+import cn.com.goodlan.webvpn.pojo.dto.*;
+import cn.com.goodlan.webvpn.pojo.vo.AdminVO;
 import cn.com.goodlan.webvpn.service.system.admin.AdminService;
 import cn.com.goodlan.webvpn.service.system.role.RoleService;
 import cn.com.goodlan.webvpn.utils.SecurityUtil;
@@ -50,8 +47,8 @@ public class AdminController {
      */
     @PostMapping("/search")
     @PreAuthorize("hasAuthority('system:admin:search')")
-    public Page<SystemUserVO> search(UserDTO userDTO, @PageableDefault Pageable pageable) {
-        return adminService.search(userDTO, pageable);
+    public Page<AdminVO> search(AdminDTO adminDTO, @PageableDefault Pageable pageable) {
+        return adminService.search(adminDTO, pageable);
     }
 
 
@@ -70,8 +67,8 @@ public class AdminController {
      */
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('system:admin:add')")
-    public void add(@Validated(Create.class) UserDTO userDTO) {
-        adminService.save(userDTO);
+    public void add(@Validated(Create.class) AdminDTO adminDTO) {
+        adminService.save(adminDTO);
     }
 
 
@@ -91,8 +88,8 @@ public class AdminController {
      */
     @PostMapping("/edit")
     @PreAuthorize("hasAuthority('system:admin:edit')")
-    public void edit(@Valid UserDTO userDTO) {
-        adminService.update(userDTO);
+    public void edit(@Valid AdminDTO adminDTO) {
+        adminService.update(adminDTO);
     }
 
     /**

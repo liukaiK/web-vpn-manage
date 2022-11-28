@@ -2,7 +2,6 @@ package cn.com.goodlan.webvpn.service.resource.role;
 
 import cn.com.goodlan.webvpn.pojo.dto.ResourceRoleDTO;
 import cn.com.goodlan.webvpn.pojo.vo.ResourceRoleVO;
-import cn.com.goodlan.webvpn.pojo.vo.RoleVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -24,9 +23,9 @@ public interface ResourceRoleService {
     /**
      * 角色下拉框
      */
-    List<RoleVO> selectRoleAll();
+    List<ResourceRoleVO> selectRoleAll();
 
-    List<RoleVO> selectRoleByUser(Long userId);
+    List<ResourceRoleVO> selectRoleByUser(Long userId);
 
 
     /**

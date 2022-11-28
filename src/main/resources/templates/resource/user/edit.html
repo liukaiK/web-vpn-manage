@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <head>
-	<th:block th:include="include :: header('修改管理员')" />
+	<th:block th:include="include :: header('修改用户资源')" />
 	<th:block th:include="include :: select2-css" />
 </head>
 <body>
@@ -116,17 +116,6 @@
                     </div>
                 </div>
             </div>
-<!--            <h4 class="form-header h4">其他信息</h4>-->
-<!--            <div class="row">-->
-<!--                <div class="col-sm-12">-->
-<!--                    <div class="form-group">-->
-<!--                        <label class="col-xs-2 control-label">备注：</label>-->
-<!--                        <div class="col-xs-10">-->
-<!--                            <textarea name="remark" maxlength="500" class="form-control" rows="3">[[*{remark}]]</textarea>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
         </form>
     </div>
     <div class="row">
@@ -193,7 +182,7 @@
         // });
 
 
-        let updateUrl = /*[[@{/system/admin/edit}]]*/ "";
+        let updateUrl = /*[[@{/resource/user/edit}]]*/ "";
 
         function submitHandler() {
             if ($.validate.form()) {
@@ -208,36 +197,7 @@
             }
         }
 
-        let selectCollegeTree = /*[[@{/system/college/selectCollegeTree/}]]*/ "";
 
-
-        /* 用户管理-修改-选择学院树 */
-        function selectDeptTree() {
-        	var collegeId = $.common.isEmpty($("#treeId").val()) ? "0" : $("#treeId").val();
-            var url = selectCollegeTree + collegeId;
-		    var options = {
-				title: '选择学院',
-				width: "380",
-				url: url,
-				callBack: doSubmit
-			};
-			$.modal.openOptions(options);
-		}
-		
-		function doSubmit(index, layero){
-			var tree = layero.find("iframe")[0].contentWindow.$._tree;
-   			var body = layer.getChildFrame('body', index);
-   			$("#treeId").val(body.find('#treeId').val());
-   			$("#treeName").val(body.find('#treeName').val());
-   			layer.close(index);
-		}
-
-		$(function() {
-            $('#post').select2({
-                placeholder: "请选择岗位",
-                allowClear: true
-            });
-        })
     </script>
 </body>
 </html>

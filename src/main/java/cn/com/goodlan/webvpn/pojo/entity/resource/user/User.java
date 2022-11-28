@@ -2,12 +2,15 @@ package cn.com.goodlan.webvpn.pojo.entity.resource.user;
 
 import cn.com.goodlan.webvpn.pojo.entity.AbstractEntity;
 import cn.com.goodlan.webvpn.pojo.entity.resource.role.ResourceRole;
+import cn.hutool.core.collection.CollectionUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 学校的用户
@@ -28,57 +31,51 @@ public class User extends AbstractEntity {
 
     private String username;
 
-//    @Embedded
-//    private Password password;
-
-
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "resource_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<ResourceRole> roles = new ArrayList<>();
 
-//    private String email;
+    /**
+     * 冗余字段 以逗号分割
+     */
+    private String roleIds;
 
-//    @Embedded
-//    private PhoneNumber phoneNumber;
+    /**
+     * 冗余字段 以逗号分割
+     */
+    private String roleNames;
 
-//    private String remark;
-
+    protected User() {
+    }
 
     public User(Long id) {
         this.id = id;
     }
 
-    public User() {
-
+    public User(String name, String username) {
+        this.name = name;
+        this.username = username;
     }
-
-//    public void updateEmail(String email) {
-//        this.email = email;
-//    }
 
     public void updateName(String name) {
-        this.setName(name);
+        this.name = name;
     }
 
-
-//    public void updatePhoneNumber(PhoneNumber phoneNumber) {
-//        this.setPhoneNumber(phoneNumber);
-//    }
-
-//    public void updateRemark(String remark) {
-//        this.remark = remark;
-//    }
-
-//    public void updatePassword(Password password) {
-//        this.setPassword(password);
-//    }
-
-    public void removeAllRole() {
-        this.roles = new ArrayList<>();
+    public void refreshRoles(List<ResourceRole> roles) {
+        clearRole();
+        if (CollectionUtil.isNotEmpty(roles)) {
+            for (ResourceRole role : roles) {
+                this.roles.add(role);
+                this.roleIds = StringUtils.join(roles.stream().map(ResourceRole::getId).collect(Collectors.toList()), "/");
+                this.roleNames = StringUtils.join(roles.stream().map(ResourceRole::getName).collect(Collectors.toList()), "/");
+            }
+        }
     }
 
-    public void addRole(ResourceRole role) {
-        roles.add(role);
+    private void clearRole() {
+        this.roleIds = "";
+        this.roleNames = "";
+        this.roles.clear();
     }
 
     public Long getId() {
@@ -93,31 +90,20 @@ public class User extends AbstractEntity {
         return name;
     }
 
-    protected void setName(String name) {
-        this.name = name;
-    }
-
-//    public Password getPassword() {
-//        return password;
-//    }
-
-//    protected void setPassword(Password password) {
-//        this.password = password;
-//    }
-
     public List<ResourceRole> getRoles() {
         return roles;
-    }
-
-    protected void setRoles(List<ResourceRole> roleList) {
-        this.roles = roleList;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getRoleIds() {
+        return roleIds;
     }
+
+    public String getRoleNames() {
+        return roleNames;
+    }
+
 }

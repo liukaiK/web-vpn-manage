@@ -1,24 +1,24 @@
 package cn.com.goodlan.webvpn.service.system.admin;
 
+import cn.com.goodlan.webvpn.pojo.dto.AdminDTO;
 import cn.com.goodlan.webvpn.pojo.dto.ChangePasswordDTO;
 import cn.com.goodlan.webvpn.pojo.dto.ResetPasswordDTO;
 import cn.com.goodlan.webvpn.pojo.dto.UpdateProfileDTO;
-import cn.com.goodlan.webvpn.pojo.dto.UserDTO;
-import cn.com.goodlan.webvpn.pojo.vo.SystemUserVO;
+import cn.com.goodlan.webvpn.pojo.vo.AdminVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface AdminService {
 
-    Page<SystemUserVO> search(UserDTO userDTO, Pageable pageable);
+    Page<AdminVO> search(AdminDTO adminDTO, Pageable pageable);
 
-    void save(UserDTO userDTO);
+    void save(AdminDTO adminDTO);
 
-    void update(UserDTO userDTO);
+    void update(AdminDTO adminDTO);
 
     void remove(String ids);
 
-    SystemUserVO getById(Long id);
+    AdminVO getById(Long id);
 
     /**
      * 重置密码

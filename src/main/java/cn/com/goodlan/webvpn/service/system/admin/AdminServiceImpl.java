@@ -3,15 +3,15 @@ package cn.com.goodlan.webvpn.service.system.admin;
 
 import cn.com.goodlan.webvpn.exception.BusinessException;
 import cn.com.goodlan.webvpn.mapstruct.SystemUserMapper;
+import cn.com.goodlan.webvpn.pojo.dto.AdminDTO;
 import cn.com.goodlan.webvpn.pojo.dto.ChangePasswordDTO;
 import cn.com.goodlan.webvpn.pojo.dto.ResetPasswordDTO;
 import cn.com.goodlan.webvpn.pojo.dto.UpdateProfileDTO;
-import cn.com.goodlan.webvpn.pojo.dto.UserDTO;
 import cn.com.goodlan.webvpn.pojo.entity.system.role.SystemRole;
 import cn.com.goodlan.webvpn.pojo.entity.system.user.Admin;
 import cn.com.goodlan.webvpn.pojo.entity.system.user.Password;
 import cn.com.goodlan.webvpn.pojo.entity.system.user.Username;
-import cn.com.goodlan.webvpn.pojo.vo.SystemUserVO;
+import cn.com.goodlan.webvpn.pojo.vo.AdminVO;
 import cn.com.goodlan.webvpn.repository.system.admin.AdminRepository;
 import cn.com.goodlan.webvpn.utils.AESUtil;
 import cn.com.goodlan.webvpn.utils.SecurityUtil;
@@ -44,37 +44,37 @@ public class AdminServiceImpl implements AdminService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public Page<SystemUserVO> search(UserDTO userDTO, Pageable pageable) {
+    public Page<AdminVO> search(AdminDTO adminDTO, Pageable pageable) {
         Specification<Admin> specification = (root, query, criteriaBuilder) -> {
             List<Predicate> list = new ArrayList<>();
-            if (StringUtils.isNotEmpty(userDTO.getName())) {
-                list.add(criteriaBuilder.like(root.get("name").as(String.class), userDTO.getName() + "%"));
+            if (StringUtils.isNotEmpty(adminDTO.getName())) {
+                list.add(criteriaBuilder.like(root.get("name").as(String.class), adminDTO.getName() + "%"));
             }
-            if (StringUtils.isNotEmpty(userDTO.getUsername())) {
-                list.add(criteriaBuilder.like(root.get("username").get("username").as(String.class), userDTO.getUsername() + "%"));
+            if (StringUtils.isNotEmpty(adminDTO.getUsername())) {
+                list.add(criteriaBuilder.like(root.get("username").get("username").as(String.class), adminDTO.getUsername() + "%"));
             }
-            if (StringUtils.isNotEmpty(userDTO.getPhoneNumber())) {
-                list.add(criteriaBuilder.equal(root.get("phoneNumber").as(String.class), AESUtil.encrypt(userDTO.getPhoneNumber())));
+            if (StringUtils.isNotEmpty(adminDTO.getPhoneNumber())) {
+                list.add(criteriaBuilder.equal(root.get("phoneNumber").as(String.class), AESUtil.encrypt(adminDTO.getPhoneNumber())));
             }
             Predicate[] p = new Predicate[list.size()];
             return criteriaBuilder.and(list.toArray(p));
         };
         Page<Admin> page = userRepository.findAll(specification, pageable);
-        List<SystemUserVO> list = SystemUserMapper.INSTANCE.convert(page.getContent());
+        List<AdminVO> list = SystemUserMapper.INSTANCE.convert(page.getContent());
         return new PageImpl<>(list, page.getPageable(), page.getTotalElements());
     }
 
     @Override
-    public void save(UserDTO userDTO) {
+    public void save(AdminDTO adminDTO) {
         Admin user = new Admin();
-        user.updateName(userDTO.getName());
-//        user.updateEmail(userDTO.getEmail());
-        user.updateUsername(new Username(userDTO.getUsername()));
-//        user.updatePhoneNumber(new PhoneNumber(userDTO.getPhoneNumber()));
-//        user.updateSex(userDTO.getSex());
-//        user.updateRemark(userDTO.getRemark());
-        user.updatePassword(new Password(userDTO.getPassword()));
-        Long[] roleIds = Convert.toLongArray(userDTO.getRoleIds());
+        user.updateName(adminDTO.getName());
+//        user.updateEmail(adminDTO.getEmail());
+        user.updateUsername(new Username(adminDTO.getUsername()));
+//        user.updatePhoneNumber(new PhoneNumber(adminDTO.getPhoneNumber()));
+//        user.updateSex(adminDTO.getSex());
+//        user.updateRemark(adminDTO.getRemark());
+        user.updatePassword(new Password(adminDTO.getPassword()));
+        Long[] roleIds = Convert.toLongArray(adminDTO.getRoleIds());
         for (Long roleId : roleIds) {
             user.addRole(new SystemRole(roleId));
         }
@@ -82,15 +82,15 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void update(UserDTO userDTO) {
-        Admin user = userRepository.getById(userDTO.getId());
-        user.updateName(userDTO.getName());
-//        user.updateRemark(userDTO.getRemark());
-//        user.updateSex(userDTO.getSex());
-//        user.updateEmail(userDTO.getEmail());
-//        user.updatePhoneNumber(new PhoneNumber(userDTO.getPhoneNumber()));
-//        user.addCollege(userDTO.getCollegeId());
-        Long[] roleIds = Convert.toLongArray(userDTO.getRoleIds());
+    public void update(AdminDTO adminDTO) {
+        Admin user = userRepository.getById(adminDTO.getId());
+        user.updateName(adminDTO.getName());
+//        user.updateRemark(adminDTO.getRemark());
+//        user.updateSex(adminDTO.getSex());
+//        user.updateEmail(adminDTO.getEmail());
+//        user.updatePhoneNumber(new PhoneNumber(adminDTO.getPhoneNumber()));
+//        user.addCollege(adminDTO.getCollegeId());
+        Long[] roleIds = Convert.toLongArray(adminDTO.getRoleIds());
         user.removeAllRole();
         for (Long roleId : roleIds) {
             user.addRole(new SystemRole(roleId));
@@ -111,7 +111,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public SystemUserVO getById(Long id) {
+    public AdminVO getById(Long id) {
         Admin user = userRepository.getReferenceById(id);
         return SystemUserMapper.INSTANCE.convert(user);
     }
