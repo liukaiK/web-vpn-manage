@@ -27,8 +27,8 @@ public class ProxyServiceImpl implements ProxyService {
         Proxy proxy = new Proxy();
         proxy.updateName(proxyDTO.getName());
         proxy.updateVirDomainName(proxyDTO.getVirDomainName());
-        proxy.updateProxyIp(proxyDTO.getProxyIp());
-        proxy.updatePrefixType(proxyDTO.getPrefixType());
+//        proxy.updateProxyIp(proxyDTO.getProxyIp());
+//        proxy.updatePrefixType(proxyDTO.getPrefixType());
         proxyRepository.save(proxy);
     }
 
@@ -45,8 +45,8 @@ public class ProxyServiceImpl implements ProxyService {
         Proxy proxy = proxyRepository.getReferenceById(id);
         proxy.updateName(proxyDTO.getName());
         proxy.updateVirDomainName(proxyDTO.getVirDomainName());
-        proxy.updateProxyIp(proxyDTO.getProxyIp());
-        proxy.updatePrefixType(proxyDTO.getPrefixType());
+//        proxy.updateProxyIp(proxyDTO.getProxyIp());
+//        proxy.updatePrefixType(proxyDTO.getPrefixType());
         proxyRepository.save(proxy);
 
     }

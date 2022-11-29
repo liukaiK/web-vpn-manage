@@ -1,6 +1,6 @@
 package cn.com.goodlan.webvpn.pojo.dto;
 
-import cn.com.goodlan.webvpn.pojo.entity.resource.proxy.Proxy;
+import cn.com.goodlan.webvpn.pojo.entity.resource.proxy.PrefixType;
 
 public class ProxyDTO {
 
@@ -12,7 +12,7 @@ public class ProxyDTO {
 
     private String proxyIp;
 
-    private Proxy.PrefixType prefixType;
+    private PrefixType prefixType;
 
     public String getName() {
         return name;
@@ -46,11 +46,11 @@ public class ProxyDTO {
         this.proxyIp = proxyIp;
     }
 
-    public Proxy.PrefixType getPrefixType() {
+    public PrefixType getPrefixType() {
         return prefixType;
     }
 
-    public void setPrefixType(Proxy.PrefixType prefixType) {
+    public void setPrefixType(PrefixType prefixType) {
         this.prefixType = prefixType;
     }
 

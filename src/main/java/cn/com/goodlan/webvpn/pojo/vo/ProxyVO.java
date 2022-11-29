@@ -1,13 +1,13 @@
 package cn.com.goodlan.webvpn.pojo.vo;
 
-import cn.com.goodlan.webvpn.pojo.entity.resource.proxy.Proxy;
+import cn.com.goodlan.webvpn.pojo.entity.resource.proxy.PrefixType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
 
 public class ProxyVO {
 
-    private Integer id;
+    private Long id;
 
     private String name;
 
@@ -15,24 +15,37 @@ public class ProxyVO {
     /**
      * 虚拟域名
      */
-    private String virDomainName;
+    private String virtualDomain;
 
     /**
      * 代理的内网ip
      */
-    private String proxyIp;
+    private String ip;
+
+    private String port;
+
+    private String url;
+
+    private String protocol;
+
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
 
     /**
      * 代理前缀的生成方式
      */
-    private Proxy.PrefixType prefixType;
+    private PrefixType prefixType;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
-
 
     public Integer getId() {
         return id;
@@ -50,27 +63,35 @@ public class ProxyVO {
         this.name = name;
     }
 
-    public String getVirDomainName() {
-        return virDomainName;
+    public String getVirtualDomain() {
+        return virtualDomain;
     }
 
-    public void setVirDomainName(String virDomainName) {
-        this.virDomainName = virDomainName;
+    public void setVirtualDomain(String virtualDomain) {
+        this.virtualDomain = virtualDomain;
     }
 
-    public String getProxyIp() {
-        return proxyIp;
+    public String getIp() {
+        return ip;
     }
 
-    public void setProxyIp(String proxyIp) {
-        this.proxyIp = proxyIp;
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
-    public Proxy.PrefixType getPrefixType() {
+    public String getPort() {
+        return port;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
+    }
+
+    public PrefixType getPrefixType() {
         return prefixType;
     }
 
-    public void setPrefixType(Proxy.PrefixType prefixType) {
+    public void setPrefixType(PrefixType prefixType) {
         this.prefixType = prefixType;
     }
 
@@ -88,5 +109,13 @@ public class ProxyVO {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

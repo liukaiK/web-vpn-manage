@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-	<th:block th:include="include :: header('用户列表')" />
+	<th:block th:include="include :: header('代理资源列表')" />
 	<th:block th:include="include :: layout-latest-css" />
 	<th:block th:include="include :: ztree-css" />
 </head>
@@ -35,11 +35,11 @@
 						<div class="select-list">
 							<ul>
 								<li>
-									姓名：<input type="text" name="name"/>
+									名称：<input type="text" name="name"/>
 								</li>
-								<li>
-									账号：<input type="text" name="username"/>
-								</li>
+<!--								<li>-->
+<!--									账号：<input type="text" name="username"/>-->
+<!--								</li>-->
 <!--								<li>-->
 <!--									手机号码：<input type="text" name="phoneNumber"/>-->
 <!--								</li>-->
@@ -143,17 +143,23 @@
 						title: '代理名称'
 					},
 					{
-					    field: 'virDomainName',
+					    field: 'virtualDomain',
 					    title: '虚拟域名'
 					},
 					{
-					    field: 'proxyIp',
-					    title: '代理IP'
+					    field: 'ip',
+					    title: '内网IP'
 					},
-					// {
-					//     field: 'phoneNumber',
-					//     title: '手机号码'
-					// },
+					{
+					    field: 'port',
+					    title: '端口号'
+					},
+					{
+						title: '内网域名',
+						formatter: function (value, row, index) {
+							return row.protocol + '://' + row.url;
+						}
+					},
 					// {
 					// 	visible: editFlag == 'hidden' ? false : true,
 					// 	title: '用户状态',
