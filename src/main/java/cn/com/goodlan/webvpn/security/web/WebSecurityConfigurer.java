@@ -36,7 +36,7 @@ public class WebSecurityConfigurer {
     private ObjectMapper objectMapper;
 
     @Autowired
-    private AdminRepository userRepository;
+    private AdminRepository adminRepository;
 
     @Autowired
     private RememberMeServices rememberMeServices;
@@ -83,7 +83,7 @@ public class WebSecurityConfigurer {
      * 认证成功处理器
      */
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return new WebAuthenticationSuccessHandler(objectMapper, userRepository);
+        return new WebAuthenticationSuccessHandler(objectMapper, adminRepository);
     }
 
     /**

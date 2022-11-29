@@ -1,4 +1,4 @@
-package cn.com.goodlan.webvpn.controller.school.role;
+package cn.com.goodlan.webvpn.controller.resource.role;
 
 import cn.com.goodlan.webvpn.annotations.ResponseResultBody;
 import cn.com.goodlan.webvpn.pojo.dto.ResourceRoleDTO;
