@@ -3,6 +3,7 @@
 <head>
     <th:block th:include="include :: header('新增代理')" />
     <th:block th:include="include :: select2-css" />
+    <th:block th:include="include :: jasny-bootstrap-css" />
 </head>
 <body>
 <div class="main-content">
@@ -18,17 +19,26 @@
                     </div>
                 </div>
             </div>
-            <!--                <div class="col-sm-6">-->
-            <!--                    <div class="form-group">-->
-            <!--                        <label class="col-sm-4 control-label">归属学院：</label>-->
-            <!--                        <div class="col-sm-8">-->
-            <!--                            <div class="input-group">-->
-            <!--                            	<input name="collegeName" onclick="selectDeptTree()" id="treeName" type="text" placeholder="请选择归属学院" class="form-control">-->
-            <!--                                <span class="input-group-addon"><i class="fa fa-search"></i></span>-->
-            <!--                            </div>-->
-            <!--                        </div>-->
-            <!--                    </div>-->
-            <!--                </div>-->
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">虚拟域名：</label>
+                    <div class="col-sm-8">
+                        <input name="virtualName" placeholder="请输入虚拟域名" class="form-control" type="text" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">内网IP：</label>
+                    <div class="col-sm-8">
+                        <input name="ip" placeholder="请输入内网IP" class="form-control" type="text" data-mask="999.999.999.999" required>
+                    </div>
+                </div>
+            </div>
         </div>
         <!--            <div class="row">-->
         <!--                <div class="col-sm-6">-->
@@ -150,6 +160,7 @@
 </div>
 <th:block th:include="include :: footer" />
 <th:block th:include="include :: select2-js" />
+<th:block th:include="include :: jasny-bootstrap-js" />
 <script type="text/javascript" th:inline="javascript">
     var prefix = ctx + "system/user";
 
