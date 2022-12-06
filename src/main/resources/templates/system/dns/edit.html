@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<th:block th:include="include :: header('修改DNS')" />
+</head>
+<body class="white-bg">
+	<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+		<form class="form-horizontal m" id="form-role-edit" th:object="${dns}">
+			<input id="id" name="id" type="hidden" th:value="*{id}"/>
+			<div class="form-group">
+				<label class="col-sm-3 control-label is-required">ip：</label>
+				<div class="col-sm-8">
+					<input class="form-control" type="text" name="ip" id="ip" th:value="*{ip}" required>
+				</div>
+			</div>
+		</form>
+	</div>
+	<th:block th:include="include :: footer" />
+	<script type="text/javascript" th:inline="javascript">
+
+		$("#form-role-edit").validate({
+			onkeyup: false,
+			rules: {
+				ip: {
+					required: true
+				}
+			},
+			messages: {
+				ip: {
+					required: "请输入ip"
+				}
+			},
+			focusCleanup: true
+		});
+
+
+		var editUrl = /*[[@{/system/dns/edit}]]*/ "";
+
+
+		function edit() {
+			var id = $("input[name='id']").val();
+			var ip = $("input[name='ip']").val();
+			$.ajax({
+				cache : false,
+				type : "POST",
+				url : editUrl,
+				data : {
+					"id": id,
+					"ip": ip
+				},
+				beforeSend: function (request) {
+					if (csrfToken && csrfHeader) {
+						request.setRequestHeader(csrfHeader, csrfToken);
+					}
+				},
+				async : false,
+				error : function(request) {
+					$.modal.alertError("系统错误");
+				},
+				success : function(data) {
+					$.operate.successCallback(data);
+				}
+			});
+		}
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	        	edit();
+	        }
+	    }
+	</script>
+</body>
+</html>

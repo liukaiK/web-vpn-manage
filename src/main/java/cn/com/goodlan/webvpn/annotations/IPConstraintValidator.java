@@ -1,6 +1,6 @@
 package cn.com.goodlan.webvpn.annotations;
 
-import org.springframework.util.StringUtils;
+import cn.hutool.core.util.StrUtil;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -22,7 +22,7 @@ public class IPConstraintValidator implements ConstraintValidator<IP, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (StringUtils.isEmpty(value)) {
+        if (StrUtil.isEmpty(value)) {
             return false;
         }
         return PATTERN.matcher(value).matches();

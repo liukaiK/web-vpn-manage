@@ -45,14 +45,14 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public RoleVO getById(Long roleId) {
-        SystemRole role = roleRepository.getById(roleId);
+        SystemRole role = roleRepository.getReferenceById(roleId);
         return RoleMapper.INSTANCE.convert(role);
     }
 
     @Override
     public void update(RoleDTO roleDTO) {
         Long[] menuIds = Convert.toLongArray(roleDTO.getMenuIds());
-        SystemRole role = roleRepository.getById(roleDTO.getId());
+        SystemRole role = roleRepository.getReferenceById(roleDTO.getId());
         role.updateName(roleDTO.getRoleName());
         role.updateRemark(roleDTO.getRemark());
         role.removeAllMenu();
