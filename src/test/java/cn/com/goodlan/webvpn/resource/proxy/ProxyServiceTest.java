@@ -3,7 +3,6 @@ package cn.com.goodlan.webvpn.resource.proxy;
 import cn.com.goodlan.webvpn.WebApplication;
 import cn.com.goodlan.webvpn.pojo.entity.resource.proxy.Proxy;
 import cn.com.goodlan.webvpn.repository.resource.proxy.ProxyRepository;
-import cn.hutool.core.util.IdUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
@@ -21,10 +20,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = WebApplication.class)
 @WithMockUser(username = "admin", password = "123433356")
 @WithUserDetails(userDetailsServiceBeanName = "userDetailsServiceImpl")
-@SpringBootTest(classes = WebApplication.class)
-@RunWith(SpringRunner.class)
 public class ProxyServiceTest {
 
     @Autowired
@@ -41,14 +40,11 @@ public class ProxyServiceTest {
     @Transactional
     @Rollback(value = false)
     public void redis() throws JsonProcessingException {
-
         List<Proxy> proxies = proxyRepository.findAll();
-
+        String key = "ips:url";
+        redisTemplate.delete(key);
         for (Proxy proxy : proxies) {
-            String virtualDomain = proxy.getVirtualDomain().substring(2);
-            String newVirtualDomain = IdUtil.fastSimpleUUID() + virtualDomain;
-            proxy.updateVirDomainName(newVirtualDomain);
-            System.out.println(virtualDomain);
+
             Map<String, String> childrenMap = new HashMap<>();
             childrenMap.put("url", proxy.getIp());
             childrenMap.put("port", proxy.getPort());
@@ -56,9 +52,11 @@ public class ProxyServiceTest {
 
             Map<String, Object> map = new HashMap<>();
             map.put(proxy.getVirtualDomain(), childrenMap);
+
             String content = objectMapper.writeValueAsString(map);
             System.out.println(content);
-            redisTemplate.opsForSet().add("ips:url", content);
+
+            redisTemplate.opsForSet().add(key, content);
 
         }
 
