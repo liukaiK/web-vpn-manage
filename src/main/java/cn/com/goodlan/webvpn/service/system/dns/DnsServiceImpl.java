@@ -1,5 +1,6 @@
 package cn.com.goodlan.webvpn.service.system.dns;
 
+import cn.com.goodlan.webvpn.annotations.RefreshDNS;
 import cn.com.goodlan.webvpn.mapstruct.DnsMapper;
 import cn.com.goodlan.webvpn.pojo.entity.system.dns.Dns;
 import cn.com.goodlan.webvpn.pojo.vo.DnsVO;
@@ -41,12 +42,14 @@ public class DnsServiceImpl implements DnsService {
     }
 
     @Override
+    @RefreshDNS
     public void save(String ip) {
         Dns dns = new Dns(ip);
         dnsRepository.save(dns);
     }
 
     @Override
+    @RefreshDNS
     public void remove(String ids) {
         Long[] dnsIds = Convert.toLongArray(ids);
         dnsRepository.deleteAllById(Arrays.asList(dnsIds));
@@ -59,6 +62,7 @@ public class DnsServiceImpl implements DnsService {
     }
 
     @Override
+    @RefreshDNS
     public void update(Long id, String ip) {
         Dns dns = dnsRepository.getReferenceById(id);
         dns.updateIp(ip);
