@@ -9,8 +9,9 @@ public class ResourceRoleDTO {
     @NotBlank(message = "请输入角色名称")
     private String roleName;
 
-    private String description;
+    private String navigationIds;
 
+    private String description;
 
     public Long getId() {
         return id;
@@ -35,4 +36,13 @@ public class ResourceRoleDTO {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getNavigationIds() {
+        return navigationIds;
+    }
+
+    public void setNavigationIds(String navigationIds) {
+        this.navigationIds = navigationIds;
+    }
+
 }

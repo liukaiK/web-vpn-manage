@@ -2,7 +2,6 @@ package cn.com.goodlan.webvpn.pojo.entity.resource.user;
 
 import cn.com.goodlan.webvpn.pojo.entity.AbstractEntity;
 import cn.com.goodlan.webvpn.pojo.entity.resource.role.ResourceRole;
-import cn.hutool.core.collection.CollectionUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -36,12 +35,12 @@ public class User extends AbstractEntity {
     private List<ResourceRole> roles = new ArrayList<>();
 
     /**
-     * 冗余字段 以逗号分割
+     * 冗余字段 以/分割
      */
     private String roleIds;
 
     /**
-     * 冗余字段 以逗号分割
+     * 冗余字段 以/分割
      */
     private String roleNames;
 
@@ -53,9 +52,9 @@ public class User extends AbstractEntity {
     }
 
     public User(String name, String username, List<ResourceRole> roles) {
-        this.name = name;
+        updateName(name);
         this.username = username;
-        this.roles = roles;
+        updateRoles(roles);
     }
 
     public void updateName(String name) {
@@ -63,18 +62,9 @@ public class User extends AbstractEntity {
     }
 
     public void updateRoles(List<ResourceRole> roles) {
-        clearRole();
-        if (CollectionUtil.isNotEmpty(roles)) {
-            this.roles.addAll(roles);
-            this.roleIds = StringUtils.join(roles.stream().map(ResourceRole::getId).collect(Collectors.toList()), "/");
-            this.roleNames = StringUtils.join(roles.stream().map(ResourceRole::getName).collect(Collectors.toList()), "/");
-        }
-    }
-
-    private void clearRole() {
-        this.roleIds = "";
-        this.roleNames = "";
-        this.roles.clear();
+        this.roles = roles;
+        this.roleIds = StringUtils.join(roles.stream().map(ResourceRole::getId).collect(Collectors.toList()), "/");
+        this.roleNames = StringUtils.join(roles.stream().map(ResourceRole::getName).collect(Collectors.toList()), "/");
     }
 
     public Long getId() {

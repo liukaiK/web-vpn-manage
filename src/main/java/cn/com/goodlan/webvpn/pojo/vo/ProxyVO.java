@@ -41,6 +41,8 @@ public class ProxyVO {
      */
     private PrefixType prefixType;
 
+    private Boolean check;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
@@ -117,5 +119,13 @@ public class ProxyVO {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Boolean getCheck() {
+        return check;
+    }
+
+    public void setCheck(Boolean check) {
+        this.check = check;
     }
 }

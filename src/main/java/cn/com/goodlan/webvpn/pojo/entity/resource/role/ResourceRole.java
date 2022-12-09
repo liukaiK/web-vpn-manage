@@ -2,6 +2,7 @@ package cn.com.goodlan.webvpn.pojo.entity.resource.role;
 
 import cn.com.goodlan.webvpn.exception.BusinessException;
 import cn.com.goodlan.webvpn.pojo.entity.AbstractEntity;
+import cn.com.goodlan.webvpn.pojo.entity.resource.navigation.Navigation;
 import cn.com.goodlan.webvpn.pojo.entity.resource.user.User;
 import cn.hutool.core.collection.CollectionUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -35,6 +36,10 @@ public class ResourceRole extends AbstractEntity {
     private String description;
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "resource_role_navigation", joinColumns = @JoinColumn(name = "navigation_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Navigation> navigations = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "resource_user_role", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users = new ArrayList<>();
 
@@ -47,12 +52,13 @@ public class ResourceRole extends AbstractEntity {
         this.id = id;
     }
 
-    public ResourceRole(String name, String description) {
+    public ResourceRole(String name, String description, List<Navigation> navigations) {
         if (StringUtils.isEmpty(name)) {
             throw new BusinessException("角色名称不能为空");
         }
         this.name = name;
         this.description = description;
+        this.navigations = navigations;
     }
 
     public void updateName(String name) {
@@ -61,6 +67,10 @@ public class ResourceRole extends AbstractEntity {
 
     public void updateDescription(String description) {
         this.description = description;
+    }
+
+    public void updateNavigations(List<Navigation> navigations) {
+        this.navigations = navigations;
     }
 
     /**
@@ -78,12 +88,12 @@ public class ResourceRole extends AbstractEntity {
         return name;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
     public String getDescription() {
         return description;
+    }
+
+    public List<Navigation> getNavigations() {
+        return navigations;
     }
 
 }

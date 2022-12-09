@@ -16,4 +16,11 @@ public interface NavigationService {
 
     void save(NavigationDTO navigationDTO);
 
+    void update(NavigationDTO navigationDTO);
+
+    NavigationVO getById(Long id);
+
+    List<ProxyVO> selectProxyByNavigation(Long navigationId);
+
+    void remove(String ids);
 }

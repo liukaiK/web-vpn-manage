@@ -3,8 +3,10 @@ package cn.com.goodlan.webvpn.service.resource.role;
 import cn.com.goodlan.webvpn.exception.BusinessException;
 import cn.com.goodlan.webvpn.mapstruct.RoleMapper;
 import cn.com.goodlan.webvpn.pojo.dto.ResourceRoleDTO;
+import cn.com.goodlan.webvpn.pojo.entity.resource.navigation.Navigation;
 import cn.com.goodlan.webvpn.pojo.entity.resource.role.ResourceRole;
 import cn.com.goodlan.webvpn.pojo.vo.ResourceRoleVO;
+import cn.com.goodlan.webvpn.repository.resource.navigation.NavigationRepository;
 import cn.com.goodlan.webvpn.repository.resource.role.ResourceRoleRepository;
 import cn.hutool.core.convert.Convert;
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -24,6 +27,9 @@ public class ResourceRoleServiceImpl implements ResourceRoleService {
 
     @Autowired
     private ResourceRoleRepository resourceRoleRepository;
+
+    @Autowired
+    private NavigationRepository navigationRepository;
 
     @Override
     public Page<ResourceRoleVO> search(String name, Pageable pageable) {
@@ -62,6 +68,7 @@ public class ResourceRoleServiceImpl implements ResourceRoleService {
     public void save(ResourceRoleDTO resourceRoleDTO) {
         String name = resourceRoleDTO.getRoleName();
         String description = resourceRoleDTO.getDescription();
+        String navigationIds = resourceRoleDTO.getNavigationIds();
         if (StringUtils.isEmpty(name)) {
             throw new BusinessException("角色名称不能为空");
         }
@@ -70,7 +77,9 @@ public class ResourceRoleServiceImpl implements ResourceRoleService {
             throw new BusinessException("角色名称已经存在!");
         }
 
-        ResourceRole role = new ResourceRole(name, description);
+        List<Navigation> navigations = navigationRepository.findAllById(Arrays.asList(Convert.toLongArray(navigationIds)));
+
+        ResourceRole role = new ResourceRole(name, description, navigations);
         resourceRoleRepository.save(role);
     }
 

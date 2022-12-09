@@ -2,7 +2,6 @@ package cn.com.goodlan.webvpn.pojo.entity.resource.navigation;
 
 import cn.com.goodlan.webvpn.pojo.entity.AbstractEntity;
 import cn.com.goodlan.webvpn.pojo.entity.resource.proxy.Proxy;
-import cn.hutool.core.collection.CollectionUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -42,13 +41,8 @@ public class Navigation extends AbstractEntity {
     }
 
     public Navigation(String name, List<Proxy> proxies) {
-        this.name = name;
-        clearProxies();
-        if (CollectionUtil.isNotEmpty(proxies)) {
-            this.proxies.addAll(proxies);
-            this.proxyIds = StringUtils.join(proxies.stream().map(Proxy::getId).collect(Collectors.toList()), "/");
-            this.proxyNames = StringUtils.join(proxies.stream().map(Proxy::getName).collect(Collectors.toList()), "/");
-        }
+        updateName(name);
+        updateProxies(proxies);
     }
 
     public void updateName(String name) {
@@ -56,14 +50,9 @@ public class Navigation extends AbstractEntity {
     }
 
     public void updateProxies(List<Proxy> proxies) {
-        clearProxies();
         this.proxies = proxies;
-    }
-
-    private void clearProxies() {
-        this.proxyIds = "";
-        this.proxyNames = "";
-        this.proxies.clear();
+        this.proxyIds = StringUtils.join(proxies.stream().map(Proxy::getId).collect(Collectors.toList()), "/");
+        this.proxyNames = StringUtils.join(proxies.stream().map(Proxy::getName).collect(Collectors.toList()), "/");
     }
 
     public Long getId() {
