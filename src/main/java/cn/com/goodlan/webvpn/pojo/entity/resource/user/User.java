@@ -52,23 +52,22 @@ public class User extends AbstractEntity {
         this.id = id;
     }
 
-    public User(String name, String username) {
+    public User(String name, String username, List<ResourceRole> roles) {
         this.name = name;
         this.username = username;
+        this.roles = roles;
     }
 
     public void updateName(String name) {
         this.name = name;
     }
 
-    public void refreshRoles(List<ResourceRole> roles) {
+    public void updateRoles(List<ResourceRole> roles) {
         clearRole();
         if (CollectionUtil.isNotEmpty(roles)) {
-            for (ResourceRole role : roles) {
-                this.roles.add(role);
-                this.roleIds = StringUtils.join(roles.stream().map(ResourceRole::getId).collect(Collectors.toList()), "/");
-                this.roleNames = StringUtils.join(roles.stream().map(ResourceRole::getName).collect(Collectors.toList()), "/");
-            }
+            this.roles.addAll(roles);
+            this.roleIds = StringUtils.join(roles.stream().map(ResourceRole::getId).collect(Collectors.toList()), "/");
+            this.roleNames = StringUtils.join(roles.stream().map(ResourceRole::getName).collect(Collectors.toList()), "/");
         }
     }
 

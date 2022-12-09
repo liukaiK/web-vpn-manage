@@ -151,7 +151,7 @@
 						title: '角色',
 						formatter: function (value, row, index) {
 							// 前后加空格 显示的时候好看一下
-							return row.roleNames.replace("/", " / ");
+							return row.roleNames.replaceAll("/", " / ");
 						}
 					},
 					// {

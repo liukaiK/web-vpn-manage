@@ -65,7 +65,7 @@ public class UserController {
      * 新增用户
      */
     @PostMapping("/add")
-    @PreAuthorize("hasAuthority('system:user:add')")
+    @PreAuthorize("hasAuthority('resource:user:add')")
     public void add(@Validated(Create.class) UserDTO userDTO) {
         userService.save(userDTO);
     }

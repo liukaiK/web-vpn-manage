@@ -58,18 +58,19 @@ public class UserServiceImpl implements UserService {
         Long[] roleIds = Convert.toLongArray(userDTO.getRoleIds());
         List<ResourceRole> roles = resourceRoleRepository.findAllById(Arrays.asList(roleIds));
 
-        User user = new User(userDTO.getName(), userDTO.getUsername());
-        user.refreshRoles(roles);
+        User user = new User(userDTO.getName(), userDTO.getUsername(), roles);
         userRepository.save(user);
     }
 
     @Override
     public void update(UserDTO userDTO) {
-        User user = userRepository.getReferenceById(userDTO.getId());
-        user.updateName(userDTO.getName());
         Long[] roleIds = Convert.toLongArray(userDTO.getRoleIds());
         List<ResourceRole> roles = resourceRoleRepository.findAllById(Arrays.asList(roleIds));
-        user.refreshRoles(roles);
+
+        User user = userRepository.getReferenceById(userDTO.getId());
+        user.updateName(userDTO.getName());
+
+        user.updateRoles(roles);
         userRepository.save(user);
     }
 
