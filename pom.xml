@@ -3,11 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.com.goodlan</groupId>
-    <artifactId>web-vpn</artifactId>
+    <artifactId>web-vpn-manage</artifactId>
     <version>${revision}</version>
     <packaging>jar</packaging>
 
-    <name>web-vpn</name>
+    <name>web-vpn-manage</name>
+    <description>WebVPN管理端</description>
 
 
     <properties>
@@ -232,7 +233,7 @@
     </dependencies>
 
     <build>
-        <finalName>web-vpn</finalName>
+        <finalName>web-vpn-manage</finalName>
         <extensions>
             <extension>
                 <groupId>kr.motd.maven</groupId>
