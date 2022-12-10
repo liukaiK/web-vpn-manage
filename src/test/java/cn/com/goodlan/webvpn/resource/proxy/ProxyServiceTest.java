@@ -1,6 +1,6 @@
 package cn.com.goodlan.webvpn.resource.proxy;
 
-import cn.com.goodlan.webvpn.WebApplication;
+import cn.com.goodlan.webvpn.ManageApplication;
 import cn.com.goodlan.webvpn.pojo.entity.resource.proxy.Proxy;
 import cn.com.goodlan.webvpn.repository.resource.proxy.ProxyRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = WebApplication.class)
+@SpringBootTest(classes = ManageApplication.class)
 @WithMockUser(username = "admin", password = "123433356")
 @WithUserDetails(userDetailsServiceBeanName = "userDetailsServiceImpl")
 public class ProxyServiceTest {

@@ -18,10 +18,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @EnableScheduling
 @EnableWebSecurity(debug = false)
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
-public class WebApplication {
+public class ManageApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(WebApplication.class, args);
+        SpringApplication.run(ManageApplication.class, args);
     }
 
 }

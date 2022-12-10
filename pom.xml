@@ -264,7 +264,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>cn.com.goodlan.webvpn.WebApplication</mainClass>
+                    <mainClass>cn.com.goodlan.webvpn.ManageApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

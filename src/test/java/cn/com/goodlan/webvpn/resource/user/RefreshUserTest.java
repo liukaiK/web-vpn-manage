@@ -1,6 +1,6 @@
 package cn.com.goodlan.webvpn.resource.user;
 
-import cn.com.goodlan.webvpn.WebApplication;
+import cn.com.goodlan.webvpn.ManageApplication;
 import cn.com.goodlan.webvpn.pojo.entity.resource.user.User;
 import cn.com.goodlan.webvpn.repository.resource.user.UserRepository;
 import org.junit.Test;
@@ -18,7 +18,7 @@ import java.util.List;
 
 @WithMockUser(username = "admin", password = "123433356")
 @WithUserDetails(userDetailsServiceBeanName = "userDetailsServiceImpl")
-@SpringBootTest(classes = WebApplication.class)
+@SpringBootTest(classes = ManageApplication.class)
 @RunWith(SpringRunner.class)
 public class RefreshUserTest {
 

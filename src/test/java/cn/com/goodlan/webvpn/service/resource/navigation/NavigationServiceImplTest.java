@@ -1,6 +1,6 @@
 package cn.com.goodlan.webvpn.service.resource.navigation;
 
-import cn.com.goodlan.webvpn.WebApplication;
+import cn.com.goodlan.webvpn.ManageApplication;
 import cn.com.goodlan.webvpn.pojo.dto.NavigationDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = WebApplication.class)
+@SpringBootTest(classes = ManageApplication.class)
 @WithMockUser(username = "admin", password = "123433356")
 @WithUserDetails(userDetailsServiceBeanName = "userDetailsServiceImpl")
 public class NavigationServiceImplTest {
