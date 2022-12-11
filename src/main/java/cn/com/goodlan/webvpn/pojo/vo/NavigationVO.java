@@ -12,6 +12,8 @@ public class NavigationVO {
 
     private String proxyNames;
 
+    private Boolean check;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
@@ -56,5 +58,13 @@ public class NavigationVO {
 
     public void setProxyNames(String proxyNames) {
         this.proxyNames = proxyNames;
+    }
+
+    public Boolean getCheck() {
+        return check;
+    }
+
+    public void setCheck(Boolean check) {
+        this.check = check;
     }
 }

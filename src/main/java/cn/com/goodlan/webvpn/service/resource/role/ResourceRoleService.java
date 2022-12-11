@@ -1,6 +1,7 @@
 package cn.com.goodlan.webvpn.service.resource.role;
 
 import cn.com.goodlan.webvpn.pojo.dto.ResourceRoleDTO;
+import cn.com.goodlan.webvpn.pojo.vo.NavigationVO;
 import cn.com.goodlan.webvpn.pojo.vo.ResourceRoleVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,5 +50,9 @@ public interface ResourceRoleService {
      * 删除角色
      */
     void remove(String ids);
+
+    List<NavigationVO> selectNavigationAll();
+
+    List<NavigationVO> selectNavigationByRole(Long id);
 
 }

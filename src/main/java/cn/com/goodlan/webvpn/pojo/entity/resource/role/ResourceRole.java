@@ -36,7 +36,7 @@ public class ResourceRole extends AbstractEntity {
     private String description;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "resource_role_navigation", joinColumns = @JoinColumn(name = "navigation_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "resource_role_navigation", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "navigation_id"))
     private List<Navigation> navigations = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)

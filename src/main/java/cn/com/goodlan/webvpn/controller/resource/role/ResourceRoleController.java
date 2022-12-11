@@ -27,7 +27,7 @@ import javax.validation.Valid;
 public class ResourceRoleController {
 
     @Autowired
-    private ResourceRoleService resourceRoleService;
+    private ResourceRoleService roleService;
 
 
     @GetMapping
@@ -42,7 +42,7 @@ public class ResourceRoleController {
     @PostMapping("/search")
     @PreAuthorize("hasAuthority('resource:role:search')")
     public Page<ResourceRoleVO> search(String name, @PageableDefault Pageable pageable) {
-        return resourceRoleService.search(name, pageable);
+        return roleService.search(name, pageable);
     }
 
 
@@ -51,7 +51,8 @@ public class ResourceRoleController {
      */
     @GetMapping("/add")
     @PreAuthorize("hasAuthority('resource:role:add')")
-    public ModelAndView add() {
+    public ModelAndView add(Model model) {
+        model.addAttribute("navigations", roleService.selectNavigationAll());
         return new ModelAndView("resource/role/add");
     }
 
@@ -61,7 +62,7 @@ public class ResourceRoleController {
     @PostMapping("/create")
     @PreAuthorize("hasAuthority('resource:role:add')")
     public void create(@Valid ResourceRoleDTO roleDTO) {
-        resourceRoleService.save(roleDTO);
+        roleService.save(roleDTO);
     }
 
     /**
@@ -70,7 +71,8 @@ public class ResourceRoleController {
     @GetMapping("/edit/{id}")
     @PreAuthorize("hasAuthority('resource:role:edit')")
     public ModelAndView edit(@PathVariable Long id, Model model) {
-        model.addAttribute("role", resourceRoleService.getById(id));
+        model.addAttribute("role", roleService.getById(id));
+        model.addAttribute("navigations", roleService.selectNavigationByRole(id));
         return new ModelAndView("resource/role/edit");
     }
 
@@ -80,7 +82,7 @@ public class ResourceRoleController {
     @PostMapping("/edit")
     @PreAuthorize("hasAuthority('resource:role:edit')")
     public void edit(@Valid ResourceRoleDTO resourceRoleDTO) {
-        resourceRoleService.update(resourceRoleDTO);
+        roleService.update(resourceRoleDTO);
     }
 
     /**
@@ -89,7 +91,7 @@ public class ResourceRoleController {
     @PostMapping("/remove")
     @PreAuthorize("hasAuthority('resource:role:remove')")
     public void remove(String ids) {
-        resourceRoleService.remove(ids);
+        roleService.remove(ids);
     }
 
 
@@ -99,9 +101,9 @@ public class ResourceRoleController {
     @PostMapping("/checkRoleNameUnique")
     public boolean checkRoleNameUnique(String roleName, Long roleId) {
         if (ObjectUtil.isEmpty(roleId)) {
-            return resourceRoleService.checkRoleNameUnique(roleName);
+            return roleService.checkRoleNameUnique(roleName);
         } else {
-            return resourceRoleService.checkRoleNameUnique(roleId, roleName);
+            return roleService.checkRoleNameUnique(roleId, roleName);
         }
     }
 

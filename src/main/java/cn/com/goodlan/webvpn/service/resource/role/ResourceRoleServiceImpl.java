@@ -1,10 +1,12 @@
 package cn.com.goodlan.webvpn.service.resource.role;
 
 import cn.com.goodlan.webvpn.exception.BusinessException;
+import cn.com.goodlan.webvpn.mapstruct.NavigationMapper;
 import cn.com.goodlan.webvpn.mapstruct.RoleMapper;
 import cn.com.goodlan.webvpn.pojo.dto.ResourceRoleDTO;
 import cn.com.goodlan.webvpn.pojo.entity.resource.navigation.Navigation;
 import cn.com.goodlan.webvpn.pojo.entity.resource.role.ResourceRole;
+import cn.com.goodlan.webvpn.pojo.vo.NavigationVO;
 import cn.com.goodlan.webvpn.pojo.vo.ResourceRoleVO;
 import cn.com.goodlan.webvpn.repository.resource.navigation.NavigationRepository;
 import cn.com.goodlan.webvpn.repository.resource.role.ResourceRoleRepository;
@@ -54,13 +56,18 @@ public class ResourceRoleServiceImpl implements ResourceRoleService {
         Long id = resourceRoleDTO.getId();
         String name = resourceRoleDTO.getRoleName();
         String description = resourceRoleDTO.getDescription();
+        String navigationIds = resourceRoleDTO.getNavigationIds();
 
         if (checkRoleNameUnique(id, name)) {
             throw new BusinessException("角色名称已经存在!");
         }
+
+        List<Navigation> navigations = navigationRepository.findAllById(Arrays.asList(Convert.toLongArray(navigationIds)));
+
         ResourceRole role = resourceRoleRepository.getReferenceById(id);
         role.updateName(name);
         role.updateDescription(description);
+        role.updateNavigations(navigations);
         resourceRoleRepository.save(role);
     }
 
@@ -124,6 +131,30 @@ public class ResourceRoleServiceImpl implements ResourceRoleService {
             }
             resourceRoleRepository.delete(role);
         }
+    }
+
+    @Override
+    public List<NavigationVO> selectNavigationAll() {
+        List<Navigation> navigations = navigationRepository.findAll();
+        return NavigationMapper.INSTANCE.convert(navigations);
+    }
+
+    @Override
+    public List<NavigationVO> selectNavigationByRole(Long id) {
+        List<Navigation> navigationsAll = navigationRepository.findAll();
+
+        List<NavigationVO> navigationVOS = NavigationMapper.INSTANCE.convert(navigationsAll);
+
+        List<Navigation> navigations = resourceRoleRepository.getReferenceById(id).getNavigations();
+
+        for (NavigationVO navigationVO : navigationVOS) {
+            for (Navigation navigation : navigations) {
+                if (navigationVO.getId().equals(navigation.getId())) {
+                    navigationVO.setCheck(true);
+                }
+            }
+        }
+        return navigationVOS;
     }
 
 }
