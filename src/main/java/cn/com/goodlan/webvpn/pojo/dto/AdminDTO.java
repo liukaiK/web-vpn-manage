@@ -4,7 +4,6 @@ package cn.com.goodlan.webvpn.pojo.dto;
 import cn.com.goodlan.webvpn.annotations.*;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 
 public class AdminDTO {
 
@@ -32,9 +31,6 @@ public class AdminDTO {
 
     @Sex
     private Character sex;
-
-    @NotBlank(message = "请选择学院")
-    private String collegeId;
 
     private String roleIds;
 
@@ -94,14 +90,6 @@ public class AdminDTO {
 
     public void setSex(Character sex) {
         this.sex = sex;
-    }
-
-    public String getCollegeId() {
-        return collegeId;
-    }
-
-    public void setCollegeId(String collegeId) {
-        this.collegeId = collegeId;
     }
 
     public String getRoleIds() {
