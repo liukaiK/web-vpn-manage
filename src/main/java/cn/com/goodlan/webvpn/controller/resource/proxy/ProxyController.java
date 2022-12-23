@@ -1,6 +1,5 @@
 package cn.com.goodlan.webvpn.controller.resource.proxy;
 
-import cn.com.goodlan.webvpn.annotations.Create;
 import cn.com.goodlan.webvpn.annotations.ResponseResultBody;
 import cn.com.goodlan.webvpn.pojo.dto.ProxyDTO;
 import cn.com.goodlan.webvpn.pojo.vo.ProxyVO;
@@ -60,7 +59,7 @@ public class ProxyController {
      */
     @PostMapping("/add")
     @PreAuthorize("hasAuthority('resource:proxy:add')")
-    public void add(@Validated(Create.class) ProxyDTO proxyDTO) {
+    public void add(@Valid ProxyDTO proxyDTO) {
         proxyService.save(proxyDTO);
     }
 

@@ -1,23 +1,33 @@
 package cn.com.goodlan.webvpn.pojo.dto;
 
+import cn.com.goodlan.webvpn.annotations.IP;
+
+import javax.validation.constraints.NotBlank;
+
 public class ProxyDTO {
 
     private Long id;
 
+    @NotBlank(message = "代理名称不能为空")
     private String name;
 
+    @NotBlank(message = "虚拟域名不能为空")
     private String virtualDomain;
 
     /**
      * 端口号
      */
+    @NotBlank(message = "端口号不能为空")
     private String port;
 
     /**
      * 内网ip
      */
+    @IP
+    @NotBlank(message = "IP不能为空")
     private String ip;
 
+    @NotBlank(message = "内网域名不能为空")
     private String url;
 
     /**

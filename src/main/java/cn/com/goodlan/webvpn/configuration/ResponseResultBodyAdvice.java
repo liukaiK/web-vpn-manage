@@ -106,7 +106,7 @@ public class ResponseResultBodyAdvice implements ResponseBodyAdvice<Object> {
      */
     @ExceptionHandler(BindException.class)
     public Result validatedBindException(BindException e) {
-        log.warn(e.getMessage(), e);
+        log.warn("参数校验异常", e);
         String message = e.getAllErrors().get(0).getDefaultMessage();
         return Result.fail(500, message);
     }
