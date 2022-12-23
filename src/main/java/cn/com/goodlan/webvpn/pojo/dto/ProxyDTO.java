@@ -1,18 +1,29 @@
 package cn.com.goodlan.webvpn.pojo.dto;
 
-import cn.com.goodlan.webvpn.pojo.entity.resource.proxy.PrefixType;
-
 public class ProxyDTO {
 
     private Long id;
 
     private String name;
 
-    private String virDomainName;
+    private String virtualDomain;
 
-    private String proxyIp;
+    /**
+     * 端口号
+     */
+    private String port;
 
-    private PrefixType prefixType;
+    /**
+     * 内网ip
+     */
+    private String ip;
+
+    private String url;
+
+    /**
+     * 协议
+     */
+    private String protocol;
 
     public String getName() {
         return name;
@@ -30,29 +41,44 @@ public class ProxyDTO {
         this.id = id;
     }
 
-    public String getVirDomainName() {
-        return virDomainName;
+    public String getVirtualDomain() {
+        return virtualDomain;
     }
 
-    public void setVirDomainName(String virDomainName) {
-        this.virDomainName = virDomainName;
+    public void setVirtualDomain(String virtualDomain) {
+        this.virtualDomain = virtualDomain;
     }
 
-    public String getProxyIp() {
-        return proxyIp;
+    public String getUrl() {
+        return url;
     }
 
-    public void setProxyIp(String proxyIp) {
-        this.proxyIp = proxyIp;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public PrefixType getPrefixType() {
-        return prefixType;
+    public String getPort() {
+        return port;
     }
 
-    public void setPrefixType(PrefixType prefixType) {
-        this.prefixType = prefixType;
+    public void setPort(String port) {
+        this.port = port;
     }
 
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
 
 }

@@ -25,7 +25,7 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label is-required">虚拟域名：</label>
                     <div class="col-sm-8">
-                        <input name="virtualName" placeholder="请输入虚拟域名" class="form-control" type="text" required>
+                        <input name="virtualDomain" placeholder="请输入虚拟域名" class="form-control" type="text" required>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,31 @@
                 <div class="form-group">
                     <label class="col-sm-4 control-label is-required">内网IP：</label>
                     <div class="col-sm-8">
-                        <input name="ip" placeholder="请输入内网IP" class="form-control" type="text" data-mask="999.999.999.999" required>
+                        <input name="ip" placeholder="请输入内网IP" class="form-control" type="text" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">端口号：</label>
+                    <div class="col-sm-8">
+                        <input name="port" placeholder="请输入端口号" class="form-control" type="text" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">内网域名：</label>
+                    <div class="col-sm-8">
+                        <select name="protocol" class="form-control">
+                            <option value="http" selected>http://</option>
+                            <option value="https">https://</option>
+                        </select>
+                        <input name="url" placeholder="请输入内网域名" class="form-control" type="text" required>
                     </div>
                 </div>
             </div>

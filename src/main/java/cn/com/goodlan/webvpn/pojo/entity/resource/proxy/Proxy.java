@@ -46,11 +46,6 @@ public class Proxy extends AbstractEntity {
      */
     private String protocol;
 
-    /**
-     * 代理前缀的生成方式
-     */
-//    @Convert(converter = PrefixType.PrefixTypeConverter.class)
-//    private PrefixType prefixType;
     public void updateName(String name) {
         this.name = name;
     }
@@ -59,9 +54,21 @@ public class Proxy extends AbstractEntity {
         this.virtualDomain = virDomainName;
     }
 
-//    public void updatePrefixType(PrefixType prefixType) {
-//        this.prefixType = prefixType;
-//    }
+    public void updatePort(String port) {
+        this.port = port;
+    }
+
+    public void updateIp(String ip) {
+        this.ip = ip;
+    }
+
+    public void updateUrl(String url) {
+        this.url = url;
+    }
+
+    public void updateProtocol(String protocol) {
+        this.protocol = protocol;
+    }
 
     public Long getId() {
         return id;
@@ -74,10 +81,6 @@ public class Proxy extends AbstractEntity {
     public String getVirtualDomain() {
         return virtualDomain;
     }
-
-//    public PrefixType getPrefixType() {
-//        return prefixType;
-//    }
 
     public String getIp() {
         return ip;

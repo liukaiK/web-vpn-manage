@@ -82,7 +82,7 @@ public class ProxyController {
     @PostMapping("/edit")
     @PreAuthorize("hasAuthority('resource:proxy:edit')")
     public void edit(@Valid ProxyDTO userDTO) {
-//        userService.update(userDTO);
+        proxyService.update(userDTO);
     }
 
     /**
