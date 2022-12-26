@@ -6,6 +6,7 @@ import cn.com.goodlan.webvpn.pojo.dto.ProxyDTO;
 import cn.com.goodlan.webvpn.pojo.entity.resource.proxy.Proxy;
 import cn.com.goodlan.webvpn.pojo.vo.ProxyVO;
 import cn.com.goodlan.webvpn.repository.resource.proxy.ProxyRepository;
+import cn.hutool.core.convert.Convert;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
@@ -19,10 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.Predicate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Transactional
@@ -85,6 +83,12 @@ public class ProxyServiceImpl implements ProxyService {
 
     }
 
+    @Override
+    public void remove(String ids) {
+        proxyRepository.deleteAllById(Arrays.asList(Convert.toLongArray(ids)));
+        refreshCache();
+    }
+
     private void refreshCache() {
         redisTemplate.delete("ips:url");
         redisTemplate.delete("cachehtml");
@@ -109,12 +113,6 @@ public class ProxyServiceImpl implements ProxyService {
         }
         redisTemplate.opsForSet().add("ips:url", str);
 
-    }
-
-    @Override
-    public void remove(Long id) {
-        proxyRepository.deleteById(id);
-        refreshCache();
     }
 
     @Override

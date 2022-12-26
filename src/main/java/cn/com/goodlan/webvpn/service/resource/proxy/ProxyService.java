@@ -13,7 +13,7 @@ public interface ProxyService {
 
     void update(ProxyDTO proxyDTO);
 
-    void remove(Long id);
+    void remove(String ids);
 
     Page<ProxyVO> search(ProxyDTO proxyDTO, Pageable pageable);
 

@@ -1,9 +1,9 @@
 package cn.com.goodlan.webvpn.pojo.dto;
 
 
-import cn.com.goodlan.webvpn.annotations.*;
-
-import javax.validation.constraints.Email;
+import cn.com.goodlan.webvpn.annotations.Create;
+import cn.com.goodlan.webvpn.annotations.Password;
+import cn.com.goodlan.webvpn.annotations.Username;
 
 public class AdminDTO {
 
@@ -22,15 +22,6 @@ public class AdminDTO {
      */
     @Password(groups = Create.class)
     private String password;
-
-    @Email
-    private String email;
-
-    @MobileNumber
-    private String phoneNumber;
-
-    @Sex
-    private Character sex;
 
     private String roleIds;
 
@@ -66,30 +57,6 @@ public class AdminDTO {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public Character getSex() {
-        return sex;
-    }
-
-    public void setSex(Character sex) {
-        this.sex = sex;
     }
 
     public String getRoleIds() {

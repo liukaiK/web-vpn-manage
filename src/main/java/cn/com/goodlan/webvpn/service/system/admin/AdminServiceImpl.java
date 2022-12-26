@@ -53,9 +53,6 @@ public class AdminServiceImpl implements AdminService {
             if (StringUtils.isNotEmpty(adminDTO.getUsername())) {
                 list.add(criteriaBuilder.like(root.get("username").get("username").as(String.class), adminDTO.getUsername() + "%"));
             }
-            if (StringUtils.isNotEmpty(adminDTO.getPhoneNumber())) {
-                list.add(criteriaBuilder.equal(root.get("phoneNumber").as(String.class), AESUtil.encrypt(adminDTO.getPhoneNumber())));
-            }
             Predicate[] p = new Predicate[list.size()];
             return criteriaBuilder.and(list.toArray(p));
         };
@@ -68,11 +65,7 @@ public class AdminServiceImpl implements AdminService {
     public void save(AdminDTO adminDTO) {
         Admin user = new Admin();
         user.updateName(adminDTO.getName());
-//        user.updateEmail(adminDTO.getEmail());
         user.updateUsername(new Username(adminDTO.getUsername()));
-//        user.updatePhoneNumber(new PhoneNumber(adminDTO.getPhoneNumber()));
-//        user.updateSex(adminDTO.getSex());
-//        user.updateRemark(adminDTO.getRemark());
         user.updatePassword(new Password(adminDTO.getPassword()));
         Long[] roleIds = Convert.toLongArray(adminDTO.getRoleIds());
         for (Long roleId : roleIds) {
@@ -118,14 +111,14 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void resetPassword(ResetPasswordDTO resetPasswordDTO) {
-        Admin user = userRepository.getById(resetPasswordDTO.getId());
+        Admin user = userRepository.getReferenceById(resetPasswordDTO.getId());
         user.updatePassword(new Password(resetPasswordDTO.getPassword()));
         userRepository.save(user);
     }
 
     @Override
     public void updateProfile(UpdateProfileDTO updateProfileDTO) {
-        Admin user = userRepository.getById(SecurityUtil.getAdminId());
+        Admin user = userRepository.getReferenceById(SecurityUtil.getAdminId());
 //        user.updateEmail(updateProfileDTO.getEmail());
 //        user.updateSex(updateProfileDTO.getSex());
 //        user.updatePhoneNumber(new PhoneNumber(updateProfileDTO.getPhoneNumber()));
@@ -145,7 +138,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void changePassword(ChangePasswordDTO changePasswordDTO) {
-        Admin user = userRepository.getById(SecurityUtil.getAdminId());
+        Admin user = userRepository.getReferenceById(SecurityUtil.getAdminId());
         if (passwordIsError(changePasswordDTO, user)) {
             throw new BusinessException("原密码错误!");
         }

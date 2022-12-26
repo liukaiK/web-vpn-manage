@@ -90,7 +90,7 @@ public class ProxyController {
     @PostMapping("/remove")
     @PreAuthorize("hasAuthority('resource:proxy:remove')")
     public void remove(String ids) {
-//        userService.remove(ids);
+        proxyService.remove(ids);
     }
 
 
