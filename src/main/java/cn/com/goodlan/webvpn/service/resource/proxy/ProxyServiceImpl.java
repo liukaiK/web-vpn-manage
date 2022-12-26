@@ -71,16 +71,14 @@ public class ProxyServiceImpl implements ProxyService {
         Long id = proxyDTO.getId();
 
         Proxy proxy = proxyRepository.getReferenceById(id);
-//        proxy.updateName(proxyDTO.getName());
+        proxy.updateName(proxyDTO.getName());
         proxy.updateVirDomainName(proxyDTO.getVirtualDomain());
-//        proxy.updateProxyIp(proxyDTO.getProxyIp());
-//        proxy.updatePrefixType(proxyDTO.getPrefixType());
+        proxy.updatePort(proxyDTO.getPort());
+        proxy.updateIp(proxyDTO.getIp());
+        proxy.updateUrl(proxyDTO.getUrl());
+        proxy.updateProtocol(proxyDTO.getProtocol());
         proxyRepository.save(proxy);
-
-
         refreshCache();
-
-
     }
 
     @Override

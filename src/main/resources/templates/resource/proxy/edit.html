@@ -32,13 +32,41 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label is-required">代理IP：</label>
+                    <label class="col-sm-4 control-label is-required">内网IP：</label>
                     <div class="col-sm-8">
                         <input name="ip" placeholder="请输入代理IP" class="form-control" type="text" maxlength="30" th:value="*{ip}" required>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">端口号：</label>
+                    <div class="col-sm-8">
+                        <input name="port" placeholder="请输入端口号" class="form-control" type="text" maxlength="30" th:value="*{port}" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label is-required">内网域名：</label>
+                    <div class="col-sm-8">
+                        <select name="protocol" class="form-control">
+                            <option value="http" selected th:selected="*{protocol eq 'http'}">http://</option>
+                            <option value="https" th:selected="*{protocol eq 'https'}">https://</option>
+                        </select>
+                        <input name="url" placeholder="请输入内网域名" class="form-control" type="text" th:value="*{url}" required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </form>
 </div>
 <div class="row">

@@ -29,12 +29,9 @@ public class RefreshDNSAspect {
 
     @AfterReturning("refreshDNSPointCut()")
     public void refreshRedis() {
-        redisTemplate.delete(redisKey);
         List<Dns> dnsList = dnsRepository.findAll();
-
         String[] value = dnsList.stream().map(Dns::getIp).toArray(String[]::new);
-
-
+        redisTemplate.delete(redisKey);
         redisTemplate.opsForSet().add(redisKey, value);
 
     }
