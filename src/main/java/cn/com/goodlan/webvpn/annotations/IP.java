@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 /**
  * @author liukai
  */
-@Target({ElementType.FIELD})
+@Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = IPConstraintValidator.class)
 public @interface IP {
