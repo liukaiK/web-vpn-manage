@@ -2,7 +2,6 @@ package cn.com.goodlan.webvpn.pojo.dto;
 
 
 import cn.com.goodlan.webvpn.annotations.MobileNumber;
-import cn.com.goodlan.webvpn.annotations.Sex;
 
 import javax.validation.constraints.Email;
 
@@ -16,10 +15,6 @@ public class UpdateProfileDTO {
 
     @Email
     private String email;
-
-    @Sex
-    private Character sex;
-
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -37,11 +32,4 @@ public class UpdateProfileDTO {
         this.email = email;
     }
 
-    public Character getSex() {
-        return sex;
-    }
-
-    public void setSex(Character sex) {
-        this.sex = sex;
-    }
 }

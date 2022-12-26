@@ -24,6 +24,9 @@ public class AESUtil {
      * 解密
      */
     public static String decrypt(String str) {
+        if (StringUtils.isEmpty(str)) {
+            return "";
+        }
         return AES.decryptStr(str, StandardCharsets.UTF_8);
     }
 

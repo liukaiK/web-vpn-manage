@@ -17,11 +17,11 @@ public interface SystemUserMapper {
     List<AdminVO> convert(List<Admin> users);
 
     @Mappings({
-//            @Mapping(source = "phoneNumber.phoneNumber", target = "phoneNumber"),
+            @Mapping(source = "phoneNumber.phoneNumber", target = "phoneNumber"),
 //            @Mapping(source = "college.name", target = "collegeName"),
             @Mapping(source = "username.username", target = "username"),
 //            @Mapping(source = "college.id", target = "collegeId")
     })
-    AdminVO convert(Admin user);
+    AdminVO convert(Admin admin);
 
 }

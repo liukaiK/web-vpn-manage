@@ -10,10 +10,10 @@ import cn.com.goodlan.webvpn.pojo.dto.UpdateProfileDTO;
 import cn.com.goodlan.webvpn.pojo.entity.system.role.SystemRole;
 import cn.com.goodlan.webvpn.pojo.entity.system.user.Admin;
 import cn.com.goodlan.webvpn.pojo.entity.system.user.Password;
+import cn.com.goodlan.webvpn.pojo.entity.system.user.PhoneNumber;
 import cn.com.goodlan.webvpn.pojo.entity.system.user.Username;
 import cn.com.goodlan.webvpn.pojo.vo.AdminVO;
 import cn.com.goodlan.webvpn.repository.system.admin.AdminRepository;
-import cn.com.goodlan.webvpn.utils.AESUtil;
 import cn.com.goodlan.webvpn.utils.SecurityUtil;
 import cn.hutool.core.convert.Convert;
 import org.apache.commons.lang3.StringUtils;
@@ -76,19 +76,19 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void update(AdminDTO adminDTO) {
-        Admin user = userRepository.getById(adminDTO.getId());
-        user.updateName(adminDTO.getName());
-//        user.updateRemark(adminDTO.getRemark());
-//        user.updateSex(adminDTO.getSex());
-//        user.updateEmail(adminDTO.getEmail());
-//        user.updatePhoneNumber(new PhoneNumber(adminDTO.getPhoneNumber()));
-//        user.addCollege(adminDTO.getCollegeId());
+        Admin admin = userRepository.getReferenceById(adminDTO.getId());
+        admin.updateName(adminDTO.getName());
+//        admin.updateRemark(adminDTO.getRemark());
+//        admin.updateSex(adminDTO.getSex());
+//        admin.updateEmail(adminDTO.getEmail());
+//        admin.updatePhoneNumber(new PhoneNumber(adminDTO.getPhoneNumber()));
+//        admin.addCollege(adminDTO.getCollegeId());
         Long[] roleIds = Convert.toLongArray(adminDTO.getRoleIds());
-        user.removeAllRole();
+        admin.removeAllRole();
         for (Long roleId : roleIds) {
-            user.addRole(new SystemRole(roleId));
+            admin.addRole(new SystemRole(roleId));
         }
-        userRepository.save(user);
+        userRepository.save(admin);
     }
 
     @Override
@@ -105,8 +105,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public AdminVO getById(Long id) {
-        Admin user = userRepository.getReferenceById(id);
-        return SystemUserMapper.INSTANCE.convert(user);
+        Admin admin = userRepository.getReferenceById(id);
+        return SystemUserMapper.INSTANCE.convert(admin);
     }
 
     @Override
@@ -118,11 +118,11 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void updateProfile(UpdateProfileDTO updateProfileDTO) {
-        Admin user = userRepository.getReferenceById(SecurityUtil.getAdminId());
-//        user.updateEmail(updateProfileDTO.getEmail());
-//        user.updateSex(updateProfileDTO.getSex());
-//        user.updatePhoneNumber(new PhoneNumber(updateProfileDTO.getPhoneNumber()));
-        userRepository.save(user);
+        Admin admin = userRepository.getReferenceById(SecurityUtil.getAdminId());
+        admin.updateEmail(updateProfileDTO.getEmail());
+//        admin.updateSex(updateProfileDTO.getSex());
+        admin.updatePhoneNumber(new PhoneNumber(updateProfileDTO.getPhoneNumber()));
+        userRepository.save(admin);
     }
 
 

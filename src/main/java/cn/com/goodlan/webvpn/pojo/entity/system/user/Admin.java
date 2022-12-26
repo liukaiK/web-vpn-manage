@@ -48,10 +48,10 @@ public class Admin extends AbstractEntity {
      */
     private LocalDateTime lastLoginTime;
 
-//    private String email;
+    private String email;
 
-//    @Embedded
-//    private PhoneNumber phoneNumber;
+    @Embedded
+    private PhoneNumber phoneNumber;
 
 //    private String remark;
 
@@ -64,9 +64,9 @@ public class Admin extends AbstractEntity {
 
     }
 
-//    public void updateEmail(String email) {
-//        this.email = email;
-//    }
+    public void updateEmail(String email) {
+        this.email = email;
+    }
 
     public void updateName(String name) {
         this.setName(name);
@@ -76,9 +76,9 @@ public class Admin extends AbstractEntity {
         this.setUsername(username);
     }
 
-//    public void updatePhoneNumber(PhoneNumber phoneNumber) {
-//        this.setPhoneNumber(phoneNumber);
-//    }
+    public void updatePhoneNumber(PhoneNumber phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
 //    public void updateRemark(String remark) {
 //        this.remark = remark;
@@ -151,13 +151,9 @@ public class Admin extends AbstractEntity {
         this.roles = roleList;
     }
 
-//    public String getEmail() {
-//        return email;
-//    }
-
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
+    public String getEmail() {
+        return email;
+    }
 
 //    public String getRemark() {
 //        return remark;
@@ -167,12 +163,8 @@ public class Admin extends AbstractEntity {
 //        this.remark = remark;
 //    }
 
-//    public PhoneNumber getPhoneNumber() {
-//        return phoneNumber;
-//    }
-
-//    protected void setPhoneNumber(PhoneNumber phoneNumber) {
-//        this.phoneNumber = phoneNumber;
-//    }
+    public PhoneNumber getPhoneNumber() {
+        return phoneNumber;
+    }
 
 }
